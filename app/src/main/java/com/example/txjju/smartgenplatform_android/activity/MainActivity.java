@@ -1,7 +1,9 @@
-package com.example.txjju.smartgenplatform_android;
+package com.example.txjju.smartgenplatform_android.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.txjju.smartgenplatform_android.R;
 
 public class MainActivity extends AppCompatActivity {
 
