@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
- * Created by Administrator on 2018/6/1 0001.
+ * 将图片转换为圆形图片，但没有其他的任何修饰
  */
 
 import android.graphics.Bitmap;

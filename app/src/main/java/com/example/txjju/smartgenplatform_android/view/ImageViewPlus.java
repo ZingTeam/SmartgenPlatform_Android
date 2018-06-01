@@ -17,6 +17,9 @@ import android.util.AttributeSet;
 
 import com.example.txjju.smartgenplatform_android.R;
 
+/**
+ * 将图片转换为圆形图片，有边框修饰，可以改变其边框的宽度和颜色
+ */
  public class ImageViewPlus extends android.support.v7.widget.AppCompatImageView{
     private static final int DEFAULT_BORDER_COLOR = Color.TRANSPARENT;
     private static final int DEFAULT_BORDER_WIDTH = 0;
