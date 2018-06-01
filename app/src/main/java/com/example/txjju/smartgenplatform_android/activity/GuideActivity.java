@@ -87,7 +87,6 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
         // 计算相邻小灰点之间的距离
         mDotDistance = mDotGroup.getChildAt(1).getLeft() - mDotGroup.getChildAt(0).getLeft();
-
         mVpGuide.setAdapter(new GuideAdapter());
         mVpGuide.setOnPageChangeListener(new GuidePageChangeListener());
     }
