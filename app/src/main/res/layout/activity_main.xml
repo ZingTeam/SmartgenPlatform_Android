@@ -1,18 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context="com.example.txjju.smartgenplatform_android.activity.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rg_navigation"/>
 
-</android.support.constraint.ConstraintLayout>
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rg_navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:padding="4dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:layout_alignParentBottom="true">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_index"-->
+            <!--style="@style/btn_index_navigation"-->
+            <!--android:textSize="13sp"-->
+            <!--android:text="首页"-->
+            <!--android:textColor="@drawable/txt_home_selector"-->
+            <!--android:drawablePadding="3dp"-->
+            <!--android:drawableTop="@drawable/ic_home_selector"/>-->
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_news"-->
+            <!--style="@style/btn_index_navigation"-->
+            <!--android:textSize="13sp"-->
+            <!--android:text="创意市场"-->
+            <!--android:textColor="@drawable/txt_home_selector"-->
+            <!--android:drawablePadding="3dp"-->
+            <!--android:drawableTop="@drawable/ic_market_selector"/>-->
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_hot"-->
+            <!--style="@style/btn_index_navigation"-->
+            <!--android:textSize="13sp"-->
+            <!--android:text="众智商城"-->
+            <!--android:textColor="@drawable/txt_home_selector"-->
+            <!--android:drawablePadding="3dp"-->
+            <!--android:drawableTop="@drawable/ic_store_selector"/>-->
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_mine"-->
+            <!--style="@style/btn_index_navigation"-->
+            <!--android:textSize="13sp"-->
+            <!--android:text="个人中心"-->
+            <!--android:textColor="@drawable/txt_home_selector"-->
+            <!--android:drawablePadding="3dp"-->
+            <!--android:drawableTop="@drawable/ic_mine_selector"/>-->
+    <!--&lt;!&ndash;</RadioGroup>&ndash;&gt;-->
+    <!--<com.ashokvarma.bottomnavigation.BottomNavigationBar-->
+        <!--android:id="@+id/bottom_navigation_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_gravity="bottom" />-->
+
+
+
+
+</RelativeLayout>

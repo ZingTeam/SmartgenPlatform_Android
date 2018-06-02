@@ -18,11 +18,11 @@
         app:srcCompat="@mipmap/login_bg01" />
 
     <EditText
-        android:id="@+id/et_register_username"
+        android:id="@+id/et_login_phone"
         android:layout_width="230dp"
         android:layout_height="37dp"
-        android:layout_alignLeft="@+id/btn_register_register"
-        android:layout_alignStart="@+id/btn_register_register"
+        android:layout_alignLeft="@+id/btn_login_login"
+        android:layout_alignStart="@+id/btn_login_login"
         android:layout_below="@+id/imageView2"
         android:layout_marginTop="17dp"
         android:background="@drawable/rounded_editview"
@@ -33,13 +33,13 @@
         android:textSize="16dp" />
 
     <EditText
-        android:id="@+id/et_register_phone"
+        android:id="@+id/et_login_pwd"
         android:layout_width="230dp"
         android:layout_height="37dp"
-        android:layout_alignLeft="@+id/et_register_username"
-        android:layout_alignStart="@+id/et_register_username"
-        android:layout_below="@+id/et_register_username"
-        android:layout_marginTop="18dp"
+        android:layout_alignLeft="@+id/et_login_phone"
+        android:layout_alignStart="@+id/et_login_phone"
+        android:layout_below="@+id/et_login_phone"
+        android:layout_marginTop="19dp"
         android:background="@drawable/rounded_editview"
         android:fontFamily="微软雅黑"
         android:gravity="center"
@@ -51,9 +51,9 @@
         android:id="@+id/txt_engLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/et_register_username"
-        android:layout_alignEnd="@+id/txt_register_isNumber"
-        android:layout_alignRight="@+id/txt_register_isNumber"
+        android:layout_above="@+id/et_login_phone"
+        android:layout_alignEnd="@+id/txt_login_forgetPwd"
+        android:layout_alignRight="@+id/txt_login_forgetPwd"
         android:layout_marginBottom="44dp"
         android:text="SING IN"
         android:textColor="@color/white"
@@ -63,8 +63,8 @@
         android:id="@+id/txt_chLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/et_register_username"
-        android:layout_alignRight="@+id/et_register_username"
+        android:layout_alignEnd="@+id/et_login_phone"
+        android:layout_alignRight="@+id/et_login_phone"
         android:layout_alignTop="@+id/txt_engLog"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
@@ -147,10 +147,10 @@
         </LinearLayout>-->
 
     <Button
-        android:id="@+id/btn_register_register"
+        android:id="@+id/btn_login_login"
         android:layout_width="230dp"
         android:layout_height="45dp"
-        android:layout_below="@+id/et_register_phone"
+        android:layout_below="@+id/et_login_pwd"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
         android:background="@drawable/button"
@@ -161,23 +161,23 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/txt_register_isNumber"
+        android:id="@+id/txt_login_forgetPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn_register_register"
-        android:layout_alignStart="@+id/btn_register_register"
-        android:layout_below="@+id/btn_register_register"
+        android:layout_alignLeft="@+id/btn_login_login"
+        android:layout_alignStart="@+id/btn_login_login"
+        android:layout_below="@+id/btn_login_login"
         android:layout_marginTop="13dp"
         android:textColor="#4682B4"
         android:textSize="14dp"
         android:text="忘记密码？" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_login_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txt_register_isNumber"
-        android:layout_alignBottom="@+id/txt_register_isNumber"
+        android:layout_alignBaseline="@+id/txt_login_forgetPwd"
+        android:layout_alignBottom="@+id/txt_login_forgetPwd"
         android:layout_alignEnd="@+id/txt_chLog"
         android:layout_alignRight="@+id/txt_chLog"
         android:text="注册"
@@ -188,9 +188,9 @@
         android:id="@+id/view2"
         android:layout_width="120dp"
         android:layout_height="1dp"
-        android:layout_alignEnd="@+id/txt_register_isNumber"
-        android:layout_alignRight="@+id/txt_register_isNumber"
-        android:layout_below="@+id/txt_register_isNumber"
+        android:layout_alignEnd="@+id/txt_login_forgetPwd"
+        android:layout_alignRight="@+id/txt_login_forgetPwd"
+        android:layout_below="@+id/txt_login_forgetPwd"
         android:layout_marginTop="20dp"
         android:layout_marginRight="-15dp"
         android:background="#FF909090" />
@@ -217,16 +217,16 @@
         android:background="#FF909090" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/iv_login_weixin"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView"
+        android:layout_alignTop="@+id/iv_login_qq"
+        android:layout_toLeftOf="@+id/iv_login_qq"
+        android:layout_toStartOf="@+id/iv_login_qq"
         android:src="@mipmap/weixin04" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_login_qq"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_below="@+id/textView"
@@ -234,12 +234,12 @@
         android:src="@mipmap/qqq" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/iv_login_weibo"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
+        android:layout_alignTop="@+id/iv_login_qq"
+        android:layout_toEndOf="@+id/iv_login_qq"
+        android:layout_toRightOf="@+id/iv_login_qq"
         android:src="@mipmap/weibo04" />
 
     <!--<com.example.txjju.smartgenplatform_android.view.CircleImageView-->
@@ -267,8 +267,8 @@
         <!--android:id="@+id/imgplus1"-->
         <!--android:layout_width="50dp"-->
         <!--android:layout_height="50dp"-->
-        <!--android:layout_alignLeft="@+id/txt_register_isNumber"-->
-        <!--android:layout_alignStart="@+id/txt_register_isNumber"-->
+        <!--android:layout_alignLeft="@+id/txt_login_isNumber"-->
+        <!--android:layout_alignStart="@+id/txt_login_isNumber"-->
         <!--android:layout_below="@+id/textView"-->
         <!--android:layout_marginTop="11dp"-->
         <!--android:src="@mipqqqqq03"-->
@@ -276,10 +276,10 @@
         <!--app:borderWidth="1dp" />-->
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_login_protocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView3"
+        android:layout_below="@+id/iv_login_weixin"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:text="登录即同意平台协议"
