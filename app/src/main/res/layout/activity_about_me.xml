@@ -1,0 +1,228 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bgLightGray"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/iv_aboutMe_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_back" />
+        <TextView
+            android:id="@+id/tv_name_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="个人资料"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bgLightGray"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_headPortrait"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="头像"
+            android:textSize="16sp" />
+        <com.example.txjju.smartgenplatform_android.view.CircleImageView
+            android:id="@+id/img_aboutMe_userHeadPortrait"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/qx" />
+
+        <ImageView
+            android:id="@+id/iv_aboutMe_userHeadPortrait"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_more" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bgLightGray"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="用户名"
+            android:textSize="16sp"
+            android:id="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/tv_aboutMe_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:text="卡布奇诺" />
+
+        <ImageView
+            android:id="@+id/iv_aboutMe_userName"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_more"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bgLightGray"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_password"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="密码"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tv_aboutMe_userPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:text="6415917" />
+
+        <ImageView
+            android:id="@+id/iv_aboutMe_userPassword"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_more"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bgLightGray"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_phone"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="手机号码"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tv_aboutMe_userPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:text="15270579059" />
+
+        <ImageView
+            android:id="@+id/iv_aboutMe_userPhone"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_more"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bgLightGray"/>
+    <RelativeLayout
+        android:id="@+id/rl_sex"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="性别"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tv_aboutMe_userSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:text="女" />
+
+        <ImageView
+            android:id="@+id/iv_aboutMe_userSex"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_more"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bgLightGray"/>
+
+</LinearLayout>
