@@ -25,5 +25,12 @@
         <!--<item name="windowActionBar">false</item>-->
         <!--<item name="android:windowFullscreen">true</item>-->
     <!--</style>-->
-
+    <!--首页底部导航栏按钮样式-->
+    <style name="btn_mine_choose">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
