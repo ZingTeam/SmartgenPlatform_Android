@@ -2,9 +2,11 @@ package com.example.txjju.smartgenplatform_android.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.txjju.smartgenplatform_android.R;
 
@@ -22,5 +24,4 @@ public class HomeFragment extends BaseFragment {
         //获取新建视图View中布局文件的控件
         return view;
     }
-
 }
