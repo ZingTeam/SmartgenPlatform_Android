@@ -80,7 +80,7 @@
             android:text="改变世界，创意你我" />
 
         <com.example.txjju.smartgenplatform_android.view.CircleImageView
-            android:id="@+id/image1"
+            android:id="@+id/img_mine_user"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_alignParentEnd="true"
@@ -146,10 +146,10 @@
             android:layout_above="@+id/textView10"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="38dp"
-            android:layout_marginRight="38dp"
+            android:layout_marginEnd="39dp"
+            android:layout_marginRight="39dp"
             android:text="编辑个人资料"
-            android:textColor="@color/red"/>
+            android:textColor="@color/red" />
     </RelativeLayout>
 
     <view
@@ -202,37 +202,62 @@
 
 
     <RelativeLayout
+        android:id="@+id/ll4"
         android:layout_below="@id/v2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_mine_public"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="73dp"
-            android:layout_marginStart="73dp"
-            android:layout_marginTop="11dp"
-            android:text="发布的项目"
-            android:textColor="@drawable/text_mine_selector"/>
+        <RadioGroup
+            android:id="@+id/rg_mine_public"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_mine_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="73dp"
+                android:layout_marginStart="73dp"
+                android:layout_marginTop="11dp"
+                android:text="发布的项目"
+                android:textColor="@drawable/text_mine_selector"/>
+            <TextView
+                android:id="@+id/tv_mine_public_line"
+                android:layout_below="@id/ll4"
+                android:layout_width="200dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="11dp"
+                android:background="@color/mine_textColor_unselected" />
+        </RadioGroup>
 
-        <TextView
-            android:id="@+id/tv_mine_collect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_mine_public"
-            android:layout_alignBottom="@+id/tv_mine_public"
-            android:layout_alignParentEnd="true"
+        <RadioGroup
+            android:id="@+id/rg_mine_collect"
+            android:layout_width="192dp"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="65dp"
-            android:layout_marginRight="65dp"
-            android:layout_marginTop="11dp"
-            android:text="收藏的项目"
-            android:textColor="@drawable/text_mine_selector"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/tv_mine_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:text="收藏的项目"
+                android:textColor="@drawable/text_mine_selector" />
+            <TextView
+                android:id="@+id/tv_mine_collect_line"
+                android:layout_width="200dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="11dp"
+                android:background="@color/mine_textColor_unselected"/>
+        </RadioGroup>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/ll4"
+        android:id="@+id/rv_creativeProject_mine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
