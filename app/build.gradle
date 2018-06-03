@@ -39,4 +39,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.8.0'//图片加载库
     implementation 'com.android.support:recyclerview-v7:26.1.0'//RecyclerView 是一个增强版的ListView，不仅可以实现和ListView同样的效果，还优化了ListView中存在的各种不足之处
     implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
 }

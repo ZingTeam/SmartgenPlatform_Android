@@ -37,8 +37,8 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /**
      * 功能引导页展示的图片集合
      */
-    private static int[] mImageIds = new int[] { R.drawable.y1,
-            R.drawable.y2, R.drawable.y3 };
+    private static int[] mImageIds = new int[] { R.mipmap.y1,
+            R.mipmap.y2, R.mipmap.y3};
 
     private Button mBtnStart;
 
