@@ -1,43 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fontFamily="微软雅黑">
+    app:wave_height_type="normal"
+    tools:context="com.example.txjju.smartgenplatform_android.activity.MainActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="6dp"
+                        app:srcCompat="@mipmap/add" />
+                    <SearchView
+                        android:layout_width="260dp"
+                        android:layout_height="33dp"
+                        android:gravity="center"
+                        android:layout_marginTop="2dp"
+                        android:searchHintIcon="@mipmap/search"
+                        android:background="@drawable/rounded_searchview">
+                    </SearchView>
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="6dp"
+                        app:srcCompat="@mipmap/history" />
+                </LinearLayout>
 
 
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_marginTop="4dp"
-    android:orientation="horizontal">
+            <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/banner_home"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"/>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_weight="1"
-        android:layout_marginTop="4dp"
-        app:srcCompat="@mipmap/add" />
-    <SearchView
-        android:layout_width="260dp"
-        android:layout_height="35dp"
-        android:gravity="center"
-        android:searchHintIcon="@mipmap/search"
-        android:queryHint="请输入关键字"
-        android:background="@drawable/rounded_searchview">
-    </SearchView>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                >
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="2dp"
-        app:srcCompat="@mipmap/ic_history" />
-</LinearLayout>
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/register_bg"
+                    android:id="@+id/imageView5" />
 
-</RelativeLayout>
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@mipmap/register_bg" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/textView4"
+                    android:layout_alignRight="@+id/textView4"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="29dp"
+                    android:layout_marginRight="29dp"
+                    android:text="给生活加点温度"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/imageView5"
+                    android:layout_alignRight="@+id/imageView5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="43dp"
+                    android:layout_marginRight="43dp"
+                    android:text="优雅的生活"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView4"
+                    android:layout_alignBottom="@+id/textView4"
+                    android:layout_alignEnd="@+id/imageView5"
+                    android:layout_alignRight="@+id/imageView5"
+                    android:layout_marginRight="5dp"
+                    android:text="——创意手环"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/imageView4"
+                    android:layout_alignRight="@+id/imageView4"
+                    android:layout_below="@+id/textView3"
+                    android:layout_marginTop="67dp"
+                    android:layout_marginRight="5dp"
+                    android:text="——创意水杯"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:id="@+id/textView4" />
+
+            </RelativeLayout>
+
+
+            <!--<GridView-->
+                <!--android:id="@+id/gv_home"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/white"-->
+                <!--android:horizontalSpacing="4dp"-->
+                <!--android:numColumns="4"-->
+                <!--android:padding="4dp"-->
+                <!--android:verticalSpacing="4dp" />-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_marginTop="0dp"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="本周热门产品"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_more_home"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/ic_more"/>
+            </RelativeLayout>
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"/>-->
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rc_news_home"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</com.cjj.MaterialRefreshLayout>

@@ -15,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="-30dp"
-        app:srcCompat="@mipmap/login_bg01" />
+        app:srcCompat="@mipmap/login_bg" />
 
     <EditText
         android:id="@+id/et_login_phone"
@@ -57,7 +57,7 @@
         android:layout_marginBottom="44dp"
         android:text="SING IN"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/txt_chLog"
@@ -66,9 +66,9 @@
         android:layout_alignEnd="@+id/et_login_phone"
         android:layout_alignRight="@+id/et_login_phone"
         android:layout_alignTop="@+id/txt_engLog"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        android:text="登  录"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:text="登 录"
         android:textColor="@color/white"
         android:textSize="30sp" />
     <!--
@@ -201,7 +201,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/view2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-13dp"
+        android:layout_marginTop="-10dp"
         android:textSize="17sp"
         android:text="OR" />
 
@@ -223,7 +223,7 @@
         android:layout_alignTop="@+id/iv_login_qq"
         android:layout_toLeftOf="@+id/iv_login_qq"
         android:layout_toStartOf="@+id/iv_login_qq"
-        android:src="@mipmap/weixin04" />
+        android:src="@mipmap/weixin" />
 
     <ImageView
         android:id="@+id/iv_login_qq"
@@ -231,7 +231,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/qqq" />
+        android:src="@mipmap/qq" />
 
     <ImageView
         android:id="@+id/iv_login_weibo"
@@ -240,7 +240,7 @@
         android:layout_alignTop="@+id/iv_login_qq"
         android:layout_toEndOf="@+id/iv_login_qq"
         android:layout_toRightOf="@+id/iv_login_qq"
-        android:src="@mipmap/weibo04" />
+        android:src="@mipmap/weibo" />
 
     <!--<com.example.txjju.smartgenplatform_android.view.CircleImageView-->
         <!--android:id="@+id/image1"-->
@@ -279,9 +279,10 @@
         android:id="@+id/tv_login_protocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_login_weixin"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
+        android:layout_marginBottom="11dp"
         android:text="登录即同意平台协议"
         android:textSize="12sp" />
 
