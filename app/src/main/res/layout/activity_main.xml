@@ -70,7 +70,4 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom" />
 
-
-
-
 </RelativeLayout>
