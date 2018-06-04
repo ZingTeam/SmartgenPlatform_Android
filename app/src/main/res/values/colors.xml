@@ -3,9 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
     <color name="white">#FFFFFF</color>
     <color name="blue1">#4169E1</color>
     <color name="blue2">#4682B4</color>
+    <color name="bgLightGray">#F5F5F5</color>
+    <color name="red">#FF0000</color>
+    <color name="txtGray">#bfbfbf</color>
+
+    <color name="mine_textColor_selected">#ff0000</color>
+    <color name="mine_textColor_unselected">#8B7E66</color>
 
     <color name="teal">#00796B</color>
     <color name="brown">#8D6E63</color>

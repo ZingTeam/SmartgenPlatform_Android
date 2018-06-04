@@ -15,22 +15,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.SplashActivity" />
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.AboutMeActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity">
-
-        </activity>
-        <activity android:name=".activity.RegisterActivity">
-
-        </activity>
-        <activity android:name=".activity.SplashActivity" ></activity>
-        <activity android:name=".activity.GuideActivity"></activity>
+        <activity android:name=".activity.SystemMessagesActivity"></activity>
     </application>
 
 </manifest>
