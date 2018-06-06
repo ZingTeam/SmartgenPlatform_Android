@@ -8,15 +8,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="42dp"
         android:background="@color/bgLightGray"
         android:layout_alignParentTop="true"
         android:id="@+id/rl1">
 
         <ImageView
             android:id="@+id/iv_systemMessages_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="18dp"
             android:layout_marginStart="18dp"
@@ -28,7 +28,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:text="系统消息"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -27,24 +27,24 @@
             android:id="@+id/tv_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/rb_mine_news"
+            android:layout_alignBottom="@+id/iv_mine_news"
             android:layout_centerHorizontal="true"
             android:text="个人中心"
             android:textSize="20sp" />
 
         <ImageView
-            android:id="@+id/rb_mine_news"
+            android:id="@+id/iv_mine_news"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_alignTop="@+id/rb_set"
+            android:layout_alignTop="@+id/iv_mine_set"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="6dp"
-            android:layout_toLeftOf="@+id/rb_set"
-            android:layout_toStartOf="@+id/rb_set"
+            android:layout_toLeftOf="@+id/iv_mine_set"
+            android:layout_toStartOf="@+id/iv_mine_set"
             android:src="@mipmap/ic_news" />
 
         <ImageView
-            android:id="@+id/rb_set"
+            android:id="@+id/iv_mine_set"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
