@@ -20,7 +20,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.util.PrefUtils;
 
-public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
+public class GuideActivity extends AppCompatActivity {
 
     private static final String TAG = "GuideActivity";
 
@@ -61,8 +61,6 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        mBtnStart=findViewById(R.id.btn_start);
-        mBtnStart.setOnClickListener(this);
         initView();
     }
 
@@ -72,6 +70,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     private void initView() {
         mVpGuide = (ViewPager) findViewById(R.id.vp_guide);
         mDotGroup = (LinearLayout) findViewById(R.id.ll_dot_group);
+        mBtnStart=findViewById(R.id.btn_start);
         mRedDot = findViewById(R.id.view_red_dot);
 
         mImageList = new ArrayList<ImageView>();
@@ -83,20 +82,41 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
             mImageList.add(image);
         }
-
         // 计算相邻小灰点之间的距离
-        mDotDistance = mDotGroup.getChildAt(1).getLeft() - mDotGroup.getChildAt(0).getLeft();
+        // mDotDistance = mDotGroup.getChildAt(1).getLeft() -mDotGroup.getChildAt(0).getLeft();
+        // Log.d(TAG, "相邻小灰点之间的距离：" + mDotDistance);
+
+        // 获取控件树，对 onLayout 结束事件进行监听
+        mDotGroup.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // OnGlobalLayoutListener 可能会被多次触发，因此在得到了高度之后，要将 OnGlobalLayoutListener 注销掉
+                        mDotGroup.getViewTreeObserver()
+                                .removeGlobalOnLayoutListener(this);
+                        // 计算相邻小灰点之间的距离
+                        mDotDistance = mDotGroup.getChildAt(1).getLeft()
+                                - mDotGroup.getChildAt(0).getLeft();
+                        //Log.d(TAG, "相邻小灰点之间的距离：" + mDotDistance);
+                    }
+                });
+
         mVpGuide.setAdapter(new GuideAdapter());
         mVpGuide.setOnPageChangeListener(new GuidePageChangeListener());
+
+        mBtnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 按钮一旦被点击，更新 SharedPreferences
+                PrefUtils.setBoolean(GuideActivity.this, "is_user_guide_showed", true);
+                // 跳转到主页面
+                startActivity(new Intent(GuideActivity.this, MainActivity.class));
+
+                finish();
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        // 更新sp, 表示已经展示了新手引导
-            PrefUtils.setBoolean(GuideActivity.this,
-                    "is_user_guide_showed", true);
-        startActivity(new Intent(GuideActivity.this, MainActivity.class));
-    }
 
     /**
      * 适配器
@@ -128,7 +148,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /**
      * 滑动监听
      */
-    class GuidePageChangeListener implements OnPageChangeListener, View.OnClickListener {
+    class GuidePageChangeListener implements ViewPager.OnPageChangeListener{
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
@@ -147,27 +167,9 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             params.leftMargin = distance;
             mRedDot.setLayoutParams(params);
 
-            // 计算相邻小灰点之间的距离
-         // mDotDistance = mDotGroup.getChildAt(1).getLeft() -
-            // mDotGroup.getChildAt(0).getLeft();
-              // Log.d(TAG, "相邻小灰点之间的距离：" + mDotDistance);
-
-             // 获取控件树，对 onLayout 结束事件进行监听
-            mDotGroup.getViewTreeObserver().addOnGlobalLayoutListener(
-                    new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            // OnGlobalLayoutListener 可能会被多次触发，因此在得到了高度之后，要将 OnGlobalLayoutListener 注销掉
-                            mDotGroup.getViewTreeObserver()
-                                    .removeGlobalOnLayoutListener(this);
-                            // 计算相邻小灰点之间的距离
-                            mDotDistance = mDotGroup.getChildAt(1).getLeft()
-                                    - mDotGroup.getChildAt(0).getLeft();
-                            //Log.d(TAG, "相邻小灰点之间的距离：" + mDotDistance);
-                        }
-                    });
         }
 
+        // 某个页面被选中时回调此方法
         @Override
         public void onPageSelected(int position) {
             // 如果是最后一个页面，按钮可见，否则不可见
@@ -179,10 +181,6 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
-        @Override
-        public void onClick(View view) {
-            startActivity(new Intent(GuideActivity.this, MainActivity.class));
-        }
     }
 
 }

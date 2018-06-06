@@ -70,8 +70,7 @@ public class SplashActivity extends AppCompatActivity {
                // finish();
 
                // 判断之前有没有展示过功能引导
-               boolean guideShowed = PrefUtils.getBoolean(SplashActivity.this,
-                       "is_user_guide_showed", false);
+               boolean guideShowed = PrefUtils.getBoolean(SplashActivity.this, "is_user_guide_showed", false);
 
                if (guideShowed) {
                    // 跳转到功能引导页

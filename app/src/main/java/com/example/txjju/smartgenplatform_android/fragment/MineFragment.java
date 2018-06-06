@@ -41,27 +41,29 @@ public class MineFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         //获取新建视图View中布局文件的控件
-       // initViews(view);
-        //initRecyclerView();
+        initViews(view);
+        initRecyclerView();
         return view;
     }
 
-//    private void initViews(View view) {
-//        rvCreativeProject=view.findViewById(R.id.rv_creativeProject_mine);
-//    }
+    private void initViews(View view) {
+        rvCreativeProject=view.findViewById(R.id.rv_creative_project_mine);
+        imgUser=view.findViewById(R.id.img_mine_user);
 
-//    private void initRecyclerView() {
-//        // RecyclerView必须用LinearLayoutManager进行配置
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//        // 设置列表的排列方向
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        // 配置LinearLayoutManager
-//        rvCreativeProject.setLayoutManager(layoutManager);
-//        // 添加分割线（重新绘制分割线）
-//        rvCreativeProject.addItemDecoration(new RecycleViewDivider(getActivity(),
-//                LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.bgLightGray)));
-//        creativeProjectAdapter = new CreativeProjectAdapter(getActivity(), creativeProjectlist);
-//        rvCreativeProject.setAdapter(creativeProjectAdapter);
-//    }
+    }
+
+    private void initRecyclerView() {
+        // RecyclerView必须用LinearLayoutManager进行配置
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        // 设置列表的排列方向
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // 配置LinearLayoutManager
+        rvCreativeProject.setLayoutManager(layoutManager);
+        // 添加分割线（重新绘制分割线）
+        rvCreativeProject.addItemDecoration(new RecycleViewDivider(getActivity(),
+                LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.bgLightGray)));
+        creativeProjectAdapter = new CreativeProjectAdapter(getActivity(), creativeProjectlist);
+        rvCreativeProject.setAdapter(creativeProjectAdapter);
+    }
 
 }

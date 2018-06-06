@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="42dp"
         android:background="@color/bgLightGray"
         android:gravity="center_vertical"
         android:layout_alignParentTop="true" >//顶部固定
@@ -30,21 +30,25 @@
             android:layout_alignBottom="@+id/rb_mine_news"
             android:layout_centerHorizontal="true"
             android:text="个人中心"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/rb_mine_news"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="300dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/rb_set"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@+id/rb_set"
+            android:layout_toStartOf="@+id/rb_set"
             android:src="@mipmap/ic_news" />
 
         <ImageView
             android:id="@+id/rb_set"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="345dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:src="@mipmap/ic_set"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
@@ -86,7 +90,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tv_mine_name"
-            android:layout_marginEnd="45dp"
+            android:layout_marginEnd="37dp"
             android:layout_marginRight="45dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/qx" />
@@ -143,27 +147,28 @@
             android:id="@+id/tv_mine_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView10"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="39dp"
-            android:layout_marginRight="39dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
             android:text="编辑个人资料"
             android:textColor="@color/red" />
     </RelativeLayout>
 
-    <view
-        android:id="@+id/v1"
+    <TextView
+        android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ll3"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="12dp"
+        android:background="@color/txtGray"/>
 
     <RadioGroup
         android:id="@+id/rg_choose"
-        android:layout_below="@id/v1"
+        android:layout_below="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -194,11 +199,12 @@
             android:drawableTop="@mipmap/ic_history" />
     </RadioGroup>
 
-    <view
+    <TextView
         android:id="@+id/v2"
-        android:layout_below="@id/rg_choose"
+        android:layout_below="@+id/rg_choose"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="@color/txtGray"/>
 
 
     <RelativeLayout
@@ -211,6 +217,7 @@
             android:id="@+id/rg_mine_public"
             android:layout_width="192dp"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/tv_mine_public"
                 android:layout_width="wrap_content"
@@ -222,7 +229,7 @@
                 android:layout_marginStart="73dp"
                 android:layout_marginTop="11dp"
                 android:text="发布的项目"
-                android:textColor="@drawable/text_mine_selector"/>
+                android:textColor="@drawable/text_mine_selector" />
             <TextView
                 android:id="@+id/tv_mine_public_line"
                 android:layout_below="@id/ll4"
@@ -255,9 +262,36 @@
         </RadioGroup>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@id/ll4"
-        android:id="@+id/rv_creativeProject_mine"
+        android:id="@+id/rv_creative_project_mine"
+        android:layout_below="@+id/ll4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/ll5"-->
+        <!--android:layout_below="@+id/ll4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<include layout="@layout/rv_item_creativeproject_mine"/>-->
+    <!--</RelativeLayout>-->
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/ll6"-->
+        <!--android:layout_below="@+id/ll5"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<include layout="@layout/rv_item_creativeproject_mine"/>-->
+    <!--</RelativeLayout>-->
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/ll7"-->
+        <!--android:layout_below="@+id/ll6"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<include layout="@layout/rv_item_creativeproject_mine"/>-->
+    <!--</RelativeLayout>-->
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/ll8"-->
+        <!--android:layout_below="@+id/ll7"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<include layout="@layout/rv_item_creativeproject_mine"/>-->
+    <!--</RelativeLayout>-->
 </RelativeLayout>
