@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private FragmentManager fm;//fragment管理器
     private int currPosition = 0;//默认是首页
     private String[] tags = new String[]{"HomeFragment","MarketFragment","StoreFragment","MineFragment"};
-
+    private FrameLayout fl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
