@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--项目适配模板-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/speed_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:layout_marginRight="3.5dp"
+    android:layout_marginLeft="3.5dp"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/project_img"
+        android:layout_width="140dp"
+        android:layout_height="155dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/register_bg" />
+
+    <TextView
+        android:id="@+id/project_name"
+        style="@style/style_home_more"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:maxLength="7"
+        android:maxLines="1"
+        android:text="30.0"
+        android:textSize="16dp" />
+</LinearLayout>

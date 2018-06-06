@@ -1,192 +1,478 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refresh_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:wave_height_type="normal"
     tools:context="com.example.txjju.smartgenplatform_android.activity.MainActivity">
+<!--首页-->
 
-    <android.support.v4.widget.NestedScrollView
+    <!--搜索框-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dp"
+        android:paddingBottom="4dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            app:srcCompat="@mipmap/add" />
+        <SearchView
+            android:layout_width="260dp"
+            android:layout_height="33dp"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:searchHintIcon="@mipmap/search"
+            android:background="@drawable/rounded_searchview">
+        </SearchView>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            app:srcCompat="@mipmap/history" />
+    </LinearLayout>
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/refresh_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="42dp"
+        app:wave_color="#5094d6da"
+        app:wave_height_type="normal">
+
+        <!--控制滚轮的-->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/banner_home"
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="150dp"
+                    android:paddingBottom="4dp"
+                    android:layout_marginTop="2dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    >
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="15dp"
+                        android:src="@mipmap/register_bg"
+                        android:id="@+id/imageView5" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="160dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:src="@mipmap/register_bg" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/textView4"
+                        android:layout_alignRight="@+id/textView4"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="29dp"
+                        android:layout_marginRight="29dp"
+                        android:text="给生活加点温度"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/imageView5"
+                        android:layout_alignRight="@+id/imageView5"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="43dp"
+                        android:layout_marginRight="43dp"
+                        android:text="优雅的生活"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/textView4"
+                        android:layout_alignBottom="@+id/textView4"
+                        android:layout_alignEnd="@+id/imageView5"
+                        android:layout_alignRight="@+id/imageView5"
+                        android:layout_marginRight="5dp"
+                        android:text="——创意手环"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/imageView4"
+                        android:layout_alignRight="@+id/imageView4"
+                        android:layout_below="@+id/textView3"
+                        android:layout_marginTop="67dp"
+                        android:layout_marginRight="5dp"
+                        android:text="——创意水杯"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:id="@+id/textView4" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+                <!--本周热门产品-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="0dp"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        style="@style/style_c6_s16"
+                        android:text="本周热门产品"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/tv_product_more_view"
+                        style="@style/style_home_more"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="3dp"
+                        android:drawableRight="@mipmap/ic_more"
+                        android:text="更多" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_product_home"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+                <!--超值特卖-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="0dp"
+                    android:padding="8dp">
+
+                    <TextView
+                    android:id="@+id/value_title"
+                    style="@style/style_c6_s16"
+                    android:layout_centerVertical="true"
+                    android:text="超值特卖" />
+
+                    <TextView
+                    style="@style/style_c5_s14"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/value_title"
+                    android:text="超值折扣，限量抢购中" />
+
+                    <TextView
+                    android:id="@+id/tv_specifysale_more_view"
+                    style="@style/style_home_more"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@mipmap/ic_more"
+                    android:text="更多" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp">
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginTop="6dp"
-                        app:srcCompat="@mipmap/add" />
-                    <SearchView
-                        android:layout_width="260dp"
-                        android:layout_height="33dp"
-                        android:gravity="center"
-                        android:layout_marginTop="2dp"
-                        android:searchHintIcon="@mipmap/search"
-                        android:background="@drawable/rounded_searchview">
-                    </SearchView>
+                        android:layout_weight="1.5"
+                        android:orientation="vertical"
+                        android:layout_marginTop="-20dp"
+                        android:layout_gravity="center">
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
+                        <!--计时器-->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="@color/c8"
+                            >
+
+                            <TextView
+                                android:id="@+id/tv_day"
+                                style="@style/style_countdown" />
+
+                            <TextView
+                                style="@style/style_countdown_dot2"
+                                android:text="天"/>
+
+                            <TextView
+                                android:id="@+id/tv_hour"
+                                style="@style/style_countdown" />
+
+                            <TextView
+                                style="@style/style_countdown_dot"
+                                android:text=":"/>
+                            <TextView
+                                android:id="@+id/tv_minute"
+                                style="@style/style_countdown" />
+                            <TextView
+                                style="@style/style_countdown_dot"
+                                android:text=":"/>
+                            <TextView
+                                android:id="@+id/tv_second"
+                                style="@style/style_countdown" />
+                        </LinearLayout>
+                        <TextView
+                            style="@style/style_c7_s16"
+                            android:layout_centerVertical="true"
+                            android:text="澳洲进口Denvonal德运牛奶"
+                            android:layout_marginTop="14dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/new_price"
+                                style="@style/style_c9_s20"
+                                android:text="￥50"
+                                />
+                            <TextView
+                                android:id="@+id/original_price"
+                                style="@style/style_c5_s14"
+                                android:layout_marginLeft="20dp"
+                                android:text="￥75"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginTop="6dp"
-                        app:srcCompat="@mipmap/history" />
+                        android:layout_weight="1.0"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+                        <ImageView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:paddingLeft="4dp"
+                            android:background="@mipmap/login_bg"
+                            android:layout_gravity="center"
+                            />
+                    </LinearLayout>
+
                 </LinearLayout>
 
 
-            <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/banner_home"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="8dp"/>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
 
-                <ImageView
-                    android:layout_width="160dp"
-                    android:layout_height="120dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="5dp"
-                    android:src="@mipmap/register_bg"
-                    android:id="@+id/imageView5" />
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="160dp"
-                    android:layout_height="120dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@mipmap/register_bg" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+    <!--本周热门项目-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/textView4"
-                    android:layout_alignRight="@+id/textView4"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="29dp"
-                    android:layout_marginRight="29dp"
-                    android:text="给生活加点温度"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="0dp"
+                    android:padding="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/imageView5"
-                    android:layout_alignRight="@+id/imageView5"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="43dp"
-                    android:layout_marginRight="43dp"
-                    android:text="优雅的生活"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        style="@style/style_c6_s16"
+                        android:text="本周热门项目"
+                        android:textSize="16sp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView4"
-                    android:layout_alignBottom="@+id/textView4"
-                    android:layout_alignEnd="@+id/imageView5"
-                    android:layout_alignRight="@+id/imageView5"
-                    android:layout_marginRight="5dp"
-                    android:text="——创意手环"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_project_more_view"
+                        style="@style/style_home_more"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="3dp"
+                        android:drawableRight="@mipmap/ic_more"
+                        android:text="更多" />
+                </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/imageView4"
-                    android:layout_alignRight="@+id/imageView4"
-                    android:layout_below="@+id/textView3"
-                    android:layout_marginTop="67dp"
-                    android:layout_marginRight="5dp"
-                    android:text="——创意水杯"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:id="@+id/textView4" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
 
-            </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_project_home"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"/>
+
+                <!--超值特卖-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<View style="@style/vertical_bold_line_c8" />-->
+
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:padding="10dp">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/value_title"-->
+                            <!--style="@style/style_c6_s16"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="超值特卖" />-->
+
+                        <!--<TextView-->
+                            <!--style="@style/style_c5_s14"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_marginLeft="15dp"-->
+                            <!--android:layout_toRightOf="@+id/value_title"-->
+                            <!--android:text="超值折扣，限量抢购中" />-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_specifysale_more_view"-->
+                            <!--style="@style/style_home_more"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:drawablePadding="3dp"-->
+                            <!--android:drawableRight="@mipmap/ic_more"-->
+                            <!--android:text="更多" />-->
+                    <!--</RelativeLayout>-->
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingBottom="10dp"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingRight="15dp"-->
+                    <!--android:paddingTop="10dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1.5"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:layout_gravity="center">-->
+
+                        <!--<com.yju.app.widght.timecount.CountDownTimerView-->
+                            <!--android:id="@+id/countdown_timer"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"/>-->
+
+                        <!--<TextView-->
+                            <!--style="@style/style_c7_s16"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="澳洲进口Denvonal德运牛奶"-->
+                            <!--android:layout_marginTop="10dp"/>-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:orientation="horizontal">-->
 
 
-            <!--<GridView-->
-                <!--android:id="@+id/gv_home"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@color/white"-->
-                <!--android:horizontalSpacing="4dp"-->
-                <!--android:numColumns="4"-->
-                <!--android:padding="4dp"-->
-                <!--android:verticalSpacing="4dp" />-->
+                            <!--<TextView-->
+                                <!--android:id="@+id/new_price"-->
+                                <!--style="@style/style_c9_s20"-->
+                                <!--android:text="￥50"-->
+                                <!--/>-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+                            <!--<TextView-->
+                                <!--android:id="@+id/original_price"-->
+                                <!--style="@style/style_c5_s14"-->
+                                <!--android:layout_marginLeft="20dp"-->
+                                <!--android:text="￥75"-->
+                                <!--/>-->
+                        <!--</LinearLayout>-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:layout_marginTop="0dp"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:text="本周热门产品"
-                    android:textSize="16sp"/>
-
-                <ImageView
-                    android:id="@+id/iv_more_home"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@mipmap/ic_more"/>
-            </RelativeLayout>
-
-            <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"/>-->
-
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rc_news_home"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"/>-->
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                    <!--</LinearLayout>-->
 
 
-</com.cjj.MaterialRefreshLayout>
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1.0"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:layout_gravity="center">-->
+
+
+                        <!--<ImageView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@mipmap/login_bg"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--/>-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</LinearLayout>-->
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </com.cjj.MaterialRefreshLayout>
+</RelativeLayout>

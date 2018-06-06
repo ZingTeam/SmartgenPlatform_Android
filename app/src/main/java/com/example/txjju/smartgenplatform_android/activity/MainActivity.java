@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //底部导航栏
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         bottomNavigationBar
@@ -78,16 +79,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 .setAnimationDuration(30) //隐藏和展示的动画速度，单位毫秒,和setHideOnSelect一起使用
                 .setGravity(Gravity.RIGHT|Gravity.TOP) //位置，默认右上角
                 .setHideOnSelect(true); //true：当选中状态时消失，非选中状态显示,moren false
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.wxbhome, "首页").setActiveColorResource(R.color.orange))
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.wxbhome, "首页").setActiveColorResource(R.color.grey))
                 .addItem(new BottomNavigationItem(R.mipmap.wxb, "创意市场").setActiveColorResource(R.color.teal))
                 .addItem(new BottomNavigationItem(R.mipmap.go, "众智商城").setActiveColorResource(R.color.blue))
-                .addItem(new BottomNavigationItem(R.mipmap.account, "个人中心").setActiveColorResource(R.color.brown).setBadgeItem(numberBadgeItem))
+                .addItem(new BottomNavigationItem(R.mipmap.account, "个人中心").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
                 .setFirstSelectedPosition(0)
                 .initialise();
         setBottomNavigationItem(bottomNavigationBar, 5, 21, 12);
-
         initFragment();
-
         bottomNavigationBar.setTabSelectedListener(this);
     }
 
@@ -122,25 +121,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         }
         ft.commit();
     }
-
-    /**
-     * 设置默认的
-
-    private void setDefaultFragment() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.fl_container, HomeFragment.newInstance("Home"));
-        transaction.commit();
-    }
-
-    private ArrayList<Fragment> getFragments() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(HomeFragment.newInstance("Home"));
-        fragments.add(MarketFragment.newInstance("Market"));
-        fragments.add(StoreFragment.newInstance("Store"));
-        fragments.add(MineFragment.newInstance("Mine"));
-        return fragments;
-    }*/
 
     /***
      *

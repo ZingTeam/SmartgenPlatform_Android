@@ -33,4 +33,309 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+
+    <style name="style_home_more">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c6</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_c8_s14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="vertical_bold_line_c8">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">3dp</item>
+        <item name="android:background">@color/c8</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="horizontal_bold_line">
+        <item name="android:layout_height">2px</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/c5</item>
+    </style>
+
+    <style name="style_indicator">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c5</item>
+        <item name="android:textSize">22dp</item>
+    </style>
+
+    <style name="indicator_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/c8</item>
+    </style>
+
+    <style name="style_c7_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c7</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c7_s14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c7</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_c7_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c7</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c7_s20">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c7</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="style_c5_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c5</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c5_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c5</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c5_s20">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c5</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="style_c5_s14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c5</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_c6_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c6</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c6_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c6</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+
+    <style name="style_c8_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c8</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c8_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c8</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c8_s20">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c8</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="style_c9_s20">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c9</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="style_c9_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c9</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c9_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c9</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c9_s14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c9</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_c12_s14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c12</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_c12_s20">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c12</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="style_c12_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c12</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c12_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c12</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c5_s12">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c5</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="style_c13_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c13</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c13_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c13</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c14_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c14</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c14_s18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c14</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_c15_s14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c15</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_c15_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c15</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_c17_s16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c17</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--计时器-->
+
+
+    <style name="style_countdown_timer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/black_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:text">0</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+    </style>
+
+    <style name="style_countdown">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:background">@drawable/black_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:text">00</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+    </style>
+
+
+    <style name="style_countdown_dot">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="style_countdown_dot2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

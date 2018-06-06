@@ -17,7 +17,7 @@ public class MyRefreshLayout {
     public void initRefreshLayout(){
         this.refreshLayout.setIsOverLay(false);//是否是侵入式下拉刷新
         this.refreshLayout.setWaveShow(true);//是否显示波浪
-        this.refreshLayout.setWaveColor(0xffffffff);//设置波浪颜色
+        //this.refreshLayout.setWaveColor(0xffffffff);//设置波浪颜色
         this.refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {

@@ -1,37 +1,41 @@
 package com.example.txjju.smartgenplatform_android.fragment;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.example.txjju.smartgenplatform_android.R;
-import com.example.txjju.smartgenplatform_android.config.Constant;
-import com.example.txjju.smartgenplatform_android.pojo.Banners;
+import com.example.txjju.smartgenplatform_android.adapter.ProductAdapter;
+import com.example.txjju.smartgenplatform_android.adapter.ProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
+import com.example.txjju.smartgenplatform_android.pojo.News;
+import com.example.txjju.smartgenplatform_android.util.FileUtils;
 import com.example.txjju.smartgenplatform_android.util.GlideImageLoader;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
+import com.example.txjju.smartgenplatform_android.util.PriceUtils;
+import com.example.txjju.smartgenplatform_android.util.ToastUtils;
+import com.example.txjju.smartgenplatform_android.util.UIUtils;
 import com.example.txjju.smartgenplatform_android.view.MyRefreshLayout;
 import com.example.txjju.smartgenplatform_android.view.RecycleViewDivider;
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -39,24 +43,49 @@ import cz.msebera.android.httpclient.Header;
  */
 public class HomeFragment extends BaseFragment {
 
-   // private MaterialRefreshLayout refreshLayout;    // 下拉刷新控件
+    //1.输入“logt”，设置静态常量TAG
+    private static final String TAG = "MainActivity";
+
+    private MaterialRefreshLayout refreshLayout;    // 下拉刷新控件
     private Banner banner;  // 广告栏控件
-   // private GridView gv;    // 分类导航控件
-   // private RecyclerView rvNews;    // 资讯列表控件
-    //private ClassifyAdapter classifyAdapter;    // 分类导航列表适配器
-   // private NewsAdapter newsAdapter;    // 资讯列表适配器
-    //private List<News> newsList = new ArrayList<>();
+    private RecyclerView rvProduct;    // 产品列表控件
+    private RecyclerView rvProject;    // 项目列表控件
+    private ProductAdapter productAdapter;    // 产品列表适配器
+    private ProjectAdapter projectAdapter;    // 项目列表适配器
+
+    private List<News> productList = new ArrayList<>();
+    private List<News> projectList = new ArrayList<>();
     private List<String> bannerImgList = new ArrayList<>();
     private List<String> bannerTitleList = new ArrayList<>();
-    //private MyRefreshLayout myRefreshLayout = new MyRefreshLayout(refreshLayout);
+    private MyRefreshLayout myRefreshLayout;
+
+//计时器相关变量
+    private TextView tvDay,tvHour,tvMinute,tvSecond,newPrice,originalPrice;
+    private long mDay;
+    private long mHour;
+    private long mMinute;
+    private long mSecond;
+    private long  abortTime = (12*24*3600+10 * 3600 + 8 * 60 + 53) * 1000;//截止时间
+    private Timer timer = null;
+    private Handler handler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            Log.i(TAG,"huahua");
+            countDown();
+        }
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //loadData(); // 加载服务端数据
+        Log.i(TAG,"huahua");
     }
 
-     private void loadData() {
+    /**
+     * 处理后台来的数据
+     */
+    private void loadData() {
         bannerImgList.add("");
 //        final ProgressDialog pgDialog = new ProgressDialog(getActivity());
 //        pgDialog.setMessage("记载中，请稍后...");
@@ -129,31 +158,68 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        initData();//初始化假的数据，用于测试
         initViews(view);// 获取新建视图View中布局文件的控件
-       // initRefreshLayout();//设置刷新
+        initRefreshLayout();//设置刷新
         initBanner();//初始化轮播图
-        //initRecyclerView();
+        initRecyclerView();//初始化RecyclerView
+        //PriceUtils.convertPriceSize(getActivity(),newPrice,"￥50", UIUtils.dp2px(getActivity(),16));//设置价格字体大小
+        UIUtils.setTextFlag(originalPrice,true);
+        setTime(abortTime);
+        start();
         return view;
     }
 
-//    private void initRefreshLayout() {
-//        myRefreshLayout.initRefreshLayout();
-//
-//    }
+    private void initRefreshLayout() {
+        myRefreshLayout = new MyRefreshLayout(refreshLayout);
+        myRefreshLayout.initRefreshLayout();
+    }
 
-//    private void initRecyclerView() {
-//        // RecyclerView必须用LinearLayoutManager进行配置
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//        // 设置列表的排列方向
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        // 配置LinearLayoutManager
-//        rvNews.setLayoutManager(layoutManager);
-//        // 添加分割线（重新绘制分割线）
-//        rvNews.addItemDecoration(new RecycleViewDivider(getActivity(),
-//                LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.bgLightGray)));
-//        newsAdapter = new NewsAdapter(getActivity(), newsList);
-//        rvNews.setAdapter(newsAdapter);
-//    }
+    private void initRecyclerView() {
+        // RecyclerView必须用LinearLayoutManager进行配置
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        // 设置列表的排列方向
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        layoutManager.setSmoothScrollbarEnabled(true);
+        layoutManager.setAutoMeasureEnabled(true);
+
+        rvProduct.setHasFixedSize(true);
+        rvProduct.setNestedScrollingEnabled(false);
+
+        // 配置LinearLayoutManager
+        rvProduct.setLayoutManager(layoutManager);
+        // 添加分割线（重新绘制分割线）
+        rvProduct.addItemDecoration(new RecycleViewDivider(getActivity(),
+                LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.bgLightGray)));
+
+        // RecyclerView必须用LinearLayoutManager进行配置
+        LinearLayoutManager layoutManagers = new LinearLayoutManager(getActivity());
+        // 设置列表的排列方向
+        layoutManagers.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+
+        layoutManagers.setSmoothScrollbarEnabled(true);
+        layoutManagers.setAutoMeasureEnabled(true);
+
+        rvProject.setHasFixedSize(true);
+        rvProject.setNestedScrollingEnabled(false);
+
+        rvProject.setLayoutManager(layoutManagers);
+        // 添加分割线（重新绘制分割线）
+        rvProject.addItemDecoration(new RecycleViewDivider(getActivity(),
+                LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.bgLightGray)));
+//        if (entity != null && entity.topic != null && entity.topic.items != null && entity.topic.items.size() > 0) {
+//            List<SpeedHourEntity.TopicBean.ItemsBean.ListBean> listBeen = entity.topic.items.get(0).list;
+//            if (listBeen != null && listBeen.size() > 0)
+//                speedHourAdapter.setList(listBeen);
+//            rvProduct.setAdapter(speedHourAdapter);
+//        }
+        productAdapter = new ProductAdapter(getActivity(), productList);
+        projectAdapter = new ProjectAdapter(getActivity(), projectList);
+        rvProduct.setAdapter(productAdapter);
+        rvProject.setAdapter(projectAdapter);
+    }
 
     private void initBanner() {
         bannerImgList.add("http://p88c3g279.bkt.clouddn.com/image/banner1.jpg");
@@ -180,11 +246,137 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initViews(View view) {
-        //refreshLayout = view.findViewById(R.id.refresh_home);
+        refreshLayout = view.findViewById(R.id.refresh_home);
         banner = view.findViewById(R.id.banner_home);
 //        gv = view.findViewById(R.id.gv_home);
-//        rvNews = view.findViewById(R.id.rc_news_home);
+        rvProduct = view.findViewById(R.id.rc_product_home);
+        rvProject = view.findViewById(R.id.rc_project_home);
 //        classifyAdapter = new ClassifyAdapter();
 //        gv.setAdapter(classifyAdapter);
+        tvDay = view.findViewById(R.id.tv_day);
+        tvHour = view.findViewById(R.id.tv_hour);
+        tvMinute = view.findViewById(R.id.tv_minute);
+        tvSecond = view.findViewById(R.id.tv_second);
+        newPrice = view.findViewById(R.id.new_price);
+        originalPrice = view.findViewById(R.id.original_price);
+    }
+
+    /**
+     * 测试用的假数据
+     */
+    private void initData() {
+        String data = FileUtils.readAssert(getActivity(),"news.txt");
+        Log.i(TAG,data);
+        try {
+            BasePojo<News> basePojo = JsonUtil.getBaseFromJson(getActivity(),
+                    data, new TypeToken<BasePojo<News>>(){}.getType());
+            Log.i(TAG,basePojo.toString());
+            List<News> list = basePojo.getList();
+            productList.addAll(list);
+            projectList.addAll(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 计时器
+     */
+    public void setTime(long leftTime) {
+        Log.i(TAG,"sususususu");
+        long time = leftTime / 1000;
+        long day = time/(3600*24);
+        long hours = (time-day*3600*24)/ 3600;
+        long minutes = (time - day*3600*24-hours * 3600) / 60;
+        long seconds = time - day*3600*24-hours * 3600 - minutes * 60;
+        setTime(day, hours, minutes, seconds);
+    }
+
+    public void setTime(long day, long hour, long min, long sec) {
+
+        if (hour >= 60 || min >= 60 || sec >= 60 || hour < 0 || min < 0
+                || sec < 0) {
+            throw new RuntimeException("Time format is error");
+        }
+        mDay = day;
+        mHour = hour;
+        mMinute = min;
+        mSecond = sec;
+
+        setTextTime();
+    }
+
+    public void start() {
+        if (timer == null) {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.sendEmptyMessage(0);
+                }
+            }, 0, 1000);
+        }
+    }
+
+    public void stop() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+    //保证天，时，分，秒都两位显示，不足的补0
+    private void setTextTime() {
+        if (mDay<10){
+            tvDay.setText("0"+mDay);
+        }else {
+            tvDay.setText(mDay+"");
+        }
+
+        if (mHour<10){
+            tvHour.setText("0"+mHour);
+        }else {
+            tvHour.setText(mHour + "");
+        }
+
+        if (mMinute<10){
+            tvMinute.setText("0"+mMinute );
+        }else {
+            tvMinute.setText(mMinute + "");
+        }
+
+        if (mSecond<10){
+            tvSecond.setText("0"+mSecond );
+        }else {
+            tvSecond.setText(mSecond + "");
+        }
+    }
+
+    private void countDown() {
+        if (isCarry4Unit(tvSecond)) {
+            if (isCarry4Unit(tvMinute)) {
+                if (isCarry4Unit(tvHour)) {
+                    if (isCarry4Unit(tvDay)) {
+                        ToastUtils.showToast("倒计时结束了");
+                        stop();
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isCarry4Unit(TextView tv) {
+        int time = Integer.valueOf(tv.getText().toString());
+        time = time - 1;
+        if (time < 0) {
+            time = 59;
+            tv.setText(time + "");
+            return true;
+        } else {
+            tv.setText(time + "");
+            return false;
+        }
     }
 }
+
+

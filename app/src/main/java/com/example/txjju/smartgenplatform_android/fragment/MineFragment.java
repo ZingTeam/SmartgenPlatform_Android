@@ -41,7 +41,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         //获取新建视图View中布局文件的控件
         initViews(view);
         initRecyclerView();
