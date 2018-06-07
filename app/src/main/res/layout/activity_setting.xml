@@ -178,7 +178,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:llayout_weight="1"
         android:layout_marginTop="15dp"
         android:background="@color/white">
         <TextView
@@ -198,7 +197,7 @@
         android:id="@+id/btn_setting_exit"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="bottom"
         android:background="@color/c20"
         android:text="退出当前账号"

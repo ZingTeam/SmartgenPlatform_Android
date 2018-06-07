@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.activity.AboutMeActivity;
+import com.example.txjju.smartgenplatform_android.activity.SettingActivity;
 import com.example.txjju.smartgenplatform_android.activity.SystemMessagesActivity;
 import com.example.txjju.smartgenplatform_android.adapter.CreativeProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.CreativeProject;
@@ -44,7 +45,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
         //获取新建视图View中布局文件的控件
         initViews(view);
         initRecyclerView();
@@ -93,6 +94,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 // SystemMessagesActivity.class为想要跳转的Activity
                 intent1.setClass(getActivity(), SystemMessagesActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.iv_mine_set:
+                Intent intent2 = new Intent();
+                // SystemMessagesActivity.class为想要跳转的Activity
+                intent2.setClass(getActivity(), SettingActivity.class);
+                startActivity(intent2);
                 break;
         }
     }
