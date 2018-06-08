@@ -18,7 +18,7 @@
         android:layout_width="120dp"
         android:layout_height="130dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/project" />
+        android:src="@mipmap/login_bg"/>
 
     <LinearLayout
         android:layout_width="match_parent"
