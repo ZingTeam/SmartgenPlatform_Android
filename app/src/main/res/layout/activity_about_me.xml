@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="42dp"
         android:background="@color/bgLightGray"
         android:layout_alignParentTop="true">
 
@@ -25,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:text="个人资料"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -61,7 +61,7 @@
 
         <ImageView
             android:id="@+id/iv_aboutMe_userHeadPortrait"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_more" />
@@ -101,7 +101,7 @@
 
         <ImageView
             android:id="@+id/iv_aboutMe_userName"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_more"/>
@@ -139,7 +139,7 @@
 
         <ImageView
             android:id="@+id/iv_aboutMe_userPassword"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_more"/>
@@ -177,7 +177,7 @@
 
         <ImageView
             android:id="@+id/iv_aboutMe_userPhone"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_more"/>
@@ -214,7 +214,7 @@
 
         <ImageView
             android:id="@+id/iv_aboutMe_userSex"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_more"/>

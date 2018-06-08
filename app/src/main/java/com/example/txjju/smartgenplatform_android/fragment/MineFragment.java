@@ -8,12 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.activity.AboutMeActivity;
+import com.example.txjju.smartgenplatform_android.activity.SettingActivity;
+import com.example.txjju.smartgenplatform_android.activity.SystemMessagesActivity;
 import com.example.txjju.smartgenplatform_android.adapter.CreativeProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.CreativeProject;
 import com.example.txjju.smartgenplatform_android.view.CircleImageView;
@@ -31,6 +34,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private RadioGroup rgPublic,rgCollect;
     private TextView tvName,tvPublic,tvCollect,tvPublicLine,tvCollectLine,tvEdit;
     private CircleImageView imgUser;
+    private ImageView ivSet,ivNews;
     private RadioButton rbOrder,rbComment,rbCart,rbhistory;
     private RecyclerView rvCreativeProject;
     private List<CreativeProject> creativeProjectlist = new ArrayList<>();
@@ -51,10 +55,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private void initViews(View view) {
         rvCreativeProject=view.findViewById(R.id.rv_creative_project_mine);
         imgUser=view.findViewById(R.id.img_mine_user);
+        ivSet=view.findViewById(R.id.iv_mine_set);
+        ivNews=view.findViewById(R.id.iv_mine_news);
         tvEdit=view.findViewById(R.id.tv_mine_edit);
         imgUser.setOnClickListener(this);
         tvEdit.setOnClickListener(this);
-
+        ivSet.setOnClickListener(this);
+        ivNews.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
@@ -81,6 +88,18 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 //AboutMeActivity.class为想要跳转的Activity
                 intent.setClass(getActivity(), AboutMeActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.iv_mine_news:
+                Intent intent1 = new Intent();
+                // SystemMessagesActivity.class为想要跳转的Activity
+                intent1.setClass(getActivity(), SystemMessagesActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.iv_mine_set:
+                Intent intent2 = new Intent();
+                // SystemMessagesActivity.class为想要跳转的Activity
+                intent2.setClass(getActivity(), SettingActivity.class);
+                startActivity(intent2);
                 break;
         }
     }

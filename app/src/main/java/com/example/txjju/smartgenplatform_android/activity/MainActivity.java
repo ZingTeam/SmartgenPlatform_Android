@@ -222,4 +222,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         final float scale = getApplication().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+    @Override
+    public void onResume() {  //转到相应的fragment
+        fl=findViewById(R.id.fl_container);
+        int id = MainActivity.this.getIntent().getIntExtra("id", 0);
+        if(id==3){
+            showFragment(3);
+        }
+        super.onResume();
+    }
+
 }

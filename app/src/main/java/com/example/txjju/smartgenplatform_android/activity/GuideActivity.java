@@ -37,8 +37,8 @@ public class GuideActivity extends AppCompatActivity {
     /**
      * 功能引导页展示的图片集合
      */
-    private static int[] mImageIds = new int[] { R.mipmap.y1,
-            R.mipmap.y2, R.mipmap.y3};
+    private static int[] mImageIds = new int[] { R.mipmap.yd1,
+            R.mipmap.yd2, R.mipmap.yd3};
 
     private Button mBtnStart;
 

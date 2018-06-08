@@ -14,37 +14,30 @@
         android:gravity="center_vertical"
         android:layout_alignParentTop="true" >//顶部固定
 
-        <!--<Button-->
-        <!--android:id="@+id/rb_back"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:background="@color/white"-->
-        <!--android:drawableTop="@mipmap/ic_back"-->
-        <!--android:layout_centerVertical="true"/>-->
+
 
         <TextView
             android:id="@+id/tv_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/rb_mine_news"
+            android:layout_alignBottom="@+id/iv_mine_news"
             android:layout_centerHorizontal="true"
             android:text="个人中心"
             android:textSize="20sp" />
 
         <ImageView
-            android:id="@+id/rb_mine_news"
+            android:id="@+id/iv_mine_news"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_alignTop="@+id/rb_set"
+            android:layout_alignTop="@+id/iv_mine_set"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="6dp"
-            android:layout_toLeftOf="@+id/rb_set"
-            android:layout_toStartOf="@+id/rb_set"
+            android:layout_toLeftOf="@+id/iv_mine_set"
+            android:layout_toStartOf="@+id/iv_mine_set"
             android:src="@mipmap/ic_news" />
 
         <ImageView
-            android:id="@+id/rb_set"
+            android:id="@+id/iv_mine_set"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
@@ -172,7 +165,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="6dp"
+        android:padding="10dp"
         android:background="@color/white">
 
         <RadioButton
@@ -189,13 +182,11 @@
             android:id="@+id/rb_mine_shoppingCart"
             style="@style/btn_mine_choose"
             android:text="购物车"
-            android:checked="true"
             android:drawableTop="@mipmap/ic_my_cart"/>
 
         <RadioButton android:id="@+id/rb_mine_history"
             style="@style/btn_mine_choose"
             android:text="浏览历史"
-            android:checked="true"
             android:drawableTop="@mipmap/ic_history" />
     </RadioGroup>
 
@@ -209,58 +200,46 @@
 
     <RelativeLayout
         android:id="@+id/ll4"
-        android:layout_below="@id/v2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/v2"
+        android:padding="15dp">
 
-        <RadioGroup
-            android:id="@+id/rg_mine_public"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_mine_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="31dp"
+            android:layout_marginStart="31dp"
+            android:text="发布的项目"
+            android:textColor="@drawable/text_mine_selector" />
 
-            <TextView
-                android:id="@+id/tv_mine_public"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="73dp"
-                android:layout_marginStart="73dp"
-                android:layout_marginTop="11dp"
-                android:text="发布的项目"
-                android:textColor="@drawable/text_mine_selector" />
-            <TextView
-                android:id="@+id/tv_mine_public_line"
-                android:layout_below="@id/ll4"
-                android:layout_width="200dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="11dp"
-                android:background="@color/mine_textColor_unselected" />
-        </RadioGroup>
 
-        <RadioGroup
-            android:id="@+id/rg_mine_collect"
-            android:layout_width="192dp"
+        <TextView
+            android:id="@+id/tv_mine_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_height="wrap_content">
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="31dp"
+            android:layout_marginRight="31dp"
+            android:text="收藏的项目"
+            android:textColor="@drawable/text_mine_selector" />
 
-            <TextView
-                android:id="@+id/tv_mine_collect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:layout_gravity="center_horizontal"
-                android:text="收藏的项目"
-                android:textColor="@drawable/text_mine_selector" />
-            <TextView
-                android:id="@+id/tv_mine_collect_line"
-                android:layout_width="200dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="11dp"
-                android:background="@color/mine_textColor_unselected"/>
-        </RadioGroup>
     </RelativeLayout>
+
+    <TextView
+        android:layout_below="@+id/ll4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/txtGray"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_creative_project_mine"
         android:layout_below="@+id/ll4"
