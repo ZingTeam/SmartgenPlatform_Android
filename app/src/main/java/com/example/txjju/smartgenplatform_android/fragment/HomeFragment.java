@@ -15,14 +15,13 @@ import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.example.txjju.smartgenplatform_android.R;
-import com.example.txjju.smartgenplatform_android.adapter.ProductAdapter;
-import com.example.txjju.smartgenplatform_android.adapter.ProjectAdapter;
+import com.example.txjju.smartgenplatform_android.adapter.HomeProductAdapter;
+import com.example.txjju.smartgenplatform_android.adapter.HomeProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
 import com.example.txjju.smartgenplatform_android.pojo.News;
 import com.example.txjju.smartgenplatform_android.util.FileUtils;
 import com.example.txjju.smartgenplatform_android.util.GlideImageLoader;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
-import com.example.txjju.smartgenplatform_android.util.PriceUtils;
 import com.example.txjju.smartgenplatform_android.util.ToastUtils;
 import com.example.txjju.smartgenplatform_android.util.UIUtils;
 import com.example.txjju.smartgenplatform_android.view.MyRefreshLayout;
@@ -50,8 +49,8 @@ public class HomeFragment extends BaseFragment {
     private Banner banner;  // 广告栏控件
     private RecyclerView rvProduct;    // 产品列表控件
     private RecyclerView rvProject;    // 项目列表控件
-    private ProductAdapter productAdapter;    // 产品列表适配器
-    private ProjectAdapter projectAdapter;    // 项目列表适配器
+    private HomeProductAdapter productAdapter;    // 产品列表适配器
+    private HomeProjectAdapter projectAdapter;    // 项目列表适配器
 
     private List<News> productList = new ArrayList<>();
     private List<News> projectList = new ArrayList<>();
@@ -79,7 +78,6 @@ public class HomeFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //loadData(); // 加载服务端数据
-        Log.i(TAG,"huahua");
     }
 
     /**
@@ -215,8 +213,8 @@ public class HomeFragment extends BaseFragment {
 //                speedHourAdapter.setList(listBeen);
 //            rvProduct.setAdapter(speedHourAdapter);
 //        }
-        productAdapter = new ProductAdapter(getActivity(), productList);
-        projectAdapter = new ProjectAdapter(getActivity(), projectList);
+        productAdapter = new HomeProductAdapter(getActivity(), productList);
+        projectAdapter = new HomeProjectAdapter(getActivity(), projectList);
         rvProduct.setAdapter(productAdapter);
         rvProject.setAdapter(projectAdapter);
     }
