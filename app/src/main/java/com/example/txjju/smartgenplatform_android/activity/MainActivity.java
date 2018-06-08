@@ -228,6 +228,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         int id = MainActivity.this.getIntent().getIntExtra("id", 0);
         if(id==3){
             showFragment(3);
+        }else if(id==2){
+            showFragment(2);
+        }else if(id==1){
+            showFragment(1);
+        }else{
+            showFragment(0);
         }
         super.onResume();
     }
