@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.txjju.smartgenplatform_android.activity.PaySuccessActivity">
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_paySuccess_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:id="@+id/tv_paySuccess_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="支付成功"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_pay_success" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/imageView6"
+            android:layout_toRightOf="@+id/imageView6"
+            android:text="付款成功"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:id="@+id/relativeLayout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="你的包裹已经准备出库，请耐心等待"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="39dp"
+        android:id="@+id/relativeLayout3">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收件人："
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_paySuccess_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="26dp"
+            android:layout_marginStart="26dp"
+            android:layout_toEndOf="@+id/textView12"
+            android:layout_toRightOf="@+id/textView12"
+            android:text="小包子"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_paySuccess_userPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_toEndOf="@+id/tv_paySuccess_userName"
+            android:layout_toRightOf="@+id/tv_paySuccess_userName"
+            android:text="15270579059"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout3"
+        android:layout_alignStart="@+id/relativeLayout3"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_marginTop="10dp"
+        android:id="@+id/relativeLayout4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收件地址："
+            android:textSize="16sp"
+            android:id="@+id/textView14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/textView14"
+            android:layout_toRightOf="@+id/textView14"
+            android:text="江西省九江市庐山区人民医院九江学院主校区"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout4"
+        android:layout_marginTop="40dp"
+        android:id="@+id/relativeLayout5">
+
+        <Button
+            android:id="@+id/btn_paySuccess_backOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="74dp"
+            android:layout_marginStart="74dp"
+            android:text="我的订单"
+            android:textColor="@color/red"
+            android:background="@drawable/border_line_while"/>
+
+        <Button
+            android:id="@+id/btn_paySuccess_backStore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="62dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/border_line_while"
+            android:text="返回商城"
+            android:textColor="@color/red" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
