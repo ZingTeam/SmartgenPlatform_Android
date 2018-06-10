@@ -146,10 +146,16 @@
     </style>
 
     <style name="style_c6_s16">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/c6</item>
-        <item name="android:textSize">16sp</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">@color/c6</item>
+    <item name="android:textSize">16sp</item>
+    </style>
+    <style name="style_c6_s14">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">@color/c6</item>
+    <item name="android:textSize">14sp</item>
     </style>
 
 
@@ -305,8 +311,8 @@
     </style>
 
     <style name="style_countdown">
-        <item name="android:layout_width">20dp</item>
-        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
         <item name="android:background">@drawable/black_bg</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>

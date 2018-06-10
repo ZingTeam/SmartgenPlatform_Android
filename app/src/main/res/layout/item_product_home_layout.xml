@@ -51,6 +51,5 @@
         android:layout_toRightOf="@+id/textView11"
         android:maxLength="6"
         android:maxLines="1"
-        android:text="30.0"
-        android:textSize="16dp" />
+        android:text="30.0" />
     </RelativeLayout>

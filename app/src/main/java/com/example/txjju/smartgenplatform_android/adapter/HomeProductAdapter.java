@@ -18,12 +18,12 @@ import java.util.List;
 /**
  * 首页产品列表适配器
  */
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductAdapter.ViewHolder> {
 
     private Context context;
     private List<News> list;
 
-    public ProductAdapter(Context context , List<News> list) {
+    public HomeProductAdapter(Context context , List<News> list) {
         this.context = context;
         this.list = list;
     }

@@ -1,6 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.txjju.smartgenplatform_android.activity.MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <!--市场-->
+    <include layout="@layout/layout_market_toolbar"
+        android:id="@+id/include" /> <!--搜索框-->
+<!--分类 排序 筛选-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:background="@color/white"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_classify_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="微软雅黑"
+                style="@style/style_c6_s16"
+                android:text="分类"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tv_classify_market"
+                android:layout_toRightOf="@+id/tv_classify_market"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_expoler" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_sort_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="微软雅黑"
+                style="@style/style_c6_s16"
+                android:text="排序"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tv_sort_market"
+                android:layout_toRightOf="@+id/tv_sort_market"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_expoler" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_screen_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="微软雅黑"
+                style="@style/style_c6_s16"
+                android:text="筛选"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tv_screen_market"
+                android:layout_toRightOf="@+id/tv_screen_market"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_expoler" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="80dp"
+        android:layout_height="4dp"
+        android:id="@+id/view" />
+<!--项目列表-->
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/refresh_market"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/view"
+        app:wave_color="#5094d6da"
+        app:wave_height_type="normal">
+
+        <!--控制滚轮的-->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_project_market"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="60dp"
+                    android:background="@color/white" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </com.cjj.MaterialRefreshLayout>
+
+</RelativeLayout>

@@ -18,12 +18,12 @@ import java.util.List;
 /**
  * 首页项目列表适配器
  */
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder> {
+public class HomeProjectAdapter extends RecyclerView.Adapter<HomeProjectAdapter.ViewHolder> {
 
     private Context context;
     private List<News> list;
 
-    public ProjectAdapter(Context context , List<News> list) {
+    public HomeProjectAdapter(Context context , List<News> list) {
         this.context = context;
         this.list = list;
     }
