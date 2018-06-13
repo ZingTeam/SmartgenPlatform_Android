@@ -26,9 +26,6 @@ public class SystemMessagesActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {//返回主页面
-        Intent intent=new Intent();
-        intent.setClass(SystemMessagesActivity.this, MainActivity.class);
-        intent.putExtra("id",3);
-        startActivity(intent);
+        this.finish();
     }
 }

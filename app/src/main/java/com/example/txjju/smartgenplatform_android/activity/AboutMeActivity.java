@@ -73,10 +73,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.iv_aboutMe_back:
-            Intent intent = new Intent();
-            intent.setClass(AboutMeActivity.this, MainActivity.class);
-            intent.putExtra("id", 3);
-            startActivity(intent);
+            this.finish();
             break;
             case R.id.rl_headPortrait:
                 getPictureDialogBox();

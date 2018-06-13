@@ -90,7 +90,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.back:
-                finish();
+                this.finish();
                 break;
             case R.id.toolbar_more:
                 List list = new ArrayList<String>();

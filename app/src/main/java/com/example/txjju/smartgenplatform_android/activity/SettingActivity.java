@@ -32,10 +32,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.iv_setting_back:
-                Intent intent=new Intent();
-                intent.setClass(SettingActivity.this, MainActivity.class);
-                intent.putExtra("id",3);
-                startActivity(intent);
+                this.finish();
                 break;
             case R.id.btn_setting_exit:
                 break;

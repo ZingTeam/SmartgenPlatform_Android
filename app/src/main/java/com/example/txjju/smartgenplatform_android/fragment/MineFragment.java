@@ -1,6 +1,8 @@
 package com.example.txjju.smartgenplatform_android.fragment;
 
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.activity.AboutMeActivity;
+import com.example.txjju.smartgenplatform_android.activity.MainActivity;
 import com.example.txjju.smartgenplatform_android.activity.SettingActivity;
 import com.example.txjju.smartgenplatform_android.activity.SystemMessagesActivity;
 import com.example.txjju.smartgenplatform_android.util.MessageEvent;
@@ -107,6 +110,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tvCollectProject.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -117,6 +122,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 //AboutMeActivity.class为想要跳转的Activity
                 intent.setClass(getActivity(), AboutMeActivity.class);
                 startActivity(intent);
+
                 break;
             case R.id.iv_mine_news:
                 Intent intent1 = new Intent();

@@ -105,10 +105,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.iv_order_back:
-                Intent intent=new Intent();
-                intent.setClass(OrderActivity.this, MainActivity.class);
-                intent.putExtra("id",3);
-                startActivity(intent);
+                this.finish();
                 break;
             case R.id.tvAll:
                 setTvAll();

@@ -30,10 +30,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.iv_projectDetails_back:
-                Intent intent=new Intent();
-                intent.setClass(ProjectDetailsActivity.this, MainActivity.class);
-                intent.putExtra("id",1);
-                startActivity(intent);
+                this.finish();
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package com.example.txjju.smartgenplatform_android.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private int currPosition = 0;//默认是首页
     private String[] tags = new String[]{"HomeFragment","MarketFragment","StoreFragment","MineFragment"};
     private FrameLayout fl;
+    private BottomNavigationBar bottomNavigationBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -222,22 +224,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         final float scale = getApplication().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-    @Override
-    public void onResume() {  //转到相应的fragment
-        super.onResume();
-        fl=findViewById(R.id.fl_container);
-        int id = MainActivity.this.getIntent().getIntExtra("id", 3);
-        clickAgain(id);
-//        if(id==3){
-//            showFragment(3);
-//        }else if(id==2){
-//            showFragment(2);
-//        }else if(id==1){
-//            showFragment(1);
-//        }else{
-//            showFragment(0);
-//        }
-
-    }
-
 }

@@ -84,10 +84,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_shoppingCart_back:
-                Intent intent=new Intent();
-                intent.setClass(ShoppingCartActivity.this, MainActivity.class);
-                intent.putExtra("id",3);
-                startActivity(intent);
+                this.finish();
                 break;
             //全选按钮
             case R.id.ck_all:
