@@ -2,21 +2,18 @@ package com.example.txjju.smartgenplatform_android.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.example.txjju.smartgenplatform_android.R;
-import com.example.txjju.smartgenplatform_android.adapter.MarketProjectAdapter;
 import com.example.txjju.smartgenplatform_android.adapter.StoreProductAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
-import com.example.txjju.smartgenplatform_android.pojo.CreativeProject;
+import com.example.txjju.smartgenplatform_android.pojo.Product;
 import com.example.txjju.smartgenplatform_android.util.FileUtils;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
 import com.example.txjju.smartgenplatform_android.view.MyRefreshLayout;
@@ -40,7 +37,7 @@ public class StoreFragment extends BaseFragment {
     private RecyclerView rvProduct;    // 项目列表控件
     private StoreProductAdapter productAdapter;    // 项目列表适配器
 
-    private List<CreativeProject> productList = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
     private MyRefreshLayout myRefreshLayout;
 
     //fragment中布局以及控件的获取都写在此方法中
@@ -102,16 +99,15 @@ public class StoreFragment extends BaseFragment {
         String data = FileUtils.readAssert(getActivity(),"products.txt");
         Log.i(TAG,data);
         try {
-            BasePojo<CreativeProject> basePojo = JsonUtil.getBaseFromJson(getActivity(),
-                    data, new TypeToken<BasePojo<CreativeProject>>(){}.getType());
+            BasePojo<Product> basePojo = JsonUtil.getBaseFromJson(getActivity(),
+                    data, new TypeToken<BasePojo<Product>>(){}.getType());
             Log.i(TAG,"123");
             Log.i(TAG,basePojo.toString());
             Log.i(TAG,"456");
-            List<CreativeProject> list = basePojo.getList();
+            List<Product> list = basePojo.getDatas();
             Log.i(TAG,"789");
             Log.i(TAG,"error"+list.size());
             productList.addAll(list);
-            Log.i(TAG,productList.get(0).getCreproject_title());
         } catch (IOException e) {
             e.printStackTrace();
         }

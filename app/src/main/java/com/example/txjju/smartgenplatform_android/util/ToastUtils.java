@@ -29,7 +29,7 @@ public class ToastUtils {
         v.setTextColor(Color.WHITE);
         v.setText(text);
         v.setSingleLine(false);
-        v.setPadding(20, 10, 20, 10);
+        v.setPadding(25, 15, 25, 15);
         v.setGravity(Gravity.CENTER);
         toast.setView(v);
         toast.setGravity(Gravity.CENTER, 0, 0);

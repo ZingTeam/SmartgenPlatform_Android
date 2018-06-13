@@ -1,5 +1,7 @@
 package com.example.txjju.smartgenplatform_android.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
@@ -13,9 +15,14 @@ import org.greenrobot.eventbus.ThreadMode;
 public class BaseFragment extends Fragment {
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);   // 注册EventBus
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);   // 注册EventBus
     }
 
     @Override
@@ -28,6 +35,12 @@ public class BaseFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         Toast.makeText(getActivity(), event.getMsg(),Toast.LENGTH_SHORT).show();
+//        if(event.getMsg().equals(getTag())){
+//            // 做此页面在连续点击导航按钮后需要做的事情，比如刷新数据
+//
+//            Toast.makeText(getActivity(), event.getMsg(),Toast.LENGTH_SHORT).show();
+//        }
+
     }
 
 }

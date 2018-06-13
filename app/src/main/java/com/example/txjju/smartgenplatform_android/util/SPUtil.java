@@ -20,7 +20,7 @@ public class SPUtil {
         SharedPreferences sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("isLogin", isLogin);
-        editor.putString("user", new Gson().toJson(user));
+        editor.putString("user", new Gson().toJson(user));//将实体对象转换为json字符串，因为SharedPreferences只能存储字符串
         editor.commit();
     }
 

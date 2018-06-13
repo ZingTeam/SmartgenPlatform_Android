@@ -3,6 +3,7 @@ package com.example.txjju.smartgenplatform_android.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
-import com.example.txjju.smartgenplatform_android.pojo.CreativeProject;
-import com.example.txjju.smartgenplatform_android.pojo.News;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 
 import java.util.List;
 
@@ -22,9 +22,9 @@ import java.util.List;
 public class MarketProjectAdapter extends RecyclerView.Adapter<MarketProjectAdapter.ViewHolder> {
 
     private Context context;
-    private List<CreativeProject> list;
+    private List<Creativeproject> list;
 
-    public MarketProjectAdapter(Context context , List<CreativeProject> list) {
+    public MarketProjectAdapter(Context context , List<Creativeproject> list) {
         this.context = context;
         this.list = list;
     }
@@ -49,10 +49,11 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<MarketProjectAdap
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvTitle.setText(list.get(position).getCreproject_title());
-        holder.tvAbstract.setText(list.get(position).getCreproject_content());
+        holder.tvTitle.setText(list.get(position).getCreprojectTitle());
+        Log.i("MainActivity","title:"+list.get(position).getCreprojectTitle()+list.get(position).getCreprojectState());
+        holder.tvAbstract.setText(list.get(position).getCreprojectContent().substring(0,15));
         //0为未孵化，1为孵化中
-        if(list.get(position).getCreproject_state() == 0){
+        if(list.get(position).getCreprojectState() == 0){
             holder.tvState.setText("未孵化");
             Glide.with(context).load(R.mipmap.ic_nono_fh).into(holder.ivStatePicture);
         }else{
@@ -60,7 +61,7 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<MarketProjectAdap
             Glide.with(context).load(R.mipmap.ic_now_fh).into(holder.ivStatePicture);
         }
         // 图片加载
-        Glide.with(context).load(list.get(position).getCreproject_picture()).into(holder.ivPicture);
+        Glide.with(context).load(list.get(position).getCreprojectPicture()).into(holder.ivPicture);
     }
 
     /**

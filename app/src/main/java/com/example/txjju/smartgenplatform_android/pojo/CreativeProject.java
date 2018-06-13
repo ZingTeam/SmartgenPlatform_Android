@@ -1,184 +1,185 @@
 package com.example.txjju.smartgenplatform_android.pojo;
 
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- * Created by Administrator on 2018/6/3.
+ * 创意项目表
+ * 为兼容web项目,有部分冗余,需后续优化
+ * 与产品表一对多关系
  */
+public class Creativeproject {
 
-public class CreativeProject {
-    int Creproject_id;
-    int Expert_jobNumber;
-    int User_id;
-    int Company_id;
-    String Creproject_title;
-    String Creproject_content;
-    String Creproject_label;
-    String Creproject_picture;
-    String Creproject_video;
-    String Creproject_plan;
-    int Creproject_classify;
-    int Creproject_state;
-    int Creproject_praise;
-    String Creproject_modifyTime;
-    String Creproject_releaseTime;
-    String  Creproject_evaluateTime;
-    int  Creproject_evaluateResult;
-    String Creproject_evaluateOpinion;
-    String condition;
+    private Integer expertJobNumber;//专家表主键
+    private Integer userId;//用户表主键
+    private Integer companyId;//公司表主键
+    private String creprojectTitle;//创意项目标题
+    private String creprojectContent;//创意项目简介
+    private String creprojectLabel;//创意项目标签
+    private String creprojectPicture;//创意项目图片路径
+    private String creprojectVideo;//创意项目视频路径
+    private String creprojectPlan;//创意项目计划书文件路径
+    private Integer creprojectClassify;//创意项目分类 0-生活手工 1-家具家居 2-科技数码 3-艺术娱乐 4-医疗健康 5-户外运动 6-为其他
+    private Integer creprojectState;//孵化状态 0-未孵化 1-孵化中 2-已孵化
+    private Integer creprojectPraise;//点赞数
+    private Timestamp creprojectModifyTime;//最后一次修改时间
+    private Timestamp creprojectReleaseTime;//最后一次发布时间
+    private Timestamp creprojectEvaluateTime;//最后一次评估时间
+    private Integer creprojectEvaluateResult;//专家评估结果
+    private String creprojectEvaluateOpinion;//专家评估意见
+    private Set<Product> products = new HashSet<Product>();//外键关系-产品表-一对多关系
+    private Integer id;//主键id
 
-    //多表查询的时候，需要用户的头像和用户名的信息
-    String User_name;
-    String User_headPortrait;
-
-    public int getCreproject_id() {
-        return Creproject_id;
-    }
-    public void setCreproject_id(int creproject_id) {
-        Creproject_id = creproject_id;
-    }
-    public int getExpert_jobNumber() {
-        return Expert_jobNumber;
-    }
-    public void setExpert_jobNumber(int expert_jobNumber) {
-        Expert_jobNumber = expert_jobNumber;
-    }
-    public int getUser_id() {
-        return User_id;
-    }
-    public void setUser_id(int user_id) {
-        User_id = user_id;
-    }
-    public int getCompany_id() {
-        return Company_id;
-    }
-    public void setCompany_id(int company_id) {
-        Company_id = company_id;
-    }
-    public String getCreproject_title() {
-        return Creproject_title;
-    }
-    public void setCreproject_title(String creproject_title) {
-        Creproject_title = creproject_title;
-    }
-    public String getCreproject_content() {
-        return Creproject_content;
-    }
-    public void setCreproject_content(String creproject_content) {
-        Creproject_content = creproject_content;
-    }
-    public String getCreproject_label() {
-        return Creproject_label;
-    }
-    public void setCreproject_label(String creproject_label) {
-        Creproject_label = creproject_label;
-    }
-    public String getCreproject_picture() {
-        return Creproject_picture;
-    }
-    public void setCreproject_picture(String creproject_picture) {
-        Creproject_picture = creproject_picture;
-    }
-    public String getCreproject_video() {
-        return Creproject_video;
-    }
-    public void setCreproject_video(String creproject_video) {
-        Creproject_video = creproject_video;
-    }
-    public String getCreproject_plan() {
-        return Creproject_plan;
-    }
-    public void setCreproject_plan(String creproject_plan) {
-        Creproject_plan = creproject_plan;
-    }
-    public int getCreproject_classify() {
-        return Creproject_classify;
-    }
-    public void setCreproject_classify(int creproject_classify) {
-        Creproject_classify = creproject_classify;
-    }
-    public int getCreproject_state() {
-        return Creproject_state;
-    }
-    public void setCreproject_state(int creproject_state) {
-        Creproject_state = creproject_state;
-    }
-    public int getCreproject_praise() {
-        return Creproject_praise;
-    }
-    public void setCreproject_praise(int creproject_praise) {
-        Creproject_praise = creproject_praise;
-    }
-    public String getCreproject_modifyTime() {
-        return Creproject_modifyTime;
-    }
-    public void setCreproject_modifyTime(String creproject_modifyTime) {
-        Creproject_modifyTime = creproject_modifyTime;
-    }
-    public String getCreproject_releaseTime() {
-        return Creproject_releaseTime;
-    }
-    public void setCreproject_releaseTime(String creproject_releaseTime) {
-        Creproject_releaseTime = creproject_releaseTime;
-    }
-    public String getCreproject_evaluateTime() {
-        return Creproject_evaluateTime;
-    }
-    public void setCreproject_evaluateTime(String creproject_evaluateTime) {
-        Creproject_evaluateTime = creproject_evaluateTime;
-    }
-    public int getCreproject_evaluateResult() {
-        return Creproject_evaluateResult;
-    }
-    public void setCreproject_evaluateResult(int creproject_evaluateResult) {
-        Creproject_evaluateResult = creproject_evaluateResult;
-    }
-    public String getCreproject_evaluateOpinion() {
-        return Creproject_evaluateOpinion;
-    }
-    public void setCreproject_evaluateOpinion(String creproject_evaluateOpinion) {
-        Creproject_evaluateOpinion = creproject_evaluateOpinion;
-    }
-    public String getCondition() {
-        return condition;
-    }
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public Integer getId() {
+        return id;
     }
 
-    //多表查询的时候，需要用户的头像和用户名的信息
-    public String getUser_name() {
-        return User_name;
-    }
-    public void setUser_name(String User_name) {
-        this.User_name = User_name;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getUser_headPortrait() {
-        return User_headPortrait;
-    }
-    public void setUser_headPortrait(String User_headPortrait) {
-        this.User_headPortrait = User_headPortrait;
-    }
-    @Override
-    public String toString() {
-        return "CreativeProject [Creproject_id=" + Creproject_id
-                + ", Expert_jobNumber=" + Expert_jobNumber + ", User_id="
-                + User_id + ", Company_id=" + Company_id
-                + ", Creproject_title=" + Creproject_title
-                + ", Creproject_content=" + Creproject_content
-                + ", Creproject_label=" + Creproject_label
-                + ", Creproject_picture=" + Creproject_picture
-                + ", Creproject_video=" + Creproject_video
-                + ", Creproject_plan=" + Creproject_plan
-                + ", Creproject_classify=" + Creproject_classify
-                + ", Creproject_state=" + Creproject_state
-                + ", Creproject_praise=" + Creproject_praise
-                + ", Creproject_modifyTime=" + Creproject_modifyTime
-                + ", Creproject_releaseTime=" + Creproject_releaseTime
-                + ", Creproject_evaluateTime=" + Creproject_evaluateTime
-                + ", Creproject_evaluateResult=" + Creproject_evaluateResult
-                + ", Creproject_evaluateOpinion=" + Creproject_evaluateOpinion
-                + ", condition=" + condition + ", User_name=" + User_name
-                + ", User_headPortrait=" + User_headPortrait + "]";
+    public Integer getExpertJobNumber() {
+        return expertJobNumber;
     }
 
+    public void setExpertJobNumber(Integer expertJobNumber) {
+        this.expertJobNumber = expertJobNumber;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCreprojectTitle() {
+        return creprojectTitle;
+    }
+
+    public void setCreprojectTitle(String creprojectTitle) {
+        this.creprojectTitle = creprojectTitle;
+    }
+
+    public String getCreprojectContent() {
+        return creprojectContent;
+    }
+
+    public void setCreprojectContent(String creprojectContent) {
+        this.creprojectContent = creprojectContent;
+    }
+
+    public String getCreprojectLabel() {
+        return creprojectLabel;
+    }
+
+    public void setCreprojectLabel(String creprojectLabel) {
+        this.creprojectLabel = creprojectLabel;
+    }
+
+    public String getCreprojectPicture() {
+        return creprojectPicture;
+    }
+
+    public void setCreprojectPicture(String creprojectPicture) {
+        this.creprojectPicture = creprojectPicture;
+    }
+
+    public String getCreprojectVideo() {
+        return creprojectVideo;
+    }
+
+    public void setCreprojectVideo(String creprojectVideo) {
+        this.creprojectVideo = creprojectVideo;
+    }
+
+    public String getCreprojectPlan() {
+        return creprojectPlan;
+    }
+
+    public void setCreprojectPlan(String creprojectPlan) {
+        this.creprojectPlan = creprojectPlan;
+    }
+
+    public Integer getCreprojectClassify() {
+        return creprojectClassify;
+    }
+
+    public void setCreprojectClassify(Integer creprojectClassify) {
+        this.creprojectClassify = creprojectClassify;
+    }
+
+    public Integer getCreprojectState() {
+        return creprojectState;
+    }
+
+    public void setCreprojectState(Integer creprojectState) {
+        this.creprojectState = creprojectState;
+    }
+
+    public Integer getCreprojectPraise() {
+        return creprojectPraise;
+    }
+
+    public void setCreprojectPraise(Integer creprojectPraise) {
+        this.creprojectPraise = creprojectPraise;
+    }
+
+    public Timestamp getCreprojectModifyTime() {
+        return creprojectModifyTime;
+    }
+
+    public void setCreprojectModifyTime(Timestamp creprojectModifyTime) {
+        this.creprojectModifyTime = creprojectModifyTime;
+    }
+
+    public Timestamp getCreprojectReleaseTime() {
+        return creprojectReleaseTime;
+    }
+
+    public void setCreprojectReleaseTime(Timestamp creprojectReleaseTime) {
+        this.creprojectReleaseTime = creprojectReleaseTime;
+    }
+
+    public Timestamp getCreprojectEvaluateTime() {
+        return creprojectEvaluateTime;
+    }
+
+    public void setCreprojectEvaluateTime(Timestamp creprojectEvaluateTime) {
+        this.creprojectEvaluateTime = creprojectEvaluateTime;
+    }
+
+    public Integer getCreprojectEvaluateResult() {
+        return creprojectEvaluateResult;
+    }
+
+    public void setCreprojectEvaluateResult(Integer creprojectEvaluateResult) {
+        this.creprojectEvaluateResult = creprojectEvaluateResult;
+    }
+
+    public String getCreprojectEvaluateOpinion() {
+        return creprojectEvaluateOpinion;
+    }
+
+    public void setCreprojectEvaluateOpinion(String creprojectEvaluateOpinion) {
+        this.creprojectEvaluateOpinion = creprojectEvaluateOpinion;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 }

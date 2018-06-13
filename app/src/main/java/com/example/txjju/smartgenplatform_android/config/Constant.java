@@ -6,9 +6,9 @@ package com.example.txjju.smartgenplatform_android.config;
 
 public class Constant {
 
-    public static final String BASE_URL = "http://192.168.2.202:8080/news";
-    /**获取资讯列表接口**/
-    public static final String NEW_GET_URL = BASE_URL + "/NewsGet";
-    /**获取广告接口**/
-    public static final String BANNER_GET_URL = BASE_URL + "/BannerGet";
+    public static final String BASE_URL = "http://www.cgzing.xyz/SmartgenPlatformWithSSH";
+    /**用户注册接口**/
+    public static final String USER_REGISTER = BASE_URL + "/UserAction_register";
+    /**用户登录接口**/
+    public static final String USER_LOGIN = BASE_URL + "/UserAction_login";
 }

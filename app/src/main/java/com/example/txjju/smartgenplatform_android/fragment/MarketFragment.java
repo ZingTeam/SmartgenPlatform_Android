@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 
 import com.cjj.MaterialRefreshLayout;
 import com.example.txjju.smartgenplatform_android.R;
-import com.example.txjju.smartgenplatform_android.adapter.HomeProjectAdapter;
 import com.example.txjju.smartgenplatform_android.adapter.MarketProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
-import com.example.txjju.smartgenplatform_android.pojo.CreativeProject;
-import com.example.txjju.smartgenplatform_android.pojo.News;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 import com.example.txjju.smartgenplatform_android.util.FileUtils;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
 import com.example.txjju.smartgenplatform_android.view.MyRefreshLayout;
@@ -40,7 +38,7 @@ public class MarketFragment extends BaseFragment {
     private RecyclerView rvProject;    // 项目列表控件
     private MarketProjectAdapter projectAdapter;    // 项目列表适配器
 
-    private List<CreativeProject> projectList = new ArrayList<>();
+    private List<Creativeproject> projectList = new ArrayList<>();
     private MyRefreshLayout myRefreshLayout;
 
 
@@ -110,16 +108,15 @@ public class MarketFragment extends BaseFragment {
         String data = FileUtils.readAssert(getActivity(),"creprojects.txt");
         Log.i(TAG,data);
         try {
-            BasePojo<CreativeProject> basePojo = JsonUtil.getBaseFromJson(getActivity(),
-                    data, new TypeToken<BasePojo<CreativeProject>>(){}.getType());
+            BasePojo<Creativeproject> basePojo = JsonUtil.getBaseFromJson(getActivity(),
+                    data, new TypeToken<BasePojo<Creativeproject>>(){}.getType());
             Log.i(TAG,"123");
             Log.i(TAG,basePojo.toString());
             Log.i(TAG,"456");
-            List<CreativeProject> list = basePojo.getList();
+            List<Creativeproject> list = basePojo.getDatas();
             Log.i(TAG,"789");
             Log.i(TAG,"error"+list.size());
             projectList.addAll(list);
-            Log.i(TAG,projectList.get(0).getCreproject_title());
         } catch (IOException e) {
             e.printStackTrace();
         }

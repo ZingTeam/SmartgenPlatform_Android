@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 import com.example.txjju.smartgenplatform_android.pojo.News;
 
 import java.util.List;
@@ -21,9 +22,9 @@ import java.util.List;
 public class HomeProjectAdapter extends RecyclerView.Adapter<HomeProjectAdapter.ViewHolder> {
 
     private Context context;
-    private List<News> list;
+    private List<Creativeproject> list;
 
-    public HomeProjectAdapter(Context context , List<News> list) {
+    public HomeProjectAdapter(Context context , List<Creativeproject> list) {
         this.context = context;
         this.list = list;
     }
@@ -48,9 +49,9 @@ public class HomeProjectAdapter extends RecyclerView.Adapter<HomeProjectAdapter.
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvName.setText(list.get(position).getTitle());
+        holder.tvName.setText(list.get(position).getCreprojectTitle());
         // 图片加载
-        Glide.with(context).load(list.get(position).getIcon()).into(holder.iv);
+        Glide.with(context).load(list.get(position).getCreprojectPicture()).into(holder.iv);
     }
 
     /**

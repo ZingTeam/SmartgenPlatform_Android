@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 import com.example.txjju.smartgenplatform_android.pojo.News;
+import com.example.txjju.smartgenplatform_android.pojo.Product;
 
 import java.util.List;
 
@@ -21,9 +23,9 @@ import java.util.List;
 public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductAdapter.ViewHolder> {
 
     private Context context;
-    private List<News> list;
+    private List<Product> list;
 
-    public HomeProductAdapter(Context context , List<News> list) {
+    public HomeProductAdapter(Context context , List<Product> list) {
         this.context = context;
         this.list = list;
     }
@@ -49,9 +51,9 @@ public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvName.setText("众智优选");
-        holder.tvPrice.setText(list.get(position).getContent());
+        holder.tvPrice.setText(list.get(position).getProductPrice()+"");
         // 图片加载
-        Glide.with(context).load(list.get(position).getIcon()).into(holder.iv);
+        Glide.with(context).load(list.get(position).getProductPicture()).into(holder.iv);
     }
 
     /**

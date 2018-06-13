@@ -192,7 +192,7 @@
         android:textSize="12dp" />
 
     <TextView
-        android:id="@+id/et_register_goLogin"
+        android:id="@+id/tv_register_goLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/txt_register_isNumber"

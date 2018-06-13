@@ -18,7 +18,9 @@ import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.adapter.HomeProductAdapter;
 import com.example.txjju.smartgenplatform_android.adapter.HomeProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
-import com.example.txjju.smartgenplatform_android.pojo.News;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
+import com.example.txjju.smartgenplatform_android.pojo.Product;
 import com.example.txjju.smartgenplatform_android.util.FileUtils;
 import com.example.txjju.smartgenplatform_android.util.GlideImageLoader;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
@@ -52,8 +54,8 @@ public class HomeFragment extends BaseFragment {
     private HomeProductAdapter productAdapter;    // 产品列表适配器
     private HomeProjectAdapter projectAdapter;    // 项目列表适配器
 
-    private List<News> productList = new ArrayList<>();
-    private List<News> projectList = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
+    private List<Creativeproject> projectList = new ArrayList<>();
     private List<String> bannerImgList = new ArrayList<>();
     private List<String> bannerTitleList = new ArrayList<>();
     private MyRefreshLayout myRefreshLayout;
@@ -127,14 +129,14 @@ public class HomeFragment extends BaseFragment {
 //                String json = new String(responseBody);
 //                try {
 //                    if (json != null) {
-//                        BasePojo<News> basePojo = JsonUtil.getBaseFromJson(getActivity(),
-//                                json, new TypeToken<BasePojo<News>>(){}.getType());
+//                        BasePojo<Creativeproject> basePojo = JsonUtil.getBaseFromJson(getActivity(),
+//                                json, new TypeToken<BasePojo<Creativeproject>>(){}.getType());
 //                        if(basePojo != null){
 //                            pgDialog.dismiss();
-//                            List<News> list = basePojo.getList();
-//                            newsList.clear();
-//                            newsList.addAll(list);
-//                            newsAdapter.notifyDataSetChanged(); // 通知适配器更新列表
+//                            List<Creativeproject> list = basePojo.getList();
+//                            CreativeprojectList.clear();
+//                            CreativeprojectList.addAll(list);
+//                            CreativeprojectAdapter.notifyDataSetChanged(); // 通知适配器更新列表
 //                            refreshLayout.finishRefresh();  //停止刷新
 //                        }
 //                    }
@@ -263,15 +265,22 @@ public class HomeFragment extends BaseFragment {
      * 测试用的假数据
      */
     private void initData() {
-        String data = FileUtils.readAssert(getActivity(),"news.txt");
-        Log.i(TAG,data);
+        String creprojectData = FileUtils.readAssert(getActivity(),"creprojects.txt");
+        String productData = FileUtils.readAssert(getActivity(),"products.txt");
         try {
-            BasePojo<News> basePojo = JsonUtil.getBaseFromJson(getActivity(),
-                    data, new TypeToken<BasePojo<News>>(){}.getType());
-            Log.i(TAG,basePojo.toString());
-            List<News> list = basePojo.getList();
-            productList.addAll(list);
-            projectList.addAll(list);
+            BasePojo<Creativeproject> basePojo1 = JsonUtil.getBaseFromJson(getActivity(),
+                    creprojectData, new TypeToken<BasePojo<Creativeproject>>(){}.getType());
+
+            BasePojo<Product> basePojo2 = JsonUtil.getBaseFromJson(getActivity(),
+                    productData, new TypeToken<BasePojo<Product>>(){}.getType());
+
+            List<Creativeproject> list1 = basePojo1.getDatas();
+
+            List<Product> list2 = basePojo2.getDatas();
+
+            projectList.addAll(list1);
+            productList.addAll(list2);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

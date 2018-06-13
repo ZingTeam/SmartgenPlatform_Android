@@ -1,6 +1,8 @@
 package com.example.txjju.smartgenplatform_android.util;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
@@ -46,8 +48,10 @@ public class JsonUtil {
         Gson gson = new Gson();
         BasePojo<T> basePojo = gson.fromJson(json, type);   // 解析Json
         if(basePojo != null){
-            Toast.makeText(context, basePojo.getMsg(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, basePojo.getMsg(), Toast.LENGTH_SHORT).show();
+            Log.i("LoginActivity","解析数据成功！");
         }else{
+            Log.i("LoginActivity","解析数据失败！");
             Toast.makeText(context, "解析数据失败！", Toast.LENGTH_SHORT).show();
         }
         return basePojo;

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
-import com.example.txjju.smartgenplatform_android.pojo.CreativeProject;
+import com.example.txjju.smartgenplatform_android.pojo.Product;
 
 import java.util.List;
 
@@ -23,9 +23,10 @@ import java.util.List;
 public class StoreProductAdapter extends RecyclerView.Adapter<StoreProductAdapter.ViewHolder> {
 
     private Context context;
-    private List<CreativeProject> list;
+    private List<Product> list;
+    private int productGrade;
 
-    public StoreProductAdapter(Context context , List<CreativeProject> list) {
+    public StoreProductAdapter(Context context , List<Product> list) {
         this.context = context;
         this.list = list;
     }
@@ -50,37 +51,58 @@ public class StoreProductAdapter extends RecyclerView.Adapter<StoreProductAdapte
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvTitle.setText(list.get(position).getCreproject_title()+"--"+list.get(position).getCreproject_content());
-        holder.tvPrice.setText(list.get(position).getCreproject_praise()+"");
+        //产品名和产品简介
+        holder.tvTitle.setText(list.get(position).getProductName()+"--"+list.get(position).getProductMsg());
+        //产品价格
+        holder.tvPrice.setText(list.get(position).getProductPrice()+"");
         // 图片加载
-        Glide.with(context).load(list.get(position).getCreproject_picture()).into(holder.ivPicture);
+        Glide.with(context).load(list.get(position).getProductPicture()).into(holder.ivPicture);
+        //根据产品好评数，来计算出产品等级
+        if(Integer.parseInt(list.get(position).getProductBestCount())<200){
+            productGrade = 0;
+        }
+        if(Integer.parseInt(list.get(position).getProductBestCount())>=200&&Integer.parseInt(list.get(position).getProductBestCount())<400){
+            productGrade = 1;
+        }
+        if(Integer.parseInt(list.get(position).getProductBestCount())>=400&&Integer.parseInt(list.get(position).getProductBestCount())<600){
+            productGrade = 2;
+        }
+        if(Integer.parseInt(list.get(position).getProductBestCount())>=600&&Integer.parseInt(list.get(position).getProductBestCount())<800){
+            productGrade = 3;
+        }
+        if(Integer.parseInt(list.get(position).getProductBestCount())>=800&&Integer.parseInt(list.get(position).getProductBestCount())<1000){
+            productGrade = 4;
+        }
+        if(Integer.parseInt(list.get(position).getProductBestCount())>=1000){
+            productGrade = 5;
+        }
 
         //通过好评分数来判断：显示星星状态和分数
-        switch (list.get(position).getCreproject_state()){
+        switch (productGrade){
             case 0:
                 holder.tvGrade.setText("尚无评论");
                 break;
             case 1:
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar1);
-                holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                holder.tvGrade.setText(productGrade+".0分");
                 break;
             case 2:
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar1);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar2);
-                holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                holder.tvGrade.setText(productGrade+".0分");
                 break;
             case 3:
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar1);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar2);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar3);
-                holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                holder.tvGrade.setText(productGrade+".0分");
                 break;
             case 4:
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar1);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar2);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar3);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar4);
-                holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                holder.tvGrade.setText(productGrade+".0分");
                 break;
             case 5:
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar1);
@@ -88,13 +110,13 @@ public class StoreProductAdapter extends RecyclerView.Adapter<StoreProductAdapte
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar3);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar4);
                 Glide.with(context).load(R.mipmap.ic_star_checke).into(holder.ivClassStar5);
-                holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                holder.tvGrade.setText(productGrade+".0分");
                 break;
         }
         //通过产品购买状态，来显示
-        if(list.get(position).getCreproject_classify()==0){
+        if(list.get(position).getProductStatus() ==0){
             holder.tvSellState.setText("预售");
-        }else if(list.get(position).getCreproject_classify()==1){
+        }else if(list.get(position).getProductStatus() ==1){
             holder.tvSellState.setText("现购");
             holder.tvSellState.setTextColor(Color.parseColor("#0fe9c3"));
         }else{
@@ -106,31 +128,31 @@ public class StoreProductAdapter extends RecyclerView.Adapter<StoreProductAdapte
             holder.tvSellState.setTextColor(Color.parseColor("#B3B3B3"));
             holder.llAll.setBackgroundResource(R.color.c1);
             //通过好评分数来判断：显示星星状态和分数
-            switch (list.get(position).getCreproject_state()){
+            switch (productGrade){
                 case 0:
                     holder.tvGrade.setText("尚无评论");
                     break;
                 case 1:
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar1);
-                    holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                    holder.tvGrade.setText(productGrade+".0分");
                     break;
                 case 2:
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar1);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar2);
-                    holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                    holder.tvGrade.setText(productGrade+".0分");
                     break;
                 case 3:
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar1);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar2);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar3);
-                    holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                    holder.tvGrade.setText(productGrade+".0分");
                     break;
                 case 4:
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar1);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar2);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar3);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar4);
-                    holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                    holder.tvGrade.setText(productGrade+".0分");
                     break;
                 case 5:
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar1);
@@ -138,7 +160,7 @@ public class StoreProductAdapter extends RecyclerView.Adapter<StoreProductAdapte
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar3);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar4);
                     Glide.with(context).load(R.mipmap.ic_star_gray).into(holder.ivClassStar5);
-                    holder.tvGrade.setText(list.get(position).getCreproject_state()+"");
+                    holder.tvGrade.setText(productGrade+".0分");
                     break;
             }
         }
