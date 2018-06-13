@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- 没有焦点时字体颜色 -->
+      <item
+          android:color="@color/c16" android:state_enabled="false"/>
+      <!--选中时的字体颜色  -->
+      <item
+          android:color="@color/c6" android:state_enabled="true"/>
+</selector>

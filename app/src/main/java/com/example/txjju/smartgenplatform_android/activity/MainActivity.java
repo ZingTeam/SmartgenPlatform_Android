@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     @Override
     public void onResume() {  //转到相应的fragment
         fl=findViewById(R.id.fl_container);
-        int id = MainActivity.this.getIntent().getIntExtra("id", 0);
+        int id = MainActivity.this.getIntent().getIntExtra("id", 3);
         if(id==3){
             showFragment(3);
         }else if(id==2){

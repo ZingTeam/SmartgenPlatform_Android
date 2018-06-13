@@ -1,10 +1,12 @@
 package com.example.txjju.smartgenplatform_android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_all_check;
     private CheckBox ck_all;
     private ListView list_shopping_cart;
+    private ImageView iv_shoppingCart_back;
     private ShoppingCartAdapter shoppingCartAdapter;
     private TextView tv_edit;
     private boolean flag = false;
@@ -51,6 +54,8 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
         list_shopping_cart = findViewById(R.id.list_shopping_cart);
         ck_all = findViewById(R.id.ck_all);
         ck_all.setOnClickListener(this);
+        iv_shoppingCart_back=findViewById(R.id.iv_shoppingCart_back);
+        iv_shoppingCart_back.setOnClickListener(this);
         tv_show_price = findViewById(R.id.tv_show_price);
         tv_settlement = findViewById(R.id.tv_settlement);
         tv_settlement.setOnClickListener(this);
@@ -78,6 +83,12 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_shoppingCart_back:
+                Intent intent=new Intent();
+                intent.setClass(ShoppingCartActivity.this, MainActivity.class);
+                intent.putExtra("id",3);
+                startActivity(intent);
+                break;
             //全选按钮
             case R.id.ck_all:
                 if (shoppingCartBeanList.size() != 0) {
