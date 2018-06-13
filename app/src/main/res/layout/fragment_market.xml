@@ -119,6 +119,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+                android:background="@color/white"
             android:layout_below="@+id/view" />
 
             <!--<android.support.v7.widget.RecyclerView-->
