@@ -26,7 +26,7 @@ public class ProductDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_market, container, false);
+        View view = inflater.inflate(R.layout.fragment_pruduct_detail_detail, container, false);
         //获取新建视图View中布局文件的控件i
         return view;
     }

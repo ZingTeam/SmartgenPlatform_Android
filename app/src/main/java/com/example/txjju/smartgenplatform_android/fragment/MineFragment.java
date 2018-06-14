@@ -18,7 +18,9 @@ import android.widget.TextView;
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.activity.AboutMeActivity;
 import com.example.txjju.smartgenplatform_android.activity.MainActivity;
+import com.example.txjju.smartgenplatform_android.activity.OrderActivity;
 import com.example.txjju.smartgenplatform_android.activity.SettingActivity;
+import com.example.txjju.smartgenplatform_android.activity.ShoppingCartActivity;
 import com.example.txjju.smartgenplatform_android.activity.SystemMessagesActivity;
 import com.example.txjju.smartgenplatform_android.util.MessageEvent;
 
@@ -100,12 +102,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tvCollectProject = view.findViewById(R.id.tv_mine_collect_project);//获取“收藏的项目”控件
         tvCollectProductLine = view.findViewById(R.id.tv_collect_product_line_mine);//获取“收藏的商品下划线”控件
         tvCollectProjectLine = view.findViewById(R.id.tv_collect_project_line_mine);//获取“发布的项目下划线”控件
+        rbOrder=view.findViewById(R.id.rb_mine_myOrder);//获取“我的订单”控件
+        rbPublic=view.findViewById(R.id.rb_mine_myPublic);//获取“我的发布”控件
+        rbCart=view.findViewById(R.id.rb_mine_shoppingCart);//获取“购物车”控件
+        rbHistory=view.findViewById(R.id.rb_mine_history);//获取“浏览历史”控件
         ivImgUser.setOnClickListener(this);//控件的监听事件
         tvEdit.setOnClickListener(this);
         ivSet.setOnClickListener(this);
         ivNews.setOnClickListener(this);
         tvCollectProduct.setOnClickListener(this);
         tvCollectProject.setOnClickListener(this);
+        rbOrder.setOnClickListener(this);
+        rbPublic.setOnClickListener(this);
+        rbCart.setOnClickListener(this);
+        rbHistory.setOnClickListener(this);
     }
 
 
@@ -114,7 +124,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.img_mine_user:
-
             case R.id.tv_mine_edit:
                 Intent intent = new Intent();
                 //AboutMeActivity.class为想要跳转的Activity
@@ -133,6 +142,22 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 // SystemMessagesActivity.class为想要跳转的Activity
                 intent2.setClass(getActivity(), SettingActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.rb_mine_myOrder:
+              Intent intent3 =new Intent(getActivity(),OrderActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.rb_mine_myPublic:
+//                Intent intent4 =new Intent(getActivity(),OrderActivity.class);
+//                startActivity(intent4);
+                break;
+            case R.id.rb_mine_shoppingCart:
+                Intent intent5 =new Intent(getActivity(),ShoppingCartActivity.class);
+                startActivity(intent5);
+                break;
+            case R.id.rb_mine_history:
+//                Intent intent6 =new Intent(getActivity(),OrderActivity.class);
+//                startActivity(intent6);
                 break;
             case R.id.tv_mine_collect_product:  // 选择“收藏的商品”
                 tvCollectProduct.setEnabled(false);

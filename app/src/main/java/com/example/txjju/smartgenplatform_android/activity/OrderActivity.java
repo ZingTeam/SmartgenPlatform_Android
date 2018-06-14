@@ -128,7 +128,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 clickAgain(3);
                 break;
             case R.id.tvComment:
-                setTvPaid();
+                setTvComment();
                 showFragment(4);
                 clickAgain(4);
                 break;
@@ -150,9 +150,9 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         v5.setBackgroundColor(getResources().getColor(R.color.white));
         tvAll.setEnabled(false);
         tvWait.setEnabled(true);
-        tvComment.setEnabled(true);
         tvSipping.setEnabled(true);
         tvReceiving.setEnabled(true);
+        tvComment.setEnabled(true);
     }
     private void setTvWait(){
         v1.setBackgroundColor(getResources().getColor(R.color.white));
@@ -162,11 +162,11 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         v5.setBackgroundColor(getResources().getColor(R.color.white));
         tvAll.setEnabled(true);
         tvWait.setEnabled(false);
-        tvComment.setEnabled(true);
         tvSipping.setEnabled(true);
         tvReceiving.setEnabled(true);
+        tvComment.setEnabled(true);
     }
-    private void setTvPaid(){
+    private void setTvSipping(){
         v1.setBackgroundColor(getResources().getColor(R.color.white));
         v2.setBackgroundColor(getResources().getColor(R.color.white));
         v3.setBackgroundColor(getResources().getColor(R.color.blue));
@@ -174,11 +174,11 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         v5.setBackgroundColor(getResources().getColor(R.color.white));
         tvAll.setEnabled(true);
         tvWait.setEnabled(true);
-        tvComment.setEnabled(false);
-        tvSipping.setEnabled(true);
+        tvSipping.setEnabled(false);
         tvReceiving.setEnabled(true);
+        tvComment.setEnabled(true);
     }
-    private void setTvSipping(){
+    private void setTvReceiving(){
         v1.setBackgroundColor(getResources().getColor(R.color.white));
         v2.setBackgroundColor(getResources().getColor(R.color.white));
         v3.setBackgroundColor(getResources().getColor(R.color.white));
@@ -186,11 +186,11 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         v5.setBackgroundColor(getResources().getColor(R.color.white));
         tvAll.setEnabled(true);
         tvWait.setEnabled(true);
+        tvSipping.setEnabled(true);
+        tvReceiving.setEnabled(false);
         tvComment.setEnabled(true);
-        tvSipping.setEnabled(false);
-        tvReceiving.setEnabled(true);
     }
-    private void setTvReceiving(){
+    private void setTvComment(){
         v1.setBackgroundColor(getResources().getColor(R.color.white));
         v2.setBackgroundColor(getResources().getColor(R.color.white));
         v3.setBackgroundColor(getResources().getColor(R.color.white));
@@ -198,8 +198,8 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         v5.setBackgroundColor(getResources().getColor(R.color.blue));
         tvAll.setEnabled(true);
         tvWait.setEnabled(true);
-        tvComment.setEnabled(true);
         tvSipping.setEnabled(true);
-        tvReceiving.setEnabled(false);
+        tvReceiving.setEnabled(true);
+        tvComment.setEnabled(false);
     }
 }
