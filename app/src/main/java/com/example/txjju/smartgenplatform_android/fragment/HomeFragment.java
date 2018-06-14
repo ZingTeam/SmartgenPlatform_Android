@@ -18,6 +18,7 @@ import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.adapter.HomeProductAdapter;
 import com.example.txjju.smartgenplatform_android.adapter.HomeProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 import com.example.txjju.smartgenplatform_android.pojo.Product;
 import com.example.txjju.smartgenplatform_android.util.FileUtils;
 import com.example.txjju.smartgenplatform_android.util.GlideImageLoader;
