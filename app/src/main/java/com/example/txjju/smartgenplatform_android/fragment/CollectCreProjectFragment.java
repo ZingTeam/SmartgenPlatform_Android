@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.adapter.MineCollectProjectAdapter;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 import com.example.txjju.smartgenplatform_android.util.FileUtils;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
 import com.example.txjju.smartgenplatform_android.view.RecycleViewDivider;

@@ -1,8 +1,6 @@
 package com.example.txjju.smartgenplatform_android.fragment;
 
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,7 +40,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     //fragment
     private List<Fragment> fgList;  // 装载Fragment的集合
-    private FragmentManager fm; // fragment管理器
+    private android.support.v4.app.FragmentManager fm; // fragment管理器
     private int currPosition = 0;
     private String[] tags = new String[]{"CollectProductFragment", "CollectCreProjectFragment"};
 
@@ -63,7 +61,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         fgList.add(new CollectProductFragment());
         fgList.add(new CollectCreProjectFragment());
         fm = getChildFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction(); // 实例化Fragment事物管理器
+        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction(); // 实例化Fragment事物管理器
         for (int i = 0; i < fgList.size(); i++) {     // 将两个Fragment装在容器中，交给ft管理
             ft.add(R.id.fl_container, fgList.get(i), tags[i]);
         }
@@ -73,13 +71,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private void showFragment(int i) {
         hideFragments();    // 先隐藏所有Fragment
-        FragmentTransaction ft = fm.beginTransaction();
+        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
         ft.show(fgList.get(i));     // 显示Fragment
         ft.commit();
     }
 
     private void hideFragments() {
-        FragmentTransaction ft = fm.beginTransaction();
+        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
         for (Fragment fg : fgList) {
             ft.hide(fg);        // 隐藏所有Fragment
         }

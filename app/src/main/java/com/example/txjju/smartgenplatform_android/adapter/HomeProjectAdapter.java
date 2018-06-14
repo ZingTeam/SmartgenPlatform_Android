@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
+import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 
 import java.util.List;
 
