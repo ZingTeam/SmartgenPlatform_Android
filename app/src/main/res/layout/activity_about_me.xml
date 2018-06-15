@@ -48,14 +48,16 @@
             android:gravity="center_vertical"
             android:text="头像"
             android:textSize="16sp" />
+
         <com.example.txjju.smartgenplatform_android.view.CircleImageView
             android:id="@+id/img_aboutMe_userHeadPortrait"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="45dp"
-            android:layout_marginRight="45dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="39dp"
+            android:layout_marginRight="39dp"
+            android:layout_toLeftOf="@+id/iv_aboutMe_userHeadPortrait"
+            android:layout_toStartOf="@+id/iv_aboutMe_userHeadPortrait"
             android:scaleType="centerCrop"
             android:src="@mipmap/qx" />
 

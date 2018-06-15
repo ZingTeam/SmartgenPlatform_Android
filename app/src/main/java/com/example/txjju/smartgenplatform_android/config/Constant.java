@@ -11,4 +11,6 @@ public class Constant {
     public static final String USER_REGISTER = BASE_URL + "/UserAction_register";
     /**用户登录接口**/
     public static final String USER_LOGIN = BASE_URL + "/UserAction_login";
+
+    public static final String TOKEN_URL = BASE_URL;
 }
