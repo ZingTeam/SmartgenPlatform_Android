@@ -16,6 +16,7 @@ import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.adapter.ProductDetailPagerAdapter;
 import com.example.txjju.smartgenplatform_android.fragment.ProductDetailFragment;
 import com.example.txjju.smartgenplatform_android.fragment.ProductFragment;
+import com.example.txjju.smartgenplatform_android.view.MorePopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -26,9 +27,9 @@ import java.util.List;
 public class ProductDetailsActivity extends BaseActivity implements ProductFragment.OnScrollTabChangeListener, View.OnClickListener {
     private TabLayout tabLayout;//顶部导航栏
     private ViewPager viewPager;
-    private ImageView toolbarMore,ivBack,ivToolbarMore;
+    private ImageView ivBack,ivToolbarMore;
     private ProductDetailPagerAdapter productPagerAdapter = null;
-    //private MorePopupWindow popupWindow = null;
+    private MorePopupWindow popupWindow = null;
 
     private List<Fragment> mFragments;
     private String[] titles = new String[]{"商品", "详情"};
@@ -48,6 +49,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
         tabLayout = findViewById(R.id.tabLayout);
 
         ivBack.setOnClickListener(this);
+        ivToolbarMore.setOnClickListener(this);
         mFragments = new ArrayList<>();
         mFragments.add(new ProductFragment());
         mFragments.add(new ProductDetailFragment());
@@ -70,7 +72,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
-           // popupWindow.dismiss();
+            popupWindow.dismiss();
         }
     };
 
@@ -97,10 +99,11 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                 list.add("消息");
                 list.add("服务社");
                 list.add("购物车");
-                //popupWindow = new MorePopupWindow(this, onItemClickListener);
-               // popupWindow.setList(list);
+                Log.i(TAG,"更多");
+                popupWindow = new MorePopupWindow(this, onItemClickListener);
+                popupWindow.setList(list);
 
-               // popupWindow.show(toolbarMore, 20);
+                popupWindow.show(ivToolbarMore, 20);
                 break;
         }
 

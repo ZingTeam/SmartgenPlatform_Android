@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,7 +25,7 @@ import java.util.List;
  * 创意市场--项目列表适配器
  */
 public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Creativeproject> datas; // 数据源
+    private List<Creativeproject> datas;// 数据源
     private Context context;    // 上下文Context
 
     private int normalType = 0;     // 第一种ViewType，正常的item
@@ -31,15 +33,99 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private boolean hasMore = true;   // 变量，是否有更多数据
     private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
-    private Handler mHandler = new Handler(Looper.getMainLooper());
 
-
+    private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
     public MarketProjectAdapter(List<Creativeproject> datas, Context context, boolean hasMore) {
         // 初始化变量
         this.datas = datas;
         this.context = context;
         this.hasMore = hasMore;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // 根据返回的ViewType，绑定不同的布局文件，这里只有两种
+        if (viewType == normalType) {
+            return new MarketProjectAdapter.NormalHolder(LayoutInflater.from(context).inflate(R.layout.item_project_market, null));
+        } else {
+            return new MarketProjectAdapter.FootHolder(LayoutInflater.from(context).inflate(R.layout.footview, null));
+        }
+    }
+    //监听item的接口
+    public interface OnItemClickListener{
+        void onItemClick(View view , int position);//重写方法
+    }
+    private OnItemClickListener mOnItemClickListener;//声明接口
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        // 如果是正常的imte，直接设置各个控件的值
+        if (holder instanceof MarketProjectAdapter.NormalHolder) {
+            setViewValue(holder,position);
+            //监听item
+            View itemView = ((LinearLayout) holder.itemView).getChildAt(0);
+            if (mOnItemClickListener != null) {
+                Log.i("MainActivity","市场项目监听进来了");
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = holder.getLayoutPosition();
+                        mOnItemClickListener.onItemClick(holder.itemView, position);
+                    }
+                });
+            }
+        }
+            else {
+            // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
+            ((MarketProjectAdapter.FootHolder) holder).tips.setVisibility(View.VISIBLE);
+            // 只有获取数据为空时，hasMore为false，所以当我们拉到底部时基本都会首先显示“正在加载更多...”
+            if (hasMore == true) {
+                // 不隐藏footView提示
+                fadeTips = false;
+                if (datas.size() > 0) {
+                    // 如果查询数据发现增加之后，就显示正在加载更多
+                    ((MarketProjectAdapter.FootHolder) holder).tips.setText("正在加载更多...");
+                }
+            } else {
+                if (datas.size() > 0) {
+                    // 如果查询数据发现并没有增加时，就显示没有更多数据了
+                    ((MarketProjectAdapter.FootHolder) holder).tips.setText("没有更多数据了");
+                    // 然后通过延时加载模拟网络请求的时间，在1000ms后执行
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 隐藏提示条
+                            ((MarketProjectAdapter.FootHolder) holder).tips.setVisibility(View.GONE);
+                            // 将fadeTips设置true
+                            fadeTips = true;
+                            // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
+                            hasMore = true;
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    }
+
+    private void setViewValue(final RecyclerView.ViewHolder holder, int position) {
+        ((MarketProjectAdapter.NormalHolder) holder).tvTitle.setText(datas.get(position).getCreprojectTitle());
+        //项目简言取项目内容里的前15个字符
+        ((MarketProjectAdapter.NormalHolder) holder).tvAbstract.setText(datas.get(position).getCreprojectContent().substring(0,15));
+        //0为未孵化，1为孵化中
+        if(datas.get(position).getCreprojectState() == 0){
+            ((MarketProjectAdapter.NormalHolder) holder).tvState.setText("未孵化");
+            Glide.with(context).load(R.mipmap.ic_nono_fh).into( ((MarketProjectAdapter.NormalHolder) holder).ivStatePicture);
+        }else{
+            ((MarketProjectAdapter.NormalHolder) holder).tvState.setText("孵化中");
+            Glide.with(context).load(R.mipmap.ic_now_fh).into( ((MarketProjectAdapter.NormalHolder) holder).ivStatePicture);
+        }
+        // 图片加载，placeholder里的为默认图片
+        Glide.with(context).load(datas.get(position).getCreprojectPicture()).placeholder(R.mipmap.login_bg).into( ((MarketProjectAdapter.NormalHolder) holder).ivPicture);
     }
 
     // 获取条目数量，之所以要加1是因为增加了一条footView
@@ -53,15 +139,13 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
         return datas.size();
     }
 
-
-    // 根据条目位置返回ViewType，以供onCreateViewHolder方法内获取不同的Holder
-    @Override
-    public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
-            return footType;
-        } else {
-            return normalType;
+    // 暴露接口，更新数据源，并修改hasMore的值，如果有增加数据，hasMore为true，否则为false
+    public void updateList(List<Creativeproject> newDatas, boolean hasMore) {
+        if (newDatas != null) {
+            datas.addAll(newDatas);
         }
+        this.hasMore = hasMore;
+        notifyDataSetChanged();
     }
 
     // 正常item的ViewHolder，用以缓存findView操作
@@ -81,80 +165,13 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    // // 底部footView的ViewHolder，用以缓存findView操作
+    // 底部footView的ViewHolder，用以缓存findView操作
     class FootHolder extends RecyclerView.ViewHolder {
         private TextView tips;
 
         public FootHolder(View itemView) {
             super(itemView);
             tips = (TextView) itemView.findViewById(R.id.tips);
-        }
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // 根据返回的ViewType，绑定不同的布局文件，这里只有两种
-        if (viewType == normalType) {
-            return new NormalHolder(LayoutInflater.from(context).inflate(R.layout.item_project_market, null));
-        } else {
-            return new FootHolder(LayoutInflater.from(context).inflate(R.layout.footview, null));
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        // 如果是正常的imte，直接设置imte控件中的值
-        if (holder instanceof NormalHolder) {
-            ((NormalHolder) holder).tvTitle.setText(datas.get(position).getCreprojectTitle());
-            Log.i("MainActivity","title:"+datas.get(position).getCreprojectTitle()+datas.get(position).getCreprojectState());
-            ((NormalHolder) holder).tvAbstract.setText(datas.get(position).getCreprojectContent().substring(0,15));
-            //0为未孵化，1为孵化中
-            if(datas.get(position).getCreprojectState() == 0){
-                ((NormalHolder) holder).tvState.setText("未孵化");
-                Glide.with(context).load(R.mipmap.ic_nono_fh).into( ((NormalHolder) holder).ivStatePicture);
-            }else{
-                ((NormalHolder) holder).tvState.setText("孵化中");
-                Glide.with(context).load(R.mipmap.ic_now_fh).into( ((NormalHolder) holder).ivStatePicture);
-            }
-            // 图片加载
-            Glide.with(context).load(datas.get(position).getCreprojectPicture()).into( ((NormalHolder) holder).ivPicture);
-        } else {
-            // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
-            ((FootHolder) holder).tips.setVisibility(View.VISIBLE);
-            // 只有获取数据为空时，hasMore为false，所以当我们拉到底部时基本都会首先显示“正在加载更多...”
-            if (hasMore == true) {
-                // 不隐藏footView提示
-                fadeTips = false;
-                if (datas.size() > 0) {
-                    // 如果查询数据发现增加之后，就显示正在加载更多
-                    Log.i("MainActivity","正在加载更多...");
-                    ((FootHolder) holder).tips.setText("正在加载更多...");
-                }
-            } else {
-                if (datas.size() > 0) {
-                    // 如果查询数据发现并没有增加时，就显示没有更多数据了
-                    ((FootHolder) holder).tips.setText("没有更多数据了");
-                    /*// 隐藏提示条
-                    ((FootHolder) holder).tips.setVisibility(View.GONE);
-                    // 将fadeTips设置true
-                    fadeTips = true;
-                    // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
-                    hasMore = true;*/
-
-                    // 然后通过延时加载模拟网络请求的时间，在500ms后执行
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 隐藏提示条
-                            ((FootHolder) holder).tips.setVisibility(View.GONE);
-                            // 将fadeTips设置true
-                            fadeTips = true;
-                            // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
-                            hasMore = true;
-                        }
-                    }, 500);
-                }
-            }
         }
     }
 
@@ -168,85 +185,13 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
         datas = new ArrayList<>();
     }
 
-    // 暴露接口，更新数据源，并修改hasMore的值，如果有增加数据，hasMore为true，否则为false
-    public void updateList(List<Creativeproject> newDatas, boolean hasMore) {
-        // 在原有的数据之上增加新数据
-        if (newDatas != null) {
-            datas.addAll(newDatas);
+    // 根据条目位置返回ViewType，以供onCreateViewHolder方法内获取不同的Holder
+    @Override
+    public int getItemViewType(int position) {
+        if (position == getItemCount() - 1) {
+            return footType;
+        } else {
+            return normalType;
         }
-        this.hasMore = hasMore;
-        notifyDataSetChanged();
     }
-
 }
-
-    /*private Context context;
-    private List<Creativeproject> list;
-
-    public MarketProjectAdapter(Context context , List<Creativeproject> list) {
-        this.context = context;
-        this.list = list;
-    }
-
-    *//**
-     * 创建视图，并绑定ViewHolder
-     * @param parent   :
-     * @param viewType :
-     *//*
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // 创建行视图
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.item_project_market, parent, false);
-        return new ViewHolder(view);    // 返回ViewHolder对象，并将行视图通过构造传入
-    }
-
-    *//**
-     * 配置行布局中控件的数据
-     * @param holder
-     * @param position
-     *//*
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvTitle.setText(list.get(position).getCreprojectTitle());
-        Log.i("MainActivity","title:"+list.get(position).getCreprojectTitle()+list.get(position).getCreprojectState());
-        holder.tvAbstract.setText(list.get(position).getCreprojectContent().substring(0,15));
-        //0为未孵化，1为孵化中
-        if(list.get(position).getCreprojectState() == 0){
-            holder.tvState.setText("未孵化");
-            Glide.with(context).load(R.mipmap.ic_nono_fh).into(holder.ivStatePicture);
-        }else{
-            holder.tvState.setText("孵化中");
-            Glide.with(context).load(R.mipmap.ic_now_fh).into(holder.ivStatePicture);
-        }
-        // 图片加载
-        Glide.with(context).load(list.get(position).getCreprojectPicture()).into(holder.ivPicture);
-    }
-
-    *//**
-     * 配置列表行数
-     *//*
-    @Override
-    public int getItemCount() {
-        return list == null ? 0 : list.size();
-    }
-
-    *//**
-     * 定义行布局中的控件，并获取控件
-     *//*
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView ivPicture,ivStatePicture,ivDetails;
-        private TextView tvTitle,tvAbstract,tvState;
-        public ViewHolder(View itemView) {
-            super(itemView);
-            // 获取行视图中的控件
-            ivPicture = itemView.findViewById(R.id.iv_project_picture_market);
-            ivStatePicture = itemView.findViewById(R.id.iv_project_statepicture_market);
-            ivDetails = itemView.findViewById(R.id.iv_project_details_market);
-            tvTitle = itemView.findViewById(R.id.tv_project_title_market);
-            tvAbstract = itemView.findViewById(R.id.tv_project_abstract_market);
-            tvState = itemView.findViewById(R.id.tv_project_state_market);
-        }
-    }
-}*/
-

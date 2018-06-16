@@ -1,8 +1,10 @@
 package com.example.txjju.smartgenplatform_android.pojo;
 
-import java.sql.Timestamp;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 创意项目表
@@ -23,9 +25,9 @@ public class Creativeproject {
     private Integer creprojectClassify;//创意项目分类 0-生活手工 1-家具家居 2-科技数码 3-艺术娱乐 4-医疗健康 5-户外运动 6-为其他
     private Integer creprojectState;//孵化状态 0-未孵化 1-孵化中 2-已孵化
     private Integer creprojectPraise;//点赞数
-    private Timestamp creprojectModifyTime;//最后一次修改时间
-    private Timestamp creprojectReleaseTime;//最后一次发布时间
-    private Timestamp creprojectEvaluateTime;//最后一次评估时间
+    private String creprojectModifyTime;//最后一次修改时间
+    private String creprojectReleaseTime;//最后一次发布时间
+    private String creprojectEvaluateTime;//最后一次评估时间
     private Integer creprojectEvaluateResult;//专家评估结果
     private String creprojectEvaluateOpinion;//专家评估意见
     private Set<Product> products = new HashSet<Product>();//外键关系-产品表-一对多关系
@@ -135,27 +137,27 @@ public class Creativeproject {
         this.creprojectPraise = creprojectPraise;
     }
 
-    public Timestamp getCreprojectModifyTime() {
+    public String getCreprojectModifyTime() {
         return creprojectModifyTime;
     }
 
-    public void setCreprojectModifyTime(Timestamp creprojectModifyTime) {
+    public void setCreprojectModifyTime(String creprojectModifyTime) {
         this.creprojectModifyTime = creprojectModifyTime;
     }
 
-    public Timestamp getCreprojectReleaseTime() {
+    public String getCreprojectReleaseTime() {
         return creprojectReleaseTime;
     }
 
-    public void setCreprojectReleaseTime(Timestamp creprojectReleaseTime) {
+    public void setCreprojectReleaseTime(String creprojectReleaseTime) {
         this.creprojectReleaseTime = creprojectReleaseTime;
     }
 
-    public Timestamp getCreprojectEvaluateTime() {
+    public String getCreprojectEvaluateTime() {
         return creprojectEvaluateTime;
     }
 
-    public void setCreprojectEvaluateTime(Timestamp creprojectEvaluateTime) {
+    public void setCreprojectEvaluateTime(String creprojectEvaluateTime) {
         this.creprojectEvaluateTime = creprojectEvaluateTime;
     }
 

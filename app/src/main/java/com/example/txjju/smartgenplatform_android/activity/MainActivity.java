@@ -36,7 +36,7 @@ import java.util.List;
 
 import static com.ashokvarma.bottomnavigation.ShapeBadgeItem.SHAPE_OVAL;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
     //1.输入“logt”，设置静态常量TAG
     private static final String TAG = "MainActivity";
     private ArrayList<Fragment> fragments;
@@ -45,13 +45,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private int currPosition = 0;//默认是首页
     private String[] tags = new String[]{"HomeFragment","MarketFragment","StoreFragment","MineFragment"};
     private FrameLayout fl;
-    private BottomNavigationBar bottomNavigationBar;
+    public BottomNavigationBar bottomNavigationBar;
+    private HomeFragment homeFragment = new HomeFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //底部导航栏
-        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         bottomNavigationBar
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE
@@ -109,14 +111,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     }
 
-    private void showFragment(int i) {
+    public void showFragment(int i) {
         FragmentTransaction ft = fm.beginTransaction();//实例化Fragment事务管理器
         hiddenFragment();//先隐藏所有Fragment
         ft.show(fgList.get(i));//显示Fragment
         ft.commit();
     }
 
-    private void hiddenFragment() {
+    public void hiddenFragment() {
         FragmentTransaction ft = fm.beginTransaction();//实例化Fragment事务管理器
         for(Fragment fg:fgList){
             ft.hide(fg);
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         switch (position){
             case 0://选择首页
                 Log.d(TAG,"选择首页");
+            //bottomNavigationBar.selectTab(2);
                 showFragment(0);
                 clickAgain(0);
                 break;
@@ -168,7 +171,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     @Override
     public void onTabReselected(int position) {
 
-    }
+    }/**
+     * 实现回调方法，跳转到另一个fragment
+     * @param index fragment1传递过来的参数，给根据传递不同的参数做不同的操作
+     */
+
+
     /**
      @param bottomNavigationBar，需要修改的 BottomNavigationBar
      @param space 图片与文字之间的间距
@@ -224,4 +232,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         final float scale = getApplication().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
 }

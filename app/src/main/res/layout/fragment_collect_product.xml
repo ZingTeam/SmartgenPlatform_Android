@@ -18,7 +18,8 @@
                 android:id="@+id/rc_collect_product_mine"
                 android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginBottom="60dp"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

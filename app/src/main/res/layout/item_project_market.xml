@@ -29,8 +29,8 @@
         <TextView
             android:id="@+id/tv_project_title_market"
             style="@style/style_c7_s18"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="-4dp"
             android:layout_marginBottom="10dp"
@@ -41,7 +41,7 @@
             android:id="@+id/tv_project_abstract_market"
             style="@style/style_c5_s14"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="38dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="微软雅黑"
             android:text="不一样的创意指环，让生活更优雅" />
