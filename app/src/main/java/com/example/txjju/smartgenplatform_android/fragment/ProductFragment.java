@@ -50,19 +50,14 @@ public class ProductFragment extends BaseFragment {
         initViews(view);// 获取新建视图View中布局文件的控件
         initBanner();
         initScrooll();
-        initData();
+
         return view;
     }
 
-    private void initData() {
-        countdownView.setTime(testTime);
-        countdownView.start();
-    }
 
     private void initViews(View view) {
         banner = view.findViewById(R.id.detail_banner);
         scrollViewWrapper = view.findViewById(R.id.scrollViewWrapper);
-        countdownView = view.findViewById(R.id.countdown_view);
     }
 
     private void initBanner() {
