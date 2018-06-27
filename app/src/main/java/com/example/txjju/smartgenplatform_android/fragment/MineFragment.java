@@ -1,13 +1,18 @@
 package com.example.txjju.smartgenplatform_android.fragment;
 
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +20,18 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.activity.AboutMeActivity;
 import com.example.txjju.smartgenplatform_android.activity.MainActivity;
 import com.example.txjju.smartgenplatform_android.activity.OrderActivity;
+import com.example.txjju.smartgenplatform_android.activity.ProductDetailsActivity;
 import com.example.txjju.smartgenplatform_android.activity.SettingActivity;
 import com.example.txjju.smartgenplatform_android.activity.ShoppingCartActivity;
 import com.example.txjju.smartgenplatform_android.activity.SystemMessagesActivity;
+import com.example.txjju.smartgenplatform_android.pojo.User;
 import com.example.txjju.smartgenplatform_android.util.MessageEvent;
+import com.example.txjju.smartgenplatform_android.util.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,10 +44,13 @@ import java.util.List;
  */
 public class MineFragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView tvName,tvCollectProject,tvCollectProduct,tvEdit,tvCollectProductLine,tvCollectProjectLine;
+    private TextView tvName,tvAttention,tvFans,tvOneMsg,tvCollectProject,tvCollectProduct,tvEdit,tvCollectProductLine,tvCollectProjectLine;
     private ImageView ivImgUser,ivSet,ivNews;
     private RadioButton rbOrder,rbPublic,rbCart,rbHistory;
     private RecyclerView rvCreativeProject;
+    private Dialog dialog;
+    private int userId;//保存用户ID
+    private User user;
 
     //fragment
     private List<Fragment> fgList;  // 装载Fragment的集合
@@ -52,10 +64,25 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        //获取用户信息
+        user = SPUtil.getUser(getActivity());
         //获取新建视图View中布局文件的控件
         initViews(view);
         initFragment();
+        if(user == null){
+            return view;
+        }
+        init();//初始化用户信息
         return view;
+    }
+
+    private void init() {
+        // 用户头像图片加载
+        Glide.with(getActivity()).load(user.getUserHeadPortrait()).placeholder(R.mipmap.qx).into(ivImgUser);
+        tvName.setText(user.getUserName());
+        tvOneMsg.setText("改变世界，创意你我");
+        tvAttention.setText("50");
+        tvFans.setText("85");
     }
 
     private void initFragment() {
@@ -94,6 +121,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initViews(View view) {
+        tvName = view.findViewById(R.id.tv_mine_name);
+        tvAttention = view.findViewById(R.id.tv_attention_mine);
+        tvFans = view.findViewById(R.id.tv_fans_mine);
+        tvOneMsg = view.findViewById(R.id.tv_one_msg_mine);
         ivImgUser = view.findViewById(R.id.img_mine_user);//获取用户头像控件
         ivSet = view.findViewById(R.id.iv_mine_set);//获取“设置”控件
         ivNews = view.findViewById(R.id.iv_mine_news);//获取“消息”控件

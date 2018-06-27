@@ -58,6 +58,8 @@ public class StoreFragment extends BaseFragment {
 
     //1.输入“logt”，设置静态常量TAG
     private static final String TAG = "MainActivity";
+    private static final int REQUEST_PRODUCTDETAILS = 95;
+    private static final int RESULT_PRODUCTDETAILS = 1;
 
     private int lastVisibleItem = 0;//可见的最后一个item
     private final int PAGE_COUNT = 5;//每次加载的数据量
@@ -79,7 +81,6 @@ public class StoreFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //loadData(); // 加载服务端数据
         // 检测网络
         if (!checkNetwork(getActivity())) {
             Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
@@ -87,18 +88,20 @@ public class StoreFragment extends BaseFragment {
             toast.show();
             return;
         }
+        loadData(); // 加载服务端数据
     }
 
     private void loadData() {
+        Log.i(TAG,"加载数据");
         final ProgressDialog pgDialog = new ProgressDialog(getActivity());
         pgDialog.setMessage("记载中，请稍后...");
         pgDialog.show();
         // 加载创意产品列表数据//向后台发送请求，验证用户信息
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add("Param.condition","");//传递键值对参数
+        formBody.add("queryParam.condition","1=1");//传递键值对参数
         Request request = new Request.Builder()//创建Request 对象。
-                .url(Constant.PRODUCT_GET)//接口有待考量？
+                .url(Constant.PRODUCT_GET)
                 .post(formBody.build())//传递请求体
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -128,7 +131,28 @@ public class StoreFragment extends BaseFragment {
                                 basePojo = JsonUtil.getBaseFromJson(
                                         getActivity(), result, new TypeToken<BasePojo<Product>>(){}.getType());
                                 if(basePojo != null){
-                                    if(basePojo.getSuccess() && basePojo.getTotal() > 0){   // 信息获取成功,有数据
+                                    if(basePojo.getSuccess()){
+                                        if(basePojo.getTotal() > 0){ //信息获取成功,回传有数据
+                                            List<Product> list  = basePojo.getDatas();  // 获取后台返回的创意项目信息
+                                            Log.i(TAG,"商城：结果"+list.toString());
+                                            productList.clear();
+                                            productList.addAll(list);
+                                            pgDialog.dismiss();//隐藏进度栏
+                                            productAdapter.resetDatas();//刷新时，数据源置为空
+                                            updateRecyclerView(0, PAGE_COUNT);// 通知适配器更新列表
+                                            refreshLayout.finishRefresh();  //停止刷新
+                                        }else{
+                                            Log.i(TAG,"商城：后台传来数据为空"+basePojo.getMsg());
+                                            ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
+                                            pgDialog.dismiss();//隐藏进度栏
+                                            productAdapter.resetDatas();//刷新时，数据源置为空
+                                            refreshLayout.finishRefresh();  //停止刷新
+                                        }
+                                    }else{
+                                        Log.i(TAG,"商城：后台传来失败了"+basePojo.getMsg());
+                                        ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
+                                    }
+                                    /*if(basePojo.getSuccess() && basePojo.getTotal() > 0){   // 信息获取成功,有数据
                                         List<Product> list  = basePojo.getDatas();  // 获取后台返回的创意项目信息
                                         Log.i(TAG,"商城：结果"+list.toString());
                                         productList.clear();
@@ -140,7 +164,7 @@ public class StoreFragment extends BaseFragment {
 
                                     }else{
                                         ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
-                                    }
+                                    }*/
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -160,7 +184,7 @@ public class StoreFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
         //获取新建视图View中布局文件的控件
         //获取新建视图View中布局文件的控件
-        initData();//初始化假的数据，用于测试
+        //initData();//初始化假的数据，用于测试
         initViews(view);// 获取新建视图View中布局文件的控件
         initRefreshLayout();//设置刷新
         initRecyclerView();//初始化RecyclerView
@@ -180,14 +204,15 @@ public class StoreFragment extends BaseFragment {
             // 下拉刷新执行的方法
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-               // loadData(); // 重新加载数据
                 // 检测网络
                 if (!checkNetwork(getActivity())) {
                     Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+                    refreshLayout.finishRefresh();
                     return;
                 }
+                loadData(); // 重新加载数据
             }
         });
     }
@@ -270,10 +295,29 @@ public class StoreFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, int position) {
                 Log.i(TAG,"商城产品跳转");
+                int productId = productList.get(position).getId();
+                Log.i(TAG,"项目id"+productId);
                 Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);//跳转到产品详情
-                startActivity(intent);
+                intent.putExtra("productId",Integer.toString(productId));
+                //这里使用startActivityForResult进行跳转是为了方便有回传，回传里可以刷新列表
+                startActivityForResult(intent,REQUEST_PRODUCTDETAILS);//REQUEST_PRODUCTDETAILS是请求码
             }
         });
+    }
+
+    // 用户跳转到产品详情后执行回调,进行刷新
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_PRODUCTDETAILS && resultCode == RESULT_PRODUCTDETAILS){
+            // 检测网络
+            if (!checkNetwork(getActivity())) {
+                Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                return;
+            }
+            loadData(); // 重新加载数据
+        }
     }
 
     private List<Product> getDatas(final int firstIndex, final int lastIndex) {

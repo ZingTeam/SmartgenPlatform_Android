@@ -70,6 +70,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     //1.输入“logt”，设置静态常量TAG
     private static final String TAG = "MainActivity";
+    private static final int REQUEST_PROJECTDETAILS = 96;//请求码
+    private static final int RESULT_PROJECTDETAILS = 1;//1代表成功，0代表失败
+    private static final int REQUEST_PRODUCTDETAILS = 95;
+    private static final int RESULT_PRODUCTDETAILS = 1;//1代表成功，0代表失败
 
     private TextView tvProductMoreView,tvProjectMoreView,tvSpecifysaleMoreView;
     private ImageView ivRecommendLeftHome,ivRecommendRightHome;
@@ -137,23 +141,25 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      * 处理后台来的数据
      */
     private void loadData() {
-        final ProgressDialog pgDialog = new ProgressDialog(getActivity());
-        pgDialog.setMessage("记载中，请稍后...");
-        pgDialog.show();
-        initCreproject(pgDialog);
-        //initProduct(pgDialog);
+        initCreproject();
+        initProduct();
     }
 
     /**
      * 加载创意产品数据
      */
-    private void initProduct(final ProgressDialog pgDialog) {
+    private void initProduct() {
+        final ProgressDialog pgDialog = new ProgressDialog(getActivity());
+        pgDialog.setMessage("记载中，请稍后...");
+        pgDialog.show();
         // 加载项目列表数据//向后台发送请求，验证用户信息
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add("queryParam.condition","");//传递键值对参数
+        formBody.add("queryParam.orderBy","productSell");//按项目点赞数来排序
+        formBody.add("queryParam.orderByInTurn","DESC");//降序排列
+        formBody.add("queryParam.pageSize","6");//取6个最火热的产品
         Request request = new Request.Builder()//创建Request 对象。
-                .url(Constant.CREPROJECT_GET)
+                .url(Constant.PRODUCT_GET)
                 .post(formBody.build())//传递请求体
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -191,8 +197,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                         productList.addAll(list);
                                         productAdapter.notifyDataSetChanged(); // 通知适配器更新列表
                                         refreshLayout.finishRefresh();  //停止刷新
-
                                     }else{
+                                        pgDialog.dismiss();
                                         ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
                                     }
                                 }
@@ -209,12 +215,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     /**
      * 加载创意项目数据
      */
-    private void initCreproject(final ProgressDialog pgDialog) {
+    private void initCreproject() {
+        final ProgressDialog pgDialog = new ProgressDialog(getActivity());
+        pgDialog.setMessage("记载中，请稍后...");
+        pgDialog.show();
         // 加载项目列表数据//向后台发送请求，验证用户信息
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        formBody.add("queryParam.condition"," (Creproject_state=0 or Creproject_state=1)");//筛选条件
         formBody.add("queryParam.orderBy","creprojectPraise");//按项目点赞数来排序
-        formBody.add("queryParam.orderByInTurn","ASC");//升序排列
+        formBody.add("queryParam.orderByInTurn","DESC");//降序排列
         formBody.add("queryParam.pageSize","6");//取6个最火热的项目
         Request request = new Request.Builder()//创建Request 对象。
                 .url(Constant.CREPROJECT_GET)
@@ -247,6 +257,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                 basePojo = JsonUtil.getBaseFromJson(
                                         getActivity(), creprojectResult, new TypeToken<BasePojo<Creativeproject>>(){}.getType());
                                 if(basePojo != null){
+                                    if(basePojo.getSuccess()){
+                                        if(basePojo.getTotal() > 0){// 信息获取成功,有数据
+                                            List<Creativeproject> list  = basePojo.getDatas();  // 获取后台返回的创意项目信息
+                                            Log.i(TAG,"首页项目：结果"+list.toString());
+                                            pgDialog.dismiss();
+                                            projectList.clear();
+                                            projectList.addAll(list);
+                                            projectAdapter.notifyDataSetChanged(); // 通知适配器更新列表
+                                            refreshLayout.finishRefresh();  //停止刷新
+                                        }else{
+                                            pgDialog.dismiss();
+                                        }
+                                    }else {
+                                        pgDialog.dismiss();
+                                        Log.i(TAG,"首页项目：后台传来失败了"+basePojo.getMsg());
+                                        ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
+                                    }
                                     if(basePojo.getSuccess() && basePojo.getTotal() > 0){   // 信息获取成功,有数据
                                         List<Creativeproject> list  = basePojo.getDatas();  // 获取后台返回的创意项目信息
                                         Log.i(TAG,"首页项目：结果"+list.toString());
@@ -255,7 +282,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                         projectList.addAll(list);
                                         projectAdapter.notifyDataSetChanged(); // 通知适配器更新列表
                                         refreshLayout.finishRefresh();  //停止刷新
-
                                     }else{
                                         ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
                                     }
@@ -276,7 +302,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        initData();//初始化假的数据，用于测试
+        //initData();//初始化假的数据，用于测试
         initViews(view);// 获取新建视图View中布局文件的控件
         initRefreshLayout();//设置刷新
         initBanner();//初始化轮播图
@@ -301,6 +327,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+                    refreshLayout.finishRefresh();
                     return;
                 }
                 loadData(); // 重新加载数据
@@ -342,7 +369,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         rvProduct.setLayoutManager(layoutManager);
         // 添加分割线（重新绘制分割线）
         rvProduct.addItemDecoration(new RecycleViewDivider(getActivity(),
-                LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.bgLightGray)));
+                LinearLayoutManager.VERTICAL, 2, getResources().getColor(R.color.bgLightGray)));
 
         //适配项目的RecyclerView
         // RecyclerView必须用LinearLayoutManager进行配置
@@ -356,7 +383,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         rvProject.setLayoutManager(layoutManagers);
         // 添加分割线（重新绘制分割线）
         rvProject.addItemDecoration(new RecycleViewDivider(getActivity(),
-                LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.bgLightGray)));
+                LinearLayoutManager.VERTICAL, 2, getResources().getColor(R.color.bgLightGray)));
 
         productAdapter = new HomeProductAdapter(getActivity(), productList);
         projectAdapter = new HomeProjectAdapter(getActivity(), projectList);
@@ -366,27 +393,74 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         productAdapter.setOnItemClickListener(new HomeProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.i(TAG,"首页产品跳转");
+                Log.i(TAG,"商城产品跳转");
+                // 检测网络
+                if (!checkNetwork(getActivity())) {
+                    Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    return;
+                }
+                int productId = productList.get(position).getId();
+                Log.i(TAG,"项目id"+productId);
                 Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);//跳转到产品详情
-                startActivity(intent);
+                intent.putExtra("productId",Integer.toString(productId));
+                //这里使用startActivityForResult进行跳转是为了方便有回传，回传里可以刷新列表
+                startActivityForResult(intent,REQUEST_PRODUCTDETAILS);//REQUEST_PRODUCTDETAILS是请求码
             }
         });
         //监听首页项目item
         projectAdapter.setOnItemClickListener(new HomeProjectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.i(TAG,"首页项目跳转");
+                Log.i(TAG,"市场项目跳转");
+                // 检测网络
+                if (!checkNetwork(getActivity())) {
+                    Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    return;
+                }
+                int projectId = projectList.get(position).getId();
+                Log.i(TAG,"项目id"+projectId);
                 Intent intent = new Intent(getActivity(), ProjectDetailsActivity.class);//跳转到项目详情
-                startActivity(intent);
+                intent.putExtra("creProjectId",Integer.toString(projectId));
+                //这里使用startActivityForResult进行跳转是为了方便有回传，回传里可以刷新列表
+                startActivityForResult(intent,REQUEST_PROJECTDETAILS);//REQUEST_PROJECTDETAILS是请求码，为了直观，就没有定义常量
             }
         });
+    }
+
+    // 用户跳转到项目详情或产品详情后执行回调,进行刷新
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_PROJECTDETAILS && resultCode == RESULT_PROJECTDETAILS){
+            // 检测网络
+            if (!checkNetwork(getActivity())) {
+                Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                return;
+            }
+            initCreproject(); // 重新加载数据
+        }
+        if(requestCode == REQUEST_PRODUCTDETAILS && resultCode == RESULT_PRODUCTDETAILS){
+            // 检测网络
+            if (!checkNetwork(getActivity())) {
+                Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                return;
+            }
+            initProduct(); // 重新加载数据
+        }
     }
 
     private void initBanner() {
         bannerImgList.add("http://p88c3g279.bkt.clouddn.com/image/banner1.jpg");
         bannerImgList.add("http://p88c3g279.bkt.clouddn.com/image/banner2.jpg");
         bannerImgList.add("http://p88c3g279.bkt.clouddn.com/image/banner3.jpg");
-        bannerImgList.add("http://p88c3g279.bkt.clouddn.com/image/banner4.jpg");
+        bannerImgList.add("http://p0vpex4u9.bkt.clouddn.com/base.jpg");
 //        bannerTitleList.add("倾向于没有开始，直到你有一杯咖啡");
 //        bannerTitleList.add("创意的价值无法用金钱衡量");
 //        bannerTitleList.add("我们帮你完成成功路上的第一步");
@@ -437,10 +511,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_product_more_view:
+                // 检测网络
+                if (!checkNetwork(getActivity())) {
+                    Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    return;
+                }
                 ((MainActivity)getActivity()).showFragment(2);//实现fragment之间的转换
                 ((MainActivity)getActivity()).bottomNavigationBar.selectTab(2);//实现底部导航栏的切换
                 break;
             case R.id.tv_project_more_view:
+                // 检测网络
+                if (!checkNetwork(getActivity())) {
+                    Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    return;
+                }
                 ((MainActivity)getActivity()).showFragment(1);//实现fragment之间的转换
                 ((MainActivity)getActivity()).bottomNavigationBar.selectTab(1);//实现底部导航栏的切换
                 break;
@@ -448,19 +536,33 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Log.i("MainActivity","特价");
                 break;
             case R.id.iv_recommend_left_home:
+                // 检测网络
+                if (!checkNetwork(getActivity())) {
+                    Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    return;
+                }
                 Log.i("MainActivity","左边");
                 break;
             case R.id.iv_recommend_right_home:
+                // 检测网络
+                if (!checkNetwork(getActivity())) {
+                    Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    return;
+                }
                 Log.i("MainActivity","右边");
                 break;
         }
     }
-    private void changeToAnotherFragment(){
+    /*private void changeToAnotherFragment(){
         FragmentManager fm = getActivity().getSupportFragmentManager();// 这里要导android.support.v4.app.FragmentManager这个包
         FragmentTransaction ft = fm.beginTransaction();// import android.support.v4.app.FragmentTransaction;
         ft.replace(R.id.fl_container, new MarketFragment());// 这里的R.id为所附着Activity的XML文件中FrameLayout标签的id
         ft.commit(); // 最后不要忘记commit
-    }
+    }*/
 
     /**
      * 测试用的假数据

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
+    android:fontFamily="微软雅黑"
     tools:context="com.example.txjju.smartgenplatform_android.activity.OrderDetailWaitActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,10 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_alignParentTop="true"
-            android:background="@color/white">
+            android:background="@color/bgLightGray">
 
             <ImageView
-                android:id="@+id/iv_confirmOrder_back"
+                android:id="@+id/iv_orderDetail_order_back"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
@@ -61,68 +63,91 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bgLightGray"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_confirmOrder_userName"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:padding="2dp"
-                    android:text="收货人：小包子" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="收货人：" />
+
+                    <TextView
+                        android:id="@+id/tv_orderDetail_order_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="小包子" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_confirmOrder_userPhone"
+                    android:id="@+id/tv_orderDetail_order_userPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginLeft="220dp"
                     android:layout_marginTop="-20dp"
                     android:text="15270579059" />
 
 
-                <TextView
-                    android:id="@+id/tv_confirmOrder_userAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="3dp"
-                    android:padding="2dp"
-                    android:text="收货地址：江西省九江市庐山区人民医院九江学院主校区" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:padding="5dp">
-
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_market_normal" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="2dp"
+                        android:text="收货地址：" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="fill_vertical"
-                    android:text="众智品牌"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_orderDetail_order_userAddress"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:padding="2dp"
+                        android:text="江西省九江市庐山区人民医院九江学院主校区" />
+
+                </LinearLayout>
+            </LinearLayout> <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_market_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="fill_vertical"
+                android:text="众智品牌"
+                android:textSize="16sp" />
+        </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_confirmOrder_product"
+                android:id="@+id/rv_orderDetail_order_product"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_height="wrap_content"/>
 
             <View
                 android:layout_width="match_parent"
@@ -135,8 +160,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -156,13 +182,14 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/txtGray" />
+                android:layout_marginTop="8dp"
+                android:background="@color/bgLightGray" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,7 +198,7 @@
                     android:text="合计：" />
 
                 <TextView
-                    android:id="@+id/tv_confirmOrder_totalPrice"
+                    android:id="@+id/tv_orderDetail_order_totalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -183,13 +210,14 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/txtGray" />
+                android:layout_marginTop="8dp"
+                android:background="@color/bgLightGray" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -198,7 +226,7 @@
                     android:text="需付款：" />
 
                 <TextView
-                    android:id="@+id/tv_OrderDetail_needPrice"
+                    android:id="@+id/tv_orderDetail_order_needPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -208,16 +236,17 @@
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="8dp"
+                android:layout_height="1dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/txtGray" />
+                android:layout_marginTop="8dp"
+                android:background="@color/bgLightGray" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -226,7 +255,7 @@
                     android:text="订单编号：" />
 
                 <TextView
-                    android:id="@+id/tv_OrderDetail_purchaseNo"
+                    android:id="@+id/tv_orderDetail_order_purchaseNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="201520216564"

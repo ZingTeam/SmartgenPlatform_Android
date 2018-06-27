@@ -19,7 +19,7 @@ public class Product {
     private Integer productNo;//产品编号
     private String productName;//产品名
     private Double productPrice;//产品价格
-    private Byte productClassify;//产品分类 0-生活手工 1-家具家居 2-科技数码 3-艺术娱乐 4-医疗健康 5-户外运动 6-其他
+    private Integer productClassify;//产品分类 0-生活手工 1-家具家居 2-科技数码 3-艺术娱乐 4-医疗健康 5-户外运动 6-其他
     private String productLabel;//产品标签
     private String productPicture;//产品图片路径
     private Byte productStatus;//产品类型 0-预购 1-直接购买 -1-下架商品
@@ -28,13 +28,14 @@ public class Product {
     private Double productFreight;//产品运费
     private String productCount;//产品库存
     private String productSell;//产品销量
+    private String productBuyCount;//产品销量
     private String productBestCount;//好评数量
     private String productMiddleCount;//中评数量
     private String productBadCount;//差评数量
     private String productRequireMoney;//(预购关系专属)需求钱数
     private String productCurrentMoney;//(预购关系专属)当前钱数
     private Double productCountPrice;//活动价格
-    private String ProductOneMsg;//一句话简介
+    private String productOneMsg;//一句话简介
     private Creativeproject creativeproject;//外键关系-Creproject_id-创意项目表-多对一
     private Company company;//外键关系-Company_id-公司表-多对一
     private Set<Productevalute> productevalutes = new HashSet<Productevalute>();//外键关系-商品评价信息表-一对多
@@ -76,11 +77,11 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public Byte getProductClassify() {
+    public Integer getProductClassify() {
         return productClassify;
     }
 
-    public void setProductClassify(Byte productClassify) {
+    public void setProductClassify(Integer productClassify) {
         this.productClassify = productClassify;
     }
 
@@ -148,6 +149,14 @@ public class Product {
         this.productSell = productSell;
     }
 
+    public String getProductBuyCount() {
+        return productBuyCount;
+    }
+
+    public void setProductBuyCount(String productBuyCount) {
+        this.productBuyCount = productBuyCount;
+    }
+
     public String getProductBestCount() {
         return productBestCount;
     }
@@ -197,11 +206,11 @@ public class Product {
     }
 
     public String getProductOneMsg() {
-        return ProductOneMsg;
+        return productOneMsg;
     }
 
     public void setProductOneMsg(String productOneMsg) {
-        ProductOneMsg = productOneMsg;
+        productOneMsg = productOneMsg;
     }
 
     public Creativeproject getCreativeproject() {

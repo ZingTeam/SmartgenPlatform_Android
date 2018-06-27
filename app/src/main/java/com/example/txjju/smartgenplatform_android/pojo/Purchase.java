@@ -1,7 +1,9 @@
 package com.example.txjju.smartgenplatform_android.pojo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,16 +18,16 @@ public class Purchase {
     private String purchasePatternOfPayment;//支付方式
     private Byte purchaseState;//订单状态 0-待付款 1-待发货 2-取消订单
     private Double purchasePrice;//产品交易总价
-    private Set<Purchaseitem> purchaseitems = new HashSet<Purchaseitem>();//外键关系-订单详情表-一对多
+    private List<Purchaseitem> purchaseitems = new ArrayList<>();//外键关系-订单详情表-一对多
     private User user;//外键关系-User_id-用户表-多对一
-    private Integer id;//主键id
+    private Integer purchaseId;//主键id
 
-    public Integer getId() {
-        return id;
+    public Integer getPurchaseId() {
+        return purchaseId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPurchaseId(Integer id) {
+        this.purchaseId = id;
     }
 
     public String getPurchaseNo() {
@@ -68,11 +70,11 @@ public class Purchase {
         this.purchasePrice = purchasePrice;
     }
 
-    public Set<Purchaseitem> getPurchaseitems() {
+    public List<Purchaseitem> getPurchaseitems() {
         return purchaseitems;
     }
 
-    public void setPurchaseitems(Set<Purchaseitem> purchaseitems) {
+    public void setPurchaseitems(List<Purchaseitem> purchaseitems) {
         this.purchaseitems = purchaseitems;
     }
 

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:fontFamily="微软雅黑"
     tools:context="com.example.txjju.smartgenplatform_android.activity.ConfirmOrderActivity">
 
     <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_alignParentTop="true"
-            android:background="@color/white">
+            android:background="@color/bgLightGray">
 
             <ImageView
                 android:id="@+id/iv_confirmOrder_back"
@@ -58,53 +59,80 @@
                 android:layout_height="wrap_content"
                 android:background="#a8dfe6"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_confirmOrder_userName"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:padding="2dp"
-                    android:text="收货人：小包子" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="收货人：" />
+
+                    <TextView
+                        android:id="@+id/tv_confirmOrder_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="小包子" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_confirmOrder_userPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginLeft="220dp"
                     android:layout_marginTop="-20dp"
                     android:text="15270579059" />
 
                 <ImageView
                     android:id="@+id/iv_confirmOrder_edit"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="2dp"
+                    android:padding="3dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/white"
+                    android:src="@mipmap/ic_more" />
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_more" />
-
-                <TextView
-                    android:id="@+id/tv_confirmOrder_userAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginRight="30dp"
-                    android:layout_marginTop="-10dp"
-                    android:padding="2dp"
-                    android:text="收货地址：江西省九江市庐山区人民医院九江学院主校区" />
+                    android:layout_marginTop="-15dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="2dp"
+                        android:text="收货地址：" />
+
+                    <TextView
+                        android:id="@+id/tv_confirmOrder_userAddress"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:padding="2dp"
+                        android:text="江西省九江市庐山区人民医院九江学院主校区" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginRight="20dp"
                 android:padding="5dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@mipmap/ic_market_normal" />
 
                 <TextView
@@ -113,15 +141,13 @@
                     android:layout_marginLeft="10dp"
                     android:gravity="fill_vertical"
                     android:text="众智品牌"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_confirmOrder_product"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_height="wrap_content"/>
 
             <View
                 android:layout_width="match_parent"
@@ -131,112 +157,99 @@
                 android:layout_marginTop="5dp"
                 />
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="运费：" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="包邮"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/txtGray" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="合计：" />
-
-                <TextView
-                    android:id="@+id/tv_confirmOrder_totalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="¥0.00"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/txtGray" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/bgLightGray">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:hint="写留言"
-                    android:background="@null"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/bgLightGray" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_discounts"
-                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="优惠"
+                    android:text="店铺优惠："
                     android:layout_marginLeft="5dp"
-                    android:textSize="18sp"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="30dp"
-                    android:background="@color/c8"
                     android:text="无可用"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/white"
-                    android:gravity="center"/>
+                    android:layout_marginLeft="180dp"
+                    android:gravity="center_vertical"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="180dp"
                     android:src="@mipmap/ic_more"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/bgLightGray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="配送方式："
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:text="快递免邮"
+                    android:layout_marginLeft="166dp"
+                    android:layout_marginRight="14dp"
+                    android:gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_more"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/bgLightGray" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="买家留言："
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"/>
+
+                <EditText
+                    android:id="@+id/ev_confirmOrder_message"
+                    android:layout_width="248dp"
+                    android:layout_height="30dp"
+                    android:textColor="@color/c6"
+                    android:hint="选填:可以写下你的要求"
+                    android:textSize="12sp"
+                    android:background="@drawable/liuyan_editview" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -349,31 +362,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-52dp"
+        android:layout_marginTop="-40dp"
         android:orientation="horizontal"
         android:gravity="right"
         android:background="@color/bgLightGray">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="实付款：¥"
-            android:textSize="20sp"
+            android:text="合计："
+            android:textSize="16sp"
+            android:textColor="@color/c6" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:layout_marginRight="1dp"
+            android:textSize="16sp"
             android:textColor="@color/c8" />
         <TextView
             android:id="@+id/tv_confirmOrder_actuallyPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0.00"
-            android:textSize="20sp"
+            android:layout_marginRight="8dp"
+            android:text="00.00"
+            android:textSize="16sp"
             android:textColor="@color/c8"/>
         <Button
             android:id="@+id/btn_confirmOrder_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提交并付款"
+            android:paddingLeft="3dp"
+            android:text="提交订单"
             android:background="@color/c8"
             android:textColor="@color/white"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </LinearLayout>

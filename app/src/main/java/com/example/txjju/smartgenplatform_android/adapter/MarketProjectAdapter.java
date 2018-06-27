@@ -68,7 +68,7 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof MarketProjectAdapter.NormalHolder) {
             setViewValue(holder,position);
             //监听item
-            View itemView = ((LinearLayout) holder.itemView).getChildAt(0);
+            View itemView = ((LinearLayout) holder.itemView).getChildAt(1);
             if (mOnItemClickListener != null) {
                 Log.i("MainActivity","市场项目监听进来了");
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +115,36 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
     private void setViewValue(final RecyclerView.ViewHolder holder, int position) {
         ((MarketProjectAdapter.NormalHolder) holder).tvTitle.setText(datas.get(position).getCreprojectTitle());
         //项目简言取项目内容里的前15个字符
-        ((MarketProjectAdapter.NormalHolder) holder).tvAbstract.setText(datas.get(position).getCreprojectContent().substring(0,15));
+        ((MarketProjectAdapter.NormalHolder) holder).tvAbstract.setText(datas.get(position).getCreprojectContent().split("。")[0]);
+        //0为生活手工 1为家具家居 2为科技数码 3为艺术娱乐 4为医疗健康 5为户外运动 6为其他
+        switch(datas.get(position).getCreprojectClassify()){
+            case 0:
+                ((MarketProjectAdapter.NormalHolder) holder).tvClassify.setText("生活手工");
+                break;
+            case 1:
+                ((MarketProjectAdapter.NormalHolder) holder).tvClassify.setText("家具家居");
+                break;
+            case 2:
+                ((MarketProjectAdapter.NormalHolder) holder).tvClassify.setText("科技数码");
+                break;
+            case 3:
+                ((MarketProjectAdapter.NormalHolder) holder).tvClassify.setText("艺术娱乐");
+                break;
+            case 4:
+                ((MarketProjectAdapter.NormalHolder) holder).tvClassify.setText("医疗健康");
+                break;
+            case 5:
+                ((MarketProjectAdapter.NormalHolder) holder).tvClassify.setText("户外运动");
+                break;
+            case 6:
+                ((MarketProjectAdapter.NormalHolder) holder).tvClassify.setText("其他");
+                break;
+        }
+        if(datas.get(position).getCreprojectPraise() == 0){
+            ((MarketProjectAdapter.NormalHolder) holder).tvPraise.setText("暂无");
+        }else{
+            ((MarketProjectAdapter.NormalHolder) holder).tvPraise.setText(datas.get(position).getCreprojectPraise()+"");
+        }
         //0为未孵化，1为孵化中
         if(datas.get(position).getCreprojectState() == 0){
             ((MarketProjectAdapter.NormalHolder) holder).tvState.setText("未孵化");
@@ -125,7 +154,7 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
             Glide.with(context).load(R.mipmap.ic_now_fh).into( ((MarketProjectAdapter.NormalHolder) holder).ivStatePicture);
         }
         // 图片加载，placeholder里的为默认图片
-        Glide.with(context).load(datas.get(position).getCreprojectPicture()).placeholder(R.mipmap.login_bg).into( ((MarketProjectAdapter.NormalHolder) holder).ivPicture);
+        Glide.with(context).load(datas.get(position).getCreprojectPicture()).placeholder(R.mipmap.base).into( ((MarketProjectAdapter.NormalHolder) holder).ivPicture);
     }
 
     // 获取条目数量，之所以要加1是因为增加了一条footView
@@ -151,7 +180,7 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
     // 正常item的ViewHolder，用以缓存findView操作
     class NormalHolder extends RecyclerView.ViewHolder {
         private ImageView ivPicture,ivStatePicture,ivDetails;
-        private TextView tvTitle,tvAbstract,tvState;
+        private TextView tvTitle,tvAbstract,tvState,tvPraise,tvClassify;
 
         public NormalHolder(View itemView) {
             super(itemView);
@@ -162,6 +191,8 @@ public class MarketProjectAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvTitle = itemView.findViewById(R.id.tv_project_title_market);
             tvAbstract = itemView.findViewById(R.id.tv_project_abstract_market);
             tvState = itemView.findViewById(R.id.tv_project_state_market);
+            tvPraise = itemView.findViewById(R.id.tv_project_praise_market);
+            tvClassify = itemView.findViewById(R.id.tv_project_classify_market);
         }
     }
 

@@ -64,7 +64,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductAdapter.
         holder.tvName.setText("众智优选");
         holder.tvPrice.setText(list.get(position).getProductPrice()+"");
         // 图片加载
-        Glide.with(context).load(list.get(position).getProductPicture()).into(holder.iv);
+        Glide.with(context).load(list.get(position).getProductPicture().split(";")[0]).placeholder(R.mipmap.base).into(holder.iv);
         //监听item
         View itemView = ((RelativeLayout) holder.itemView).getChildAt(0);
         if (mOnItemClickListener != null) {

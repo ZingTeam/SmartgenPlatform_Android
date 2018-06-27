@@ -105,10 +105,16 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
 //        tvUserPassword.setText("52142154");
 //        tvUserPhone.setText("15270254615");
 //        tvUserSex.setText("女");
-        if (user.getUserSex() == 0) {
-            tvUserSex.setText("男");
-        } else {
-            tvUserSex.setText("女");
+        if(user.getUserSex()==null){
+            tvUserSex.setText("暂无");
+        }else{
+            if (user.getUserSex() == 0) {
+                tvUserSex.setText("男");
+
+            } if (user.getUserSex() == 1) {
+                tvUserSex.setText("女");
+            }
+
         }
 //        String url = user.getUserHeadPortrait();
 //        if(url != null){
@@ -116,7 +122,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
 //        }
 //        Glide.with(this).load(url).placeholder(R.mipmap.account)
 //                .into(imgUserHeadPortrait);
-        Glide.with(this).load("http://p88c3g279.bkt.clouddn.com/image/banner1.jpg").placeholder(R.mipmap.account)
+        Glide.with(this).load(user.getUserHeadPortrait()).placeholder(R.mipmap.account)
                .into(imgUserHeadPortrait);
     }
 
@@ -169,7 +175,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void uploadData() {
-        if(bitmap != null){
+        /*if(bitmap != null){
             // 在后台申请上传凭证token
             new AsyncHttpClient().post(Constant.TOKEN_URL, new AsyncHttpResponseHandler() {
                 @Override
@@ -220,7 +226,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
         }else{
             key = null;         // 头像不更新时，key不用传参
             uploadUserInfo();   // 头像不更新，只更新其他信息
-        }
+        }*/
     }
 
     private void uploadUserInfo() {

@@ -81,8 +81,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/relativeLayout2"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="39dp"
         android:id="@+id/relativeLayout3">
 
@@ -98,8 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="26dp"
-            android:layout_marginStart="26dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
             android:layout_toEndOf="@+id/textView12"
             android:layout_toRightOf="@+id/textView12"
             android:text="小包子"
@@ -110,8 +110,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="45dp"
-            android:layout_marginStart="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/tv_paySuccess_userName"
             android:layout_toRightOf="@+id/tv_paySuccess_userName"
             android:text="15270579059"
@@ -135,11 +135,12 @@
             android:id="@+id/textView14" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_paySuccess_userAddress"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
             android:layout_toEndOf="@+id/textView14"
             android:layout_toRightOf="@+id/textView14"
             android:text="江西省九江市庐山区人民医院九江学院主校区"

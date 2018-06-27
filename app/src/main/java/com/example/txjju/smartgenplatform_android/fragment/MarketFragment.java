@@ -100,7 +100,7 @@ public class MarketFragment extends BaseFragment {
         // 加载项目列表数据//向后台发送请求，验证用户信息
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add("queryParam.condition","1=1");//传递键值对参数
+        formBody.add("queryParam.condition"," (Creproject_state=0 or Creproject_state=1)");//传递键值对参数
         Request request = new Request.Builder()//创建Request 对象。
                 .url(Constant.CREPROJECT_GET)
                 .post(formBody.build())//传递请求体
@@ -133,7 +133,29 @@ public class MarketFragment extends BaseFragment {
                                 basePojo = JsonUtil.getBaseFromJson(
                                         getActivity(), result, new TypeToken<BasePojo<Creativeproject>>(){}.getType());
                                 if(basePojo != null){
-                                    if(basePojo.getSuccess() && basePojo.getTotal() > 0){   // 信息获取成功,有数据
+                                    if(basePojo.getSuccess()){
+                                        if(basePojo.getTotal() > 0){ //信息获取成功,回传有数据
+                                            List<Creativeproject> list  = basePojo.getDatas();  // 获取后台返回的创意项目信息
+                                            Log.i(TAG,"市场：结果:"+list.size());
+                                            projectList.clear();
+                                            projectList.addAll(list);
+                                            pgDialog.dismiss();//隐藏进度栏
+                                            projectAdapter.resetDatas();//刷新时，数据源置为空
+                                            updateRecyclerView(0, PAGE_COUNT);// 通知适配器更新列表
+                                            refreshLayout.finishRefresh();  //停止刷新
+                                        }else{
+                                            Log.i(TAG,"市场：后台传来数据为空"+basePojo.getMsg());
+                                            ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
+                                            pgDialog.dismiss();//隐藏进度栏
+                                            projectAdapter.resetDatas();//刷新时，数据源置为空
+                                            refreshLayout.finishRefresh();  //停止刷新
+                                        }
+                                    }else{
+                                        pgDialog.dismiss();
+                                        Log.i(TAG,"市场：后台传来失败了"+basePojo.getMsg());
+                                        ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
+                                    }
+                                   /* if(basePojo.getSuccess() && basePojo.getTotal() > 0){   // 信息获取成功,有数据
                                         List<Creativeproject> list  = basePojo.getDatas();  // 获取后台返回的创意项目信息
                                         Log.i(TAG,"市场：结果:"+list.size());
                                         projectList.clear();
@@ -145,7 +167,7 @@ public class MarketFragment extends BaseFragment {
                                     }else{
                                         Log.i(TAG,"市场：后台传来失败了"+basePojo.getMsg());
                                         ToastUtils.Toast(getActivity(),basePojo.getMsg(),0);
-                                    }
+                                    }*/
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -190,6 +212,7 @@ public class MarketFragment extends BaseFragment {
                     Toast toast = Toast.makeText(getActivity(),"网络未连接", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+                    refreshLayout.finishRefresh();
                     return;
                 }
                 loadData(); // 重新加载数据
@@ -276,10 +299,11 @@ public class MarketFragment extends BaseFragment {
             public void onItemClick(View view, int position) {
                 Log.i(TAG,"市场项目跳转");
                 int projectId = projectList.get(position).getId();
+                Log.i(TAG,"项目id"+projectId);
                 Intent intent = new Intent(getActivity(), ProjectDetailsActivity.class);//跳转到项目详情
-                intent.putExtra("id",projectId);
+                intent.putExtra("creProjectId",Integer.toString(projectId));
                 //这里使用startActivityForResult进行跳转是为了方便有回传，回传里可以刷新列表
-                startActivityForResult(intent,97);//97是请求码，为了直观，就没有定义常量
+                startActivityForResult(intent,REQUEST_PROJECTDETAILS);//REQUEST_PROJECTDETAILS是请求码
             }
         });
     }

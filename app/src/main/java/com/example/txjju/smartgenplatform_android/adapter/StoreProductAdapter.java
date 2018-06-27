@@ -35,7 +35,7 @@ public class StoreProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private boolean hasMore = true;   // 变量，是否有更多数据
     private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
 
-    private int productGrade;//产品星级评定
+    private int productGrade = 0;//产品星级评定
 
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
@@ -71,7 +71,7 @@ public class StoreProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof StoreProductAdapter.NormalHolder) {
             setViewValue(holder,position);
             //监听item
-            View itemView = ((LinearLayout) holder.itemView).getChildAt(0);
+            View itemView = ((LinearLayout) holder.itemView).getChildAt(1);
             if (mOnItemClickListener != null) {
                 Log.i("MainActivity","商场产品监听进来了");
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -116,29 +116,36 @@ public class StoreProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     //设置viewType为正常即normal时，对控件的赋值
     private void setViewValue(final RecyclerView.ViewHolder holder, int position) {
+
+        Glide.with(context).load(R.mipmap.ic_star).into(((StoreProductAdapter.NormalHolder) holder).ivClassStar1);
+        Glide.with(context).load(R.mipmap.ic_star).into(((StoreProductAdapter.NormalHolder) holder).ivClassStar2);
+        Glide.with(context).load(R.mipmap.ic_star).into(((StoreProductAdapter.NormalHolder) holder).ivClassStar3);
+        Glide.with(context).load(R.mipmap.ic_star).into(((StoreProductAdapter.NormalHolder) holder).ivClassStar4);
+        Glide.with(context).load(R.mipmap.ic_star).into(((StoreProductAdapter.NormalHolder) holder).ivClassStar5);
         //产品名和产品简介
-        ((StoreProductAdapter.NormalHolder) holder).tvTitle.setText(datas.get(position).getProductName()+"--"+datas.get(position).getProductMsg());
+        ((StoreProductAdapter.NormalHolder) holder).tvTitle.setText(datas.get(position).getProductName());
+        ((StoreProductAdapter.NormalHolder) holder).tvOneMsg.setText(datas.get(position).getProductOneMsg());
         //产品价格
         ((StoreProductAdapter.NormalHolder) holder).tvPrice.setText(datas.get(position).getProductPrice()+"");
         // 图片加载
-        Glide.with(context).load(datas.get(position).getProductPicture()).placeholder(R.mipmap.login_bg).into(((StoreProductAdapter.NormalHolder) holder).ivPicture);
+        Glide.with(context).load(datas.get(position).getProductPicture().split(";")[0]).placeholder(R.mipmap.base).into(((StoreProductAdapter.NormalHolder) holder).ivPicture);
         //根据产品好评数，来计算出产品等级
-        if(Integer.parseInt(datas.get(position).getProductBestCount())<200){
+        if(Integer.parseInt(datas.get(position).getProductBestCount())<100){
             productGrade = 0;
         }
-        if(Integer.parseInt(datas.get(position).getProductBestCount())>=200&&Integer.parseInt(datas.get(position).getProductBestCount())<400){
+        if(Integer.parseInt(datas.get(position).getProductBestCount())>=100&&Integer.parseInt(datas.get(position).getProductBestCount())<200){
             productGrade = 1;
         }
-        if(Integer.parseInt(datas.get(position).getProductBestCount())>=400&&Integer.parseInt(datas.get(position).getProductBestCount())<600){
+        if(Integer.parseInt(datas.get(position).getProductBestCount())>=200&&Integer.parseInt(datas.get(position).getProductBestCount())<300){
             productGrade = 2;
         }
-        if(Integer.parseInt(datas.get(position).getProductBestCount())>=600&&Integer.parseInt(datas.get(position).getProductBestCount())<800){
+        if(Integer.parseInt(datas.get(position).getProductBestCount())>=300&&Integer.parseInt(datas.get(position).getProductBestCount())<400){
             productGrade = 3;
         }
-        if(Integer.parseInt(datas.get(position).getProductBestCount())>=800&&Integer.parseInt(datas.get(position).getProductBestCount())<1000){
+        if(Integer.parseInt(datas.get(position).getProductBestCount())>=400&&Integer.parseInt(datas.get(position).getProductBestCount())<500){
             productGrade = 4;
         }
-        if(Integer.parseInt(datas.get(position).getProductBestCount())>=1000){
+        if(Integer.parseInt(datas.get(position).getProductBestCount())>=500){
             productGrade = 5;
         }
 
@@ -183,7 +190,7 @@ public class StoreProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((StoreProductAdapter.NormalHolder) holder).tvSellState.setText("预售");
         }else if(datas.get(position).getProductStatus() ==1){
             ((StoreProductAdapter.NormalHolder) holder).tvSellState.setText("现购");
-            ((StoreProductAdapter.NormalHolder) holder).tvSellState.setTextColor(Color.parseColor("#0fe9c3"));
+            //((StoreProductAdapter.NormalHolder) holder).tvSellState.setTextColor(Color.parseColor("#0fe9c3"));
         }else{
             ((StoreProductAdapter.NormalHolder) holder).tvSellState.setText("下架商品");
             ((StoreProductAdapter.NormalHolder) holder).tvTitle.setTextColor(Color.parseColor("#B3B3B3"));
@@ -255,7 +262,7 @@ public class StoreProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     class NormalHolder extends RecyclerView.ViewHolder {
         private LinearLayout llAll;
         private ImageView ivPicture,ivClassStar1,ivClassStar2,ivClassStar3,ivClassStar4,ivClassStar5;
-        private TextView tvSellState,tvTitle,tvPrice,tvYuan,tvGrade;
+        private TextView tvSellState,tvTitle,tvPrice,tvYuan,tvGrade,tvOneMsg;
 
         public NormalHolder(View itemView) {
             super(itemView);
@@ -269,6 +276,7 @@ public class StoreProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ivClassStar5 = itemView.findViewById(R.id.iv_class_star5_store);
             tvSellState = itemView.findViewById(R.id.tv_sell_state_store);
             tvTitle = itemView.findViewById(R.id.tv_product_title_store);
+            tvOneMsg = itemView.findViewById(R.id.tv_product_oneMsg_store);
             tvPrice = itemView.findViewById(R.id.tv_product_price_store);
             tvYuan = itemView.findViewById(R.id.tv_yuan);
             tvGrade = itemView.findViewById(R.id.tv_product_grade_store);

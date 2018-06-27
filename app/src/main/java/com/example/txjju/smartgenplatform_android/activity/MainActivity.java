@@ -1,5 +1,6 @@
 package com.example.txjju.smartgenplatform_android.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,12 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -26,7 +29,9 @@ import com.example.txjju.smartgenplatform_android.fragment.HomeFragment;
 import com.example.txjju.smartgenplatform_android.fragment.MarketFragment;
 import com.example.txjju.smartgenplatform_android.fragment.MineFragment;
 import com.example.txjju.smartgenplatform_android.fragment.StoreFragment;
+import com.example.txjju.smartgenplatform_android.pojo.User;
 import com.example.txjju.smartgenplatform_android.util.MessageEvent;
+import com.example.txjju.smartgenplatform_android.util.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -36,9 +41,14 @@ import java.util.List;
 
 import static com.ashokvarma.bottomnavigation.ShapeBadgeItem.SHAPE_OVAL;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
+public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener, View.OnClickListener {
     //1.输入“logt”，设置静态常量TAG
     private static final String TAG = "MainActivity";
+    private static final int REQUEST_MINETOLOGIN = 93;
+    private static final int RESULT_LOGIN = 93;
+    private int userId;//保存用户ID
+    private Dialog dialog;
+    private Button btnCancel,btnSure;
     private ArrayList<Fragment> fragments;
     private List<Fragment> fgList;//装载Fragment的集合
     private FragmentManager fm;//fragment管理器
@@ -52,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+    }
+
+    private void init() {
         //底部导航栏
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
@@ -151,9 +165,58 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 break;
             case 3://选择个人中心
                 Log.d(TAG,"选择个人中心");
+                //获取用户信息
+                User user = SPUtil.getUser(MainActivity.this);
+                Log.i("MainAcitvity","弹框haha ");
+                //userId = user.getId();
+                if(user == null){
+                    showWarningDialog();
+                }
                 showFragment(3);
                 clickAgain(3);
                 break;
+        }
+    }
+
+    private void showWarningDialog() {
+        dialog = new Dialog(MainActivity.this, R.style.NormalDialogStyle);
+        View view = View.inflate(MainActivity.this, R.layout.warning_dialog, null);
+        btnCancel = view.findViewById(R.id.warning_dialog_btn_cancel);
+        btnSure = view.findViewById(R.id.warning_dialog_btn_sure);
+
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+
+        btnCancel.setOnClickListener(this);
+        btnSure.setOnClickListener(this);
+        dialog.show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.warning_dialog_btn_cancel://取消按钮
+                showFragment(0);//实现fragment之间的转换
+                bottomNavigationBar.selectTab(0);//实现底部导航栏的切换
+                dialog.dismiss();
+                break;
+            case R.id.warning_dialog_btn_sure://确定按钮
+                Log.i(TAG,"确定按钮");
+                Intent intent = new Intent(this,LoginActivity.class);
+                intent.putExtra("requestActivity","mine");
+                startActivityForResult(intent,REQUEST_MINETOLOGIN);//带参数的跳转
+                dialog.dismiss();
+                MainActivity.this.finish();
+                break;
+        }
+    }
+    // 用户跳转到项目详情后执行回调,进行刷新
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_MINETOLOGIN && resultCode == RESULT_LOGIN){
+            init();
+            showFragment(3);//实现fragment之间的转换
+            bottomNavigationBar.selectTab(3);//实现底部导航栏的切换
         }
     }
 
@@ -232,5 +295,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         final float scale = getApplication().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
 }

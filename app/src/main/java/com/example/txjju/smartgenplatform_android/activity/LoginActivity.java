@@ -169,22 +169,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             ToastUtils.Toast(LoginActivity.this,"登录成功",0);
                                             //根据请求来源不同，跳转到不同页面
                                             Intent  judgeRuester = getIntent();
+                                            //跳转到主页
+                                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                            startActivity(intent);//不带参数的跳转
+                                            LoginActivity.this.finish();
                                             String requestActivity = judgeRuester.getStringExtra("requestActivity");
-                                            if(requestActivity != null){
-                                                if(requestActivity.equals("register")){//表明登录请求来源于注册，则做以下操作
+                                            /*if(requestActivity != null){
+                                                if(requestActivity.equals("mine")){//表明登录请求来源于个人中心，则做以下操作
+                                                    Log.i(TAG,"要去个人中心");
+                                                    setResult(RESULT_LOGIN);    // 跳转回个人中心
+                                                    LoginActivity.this.finish();
+                                                }else{//表明登录请求来源于注册，则做以下操作
                                                     //跳转到主页
                                                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                                                     startActivity(intent);//不带参数的跳转
-                                                }else{
-                                                    if(requestActivity.equals("mine")){//表明登录请求来源于个人中心，则做以下操作
-                                                        setResult(RESULT_LOGIN);    // 跳转回个人中心
-                                                    }
+                                                    LoginActivity.this.finish();
                                                 }
-
                                             }else{
                                                 ToastUtils.Toast(LoginActivity.this,"登录跳转来源不明",0);
-                                            }
-                                            LoginActivity.this.finish();
+                                            }*/
                             }else{
                                    ToastUtils.Toast(LoginActivity.this,basePojo.getMsg(),0);
                                         }

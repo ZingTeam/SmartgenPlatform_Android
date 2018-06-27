@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:paddingTop="10dp"
+    android:paddingTop="5dp"
+    android:background="@color/bgLightGray"
     android:orientation="horizontal">
 
     <CheckBox
@@ -11,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="-5dp"
         android:button="@drawable/check_box_style"
         android:scaleX="0.6"
         android:scaleY="0.6" />
@@ -20,11 +23,11 @@
         android:id="@+id/iv_show_pic"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:scaleType="centerCrop"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:layout_toRightOf="@+id/ck_chose"
-        android:background="@mipmap/project2" />
+        android:src="@mipmap/project2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +40,7 @@
 
         <TextView
             android:id="@+id/tv_commodity_name"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="树叶回收垃圾桶——方便实惠，你值得拥有"
             android:textColor="#000000"
@@ -120,11 +123,12 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_delete"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/c19"
                 android:gravity="center"
                 android:text="删除"

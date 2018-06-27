@@ -13,6 +13,6 @@
         android:padding="10dp"
         android:textSize="15sp"
         android:textColor="@color/white"
-        android:text="456"/>
+        android:text="网络未连接"/>
 
 </LinearLayout>

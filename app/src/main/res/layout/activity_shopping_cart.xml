@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/bgLightGray"
     tools:context="com.example.txjju.smartgenplatform_android.activity.ShoppingCartActivity">
+
 
     <RelativeLayout
         android:id="@+id/rl1"
@@ -31,7 +32,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:text="购物车"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_shoppingCart_edit"
@@ -45,23 +46,20 @@
             android:gravity="right"
             android:text="编辑"
             android:textColor="@color/red"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/txtGray"/>
+        android:layout_height="4dp"
+        android:background="@color/bgLightGray"/>
     <ListView
         android:id="@+id/list_shopping_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="none" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/txtGray"/>
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"

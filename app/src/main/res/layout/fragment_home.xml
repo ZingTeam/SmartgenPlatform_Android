@@ -281,7 +281,7 @@
                         <TextView
                             style="@style/style_c7_s16"
                             android:layout_centerVertical="true"
-                            android:text="澳洲进口Denvonal德运牛奶"
+                            android:text="创意产品——折叠牙膏"
                             android:layout_marginTop="14dp"/>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -291,13 +291,13 @@
                             <TextView
                                 android:id="@+id/new_price"
                                 style="@style/style_c9_s20"
-                                android:text="￥50"
+                                android:text="￥10"
                                 />
                             <TextView
                                 android:id="@+id/original_price"
                                 style="@style/style_c5_s14"
                                 android:layout_marginLeft="20dp"
-                                android:text="￥75"
+                                android:text="￥25"
                                 />
                         </LinearLayout>
 
@@ -313,7 +313,7 @@
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:paddingLeft="4dp"
-                            android:background="@mipmap/login_bg"
+                            android:background="@mipmap/creproducs_specialsell"
                             android:layout_gravity="center"
                             />
                     </LinearLayout>

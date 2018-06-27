@@ -16,6 +16,7 @@
         android:id="@+id/iv_project_picture_market"
         android:layout_width="100dp"
         android:layout_height="110dp"
+        android:layout_marginLeft="3dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/login_bg"/>
 
@@ -23,61 +24,79 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="5dp"
         android:padding="4dp">
 
         <TextView
             android:id="@+id/tv_project_title_market"
-            style="@style/style_c7_s18"
+            style="@style/style_c7_s16"
             android:layout_width="250dp"
             android:layout_height="25dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="-4dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="-3dp"
+            android:layout_marginBottom="6dp"
             android:fontFamily="微软雅黑"
             android:text="创意指环" />
 
         <TextView
             android:id="@+id/tv_project_abstract_market"
             style="@style/style_c5_s14"
-            android:layout_width="200dp"
-            android:layout_height="38dp"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:fontFamily="微软雅黑"
-            android:text="不一样的创意指环，让生活更优雅" />
+            android:text="不一样的创意指" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="类型："/>
+            <TextView
+                android:id="@+id/tv_project_classify_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="家具家居"/>
+
+        </LinearLayout>
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="2dp"
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="3dp"
                 style="@style/style_c7_s14"
-                android:text="200"/>
+                android:src="@mipmap/ic_like_select"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_project_praise_market"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="10dp"
                 style="@style/style_c6_s14"
-                android:text="+人喜欢"/>
+                android:text="200"/>
 
             <ImageView
                 android:id="@+id/iv_project_statepicture_market"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="4dp"
                 android:src="@mipmap/ic_fh" />
 
             <TextView
                 android:id="@+id/tv_project_state_market"
-                style="@style/style_c6_s16"
+                style="@style/style_c6_s14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="3dp"
                 android:text="孵化中" />
     </LinearLayout>
 
@@ -85,8 +104,8 @@
 
     <ImageView
         android:id="@+id/iv_project_details_market"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginLeft="-25dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_omit" />

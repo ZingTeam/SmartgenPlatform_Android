@@ -44,5 +44,11 @@ public class SPUtil {
             e.printStackTrace();
         }
         return null;
+    }/*获取用户个人信息*/
+    public static void clearUser(Context context){
+        SharedPreferences sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
     }
 }

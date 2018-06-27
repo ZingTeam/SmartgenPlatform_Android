@@ -89,4 +89,8 @@
     <!-- 透明 -->
     <color name="transparent">#00000000</color>
 
+    <!--弹框按钮颜色-->
+    <color name="blue_btn_bg_pressed_color">#96BFD2</color>
+    <color name="blue_btn_bg_color">#AEDEF4</color>
+
 </resources>

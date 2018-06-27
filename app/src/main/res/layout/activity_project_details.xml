@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
+    android:fontFamily="微软雅黑"
     tools:context="com.example.txjju.smartgenplatform_android.activity.ProjectDetailsActivity">
 
 
@@ -15,7 +16,7 @@
       <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:background="@color/bgLightGray"
+          android:background="@color/bgLightGray"
             android:layout_alignParentTop="true"
             android:id="@+id/rl1">
             <ImageView
@@ -42,19 +43,30 @@
                 android:layout_width="match_parent"
                 android:fillViewport="true"
                 android:scrollbars="none"
+                android:layout_marginBottom="45dp"
+            android:background="@color/white"
                 android:layout_height="fill_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="50dp">
+                android:background="@color/white"
+                android:layout_marginBottom="30dp">
 
                  <ImageView
                      android:id="@+id/iv_projectDetails_picture"
                      android:layout_width="match_parent"
+                     android:layout_gravity="center_horizontal"
                      android:layout_height="200dp"
-                     android:scaleType="fitXY"
-                     android:src="@mipmap/project2" />
+                     android:scaleType="fitXY"/>
+
+                <TextView
+                    android:id="@+id/v5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/rl2"
+                    android:background="@color/bgLightGray" />
+
                  <LinearLayout
                 android:id="@+id/ly"
                 android:layout_width="match_parent"
@@ -82,25 +94,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ly"
-                android:orientation="vertical">
+                   android:gravity="center"
+                android:orientation="horizontal">
+                   <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:text="类型：" />
+                   <TextView
+                       android:id="@+id/tv_projectDetails_classify"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:text="家具家居" />
+
+                   <TextView
+                       android:id="@+id/tv_projectDetails_state"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:layout_marginLeft="25dp"
+                       android:textColor="@color/c8"
+                       android:text="孵化中" /><!--
+
+                   <TextView
+                       android:id="@+id/tv_projectDetails_praise"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="25dp"
+                       android:layout_gravity="center"
+                       android:text="200" />
 
                 <TextView
-                    android:id="@+id/tv_projectDetails_praise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:text="200+人最近点赞过" />
+                    android:layout_marginLeft="5dp"
+                    android:text="+ 人喜欢" />-->
                 </LinearLayout>
 
                <TextView
                 android:id="@+id/v1"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_below="@id/rl2"
                 android:layout_marginTop="8dp"
-                android:background="@color/txtGray" />
+                android:background="@color/bgLightGray" />
 
                <LinearLayout
                 android:id="@+id/ly1"
@@ -111,45 +149,60 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <com.example.txjju.smartgenplatform_android.view.CircleImageView
-                    android:id="@+id/img_projectDetails_userHeadPortrait"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/qx" />
+                   <com.example.txjju.smartgenplatform_android.view.CircleImageView
+                       android:id="@+id/iv_projectDetails_userHeadPortrait"
+                       android:layout_width="60dp"
+                       android:layout_height="60dp"
+                       android:layout_alignParentLeft="true"
+                       android:scaleType="centerCrop"
+                       android:src="@mipmap/qx" />
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+                       <LinearLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:orientation="horizontal"
+                           android:layout_marginLeft="15dp"
+                           android:layout_marginTop="5dp"
+                           android:layout_marginBottom="15dp">
 
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="项目发布人" />
+                           <TextView
+                               android:id="@+id/tv1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_alignParentTop="true"
+                               android:text="发布者 : " />
 
-                <TextView
-                    android:id="@+id/tv_projectDetails_public_userName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="-50dp"
-                    android:text="包包" />
+                           <TextView
+                               android:id="@+id/tv_projectDetails_public_userName"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="包包" />
 
-                <TextView
-                    android:id="@+id/tv_projectDetails_public_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="发布时间：2017/8/8" />
+                       </LinearLayout>
+                       <LinearLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="15dp"
+                           android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="发布时间 ：" />
+
+                           <TextView
+                               android:id="@+id/tv_projectDetails_public_time"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="2017/8/8" />
+
+                       </LinearLayout>
+
+                   </LinearLayout>
                 </LinearLayout>
-
-              <TextView
-                android:id="@+id/v2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/ly1"
-                android:background="@color/txtGray" />
 
                <LinearLayout
                 android:id="@+id/ly2"
@@ -157,14 +210,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/v2"
                 android:orientation="vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginLeft="8dp"
+                android:padding="5dp"
+                android:layout_marginRight="8dp">
 
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="设计说明："
+                    android:layout_marginBottom="5dp"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -174,16 +229,22 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView13"
                     android:layout_centerHorizontal="true"
-                    android:padding="4dp"
                     android:text="         垃圾桶，又名废物箱或垃圾箱，是指装放垃圾的地方。多数以金属或塑胶制，用时放入塑料袋，当垃圾一多便可扎起袋丢掉。垃圾桶是人们生活中藏污纳垢的容器，也是社会文化的一种折射。多数垃圾桶都有盖以防垃圾的异味四散，有些垃圾桶可以以脚踏开启。家居的垃圾桶多数放于厨房，以便放置厨余。有些家庭会在主要房间都各置一个。有些游乐场的垃圾桶会特别设计成可爱的人物。" />
                  </LinearLayout>
+
+                <TextView
+                    android:id="@+id/v3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/ly2"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/bgLightGray" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ly2"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="70dp"
                     android:orientation="vertical">
 
                 <TextView
@@ -193,17 +254,17 @@
                     android:textColor="#000000"
                     android:textSize="16sp" />
                 <TextView
-                    android:id="@+id/tv_projectDetails_evaluateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="评估时间："
                     android:padding="4dp"/>
 
                     <TextView
+                        android:id="@+id/tv_projectDetails_evaluateTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2017/8/10"
-                        android:layout_marginLeft="80dp"
+                        android:layout_marginLeft="70dp"
                         android:padding="4dp"
                         android:layout_marginTop="-27dp"/>
                     <TextView
@@ -216,7 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="通过"
-                        android:layout_marginLeft="80dp"
+                        android:layout_marginLeft="70dp"
                         android:padding="4dp"
                         android:layout_marginTop="-27dp"/>
                     <TextView
@@ -229,7 +290,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="很有创意的想法，若是孵化出来，会很畅销。不仅是环保，还很实用。"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="40dp"
                         android:padding="4dp"
                         android:layout_marginTop="-27dp"/>
                </LinearLayout>
@@ -238,22 +299,106 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-68dp">
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingRight="10dp"
+        android:paddingLeft="30dp"
+        android:background="@color/bgLightGray"
+        android:layout_marginTop="-50dp">
+        <LinearLayout
+            android:id="@+id/ll_projectDetails_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
-        <RadioGroup
+            <ImageView
+                android:id="@+id/iv_projectDetails_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:src="@mipmap/ic_like_normal"/>
+            <TextView
+                android:id="@+id/tv_projectDetails_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:textColor="@color/mine_textColor_unselected"
+                android:text="200"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_projectDetails_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_projectDetails_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:src="@mipmap/ic_comment_normal"/>
+            <TextView
+                android:id="@+id/tv_projectDetails_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mine_textColor_unselected"
+                android:text="评论"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_projectDetails_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_projectDetails_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:src="@mipmap/ic_collect_normal"/>
+            <TextView
+                android:id="@+id/tv_projectDetails_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mine_textColor_unselected"
+                android:text="收藏"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_projectDetails_ordering"
+            android:background="@drawable/button_presell"
+            android:layout_height="40dp"
+            android:layout_width="55dp"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="预  购"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+
+        <!--<RadioGroup
             android:id="@+id/rg_choose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_weight="1"
+            android:padding="5dp">
 
             <RadioButton
                 android:id="@+id/rb_projectDetails_dz"
                 style="@style/btn_project_details_choose"
                 android:drawableTop="@mipmap/ic_like_normal"
-                android:text="点赞" />
+                android:text="200+" />
 
             <RadioButton
                 android:id="@+id/rb_projectDetails_comment"
@@ -269,15 +414,17 @@
 
             <Button
                 android:id="@+id/btn_projectDetails_ordering"
-                style="@style/btn_project_details_choose"
-                android:layout_height="35dp"
+                android:background="@drawable/button_presell"
+                android:layout_height="40dp"
+                android:layout_width="55dp"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:background="@color/c20"
                 android:gravity="center"
-                android:text="预购"
+                android:text="预  购"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
-        </RadioGroup>
+        </RadioGroup>-->
     </LinearLayout>
 
 </LinearLayout>

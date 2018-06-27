@@ -62,7 +62,7 @@ public class HomeProjectAdapter extends RecyclerView.Adapter<HomeProjectAdapter.
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.tvName.setText(list.get(position).getCreprojectTitle());
         // 图片加载
-        Glide.with(context).load(list.get(position).getCreprojectPicture()).placeholder(R.mipmap.login_bg).into(holder.iv);
+        Glide.with(context).load(list.get(position).getCreprojectPicture()).placeholder(R.mipmap.base).into(holder.iv);
         //监听item
         View itemView = ((LinearLayout) holder.itemView).getChildAt(0);
         if (mOnItemClickListener != null) {
