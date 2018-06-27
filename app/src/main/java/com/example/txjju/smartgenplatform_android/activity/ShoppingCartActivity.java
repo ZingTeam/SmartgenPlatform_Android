@@ -221,7 +221,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     private void settlement() {
         for (Shoppingcart group : shoppingCartList) {
             if (group.isChoosed()){//选中
-                deleteCart(group.getId());
+                deleteCart(group.getProductId());
                 productIds += group.getId()+";";
                 productBuyCounts +=group.getProductCount()+";";
             }

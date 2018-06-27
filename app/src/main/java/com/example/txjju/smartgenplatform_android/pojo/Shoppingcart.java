@@ -13,6 +13,7 @@ import java.util.Set;
 public class Shoppingcart{
 
     private Integer id;//主键Id
+    private Integer productId;//产品Id
     private String productName;//商品名（冗余字段）
     private Double productPrice;//商品价格（冗余字段）
     private String productPicture;//商品图片（冗余字段）
@@ -28,6 +29,14 @@ public class Shoppingcart{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
