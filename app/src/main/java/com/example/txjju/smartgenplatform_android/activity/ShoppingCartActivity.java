@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.adapter.ShoppingCartAdapter;
+import com.example.txjju.smartgenplatform_android.adapter.ShoppingCartAdapter.ModifyCountInterface;
 import com.example.txjju.smartgenplatform_android.config.Constant;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
 import com.example.txjju.smartgenplatform_android.pojo.Product;
@@ -40,7 +41,7 @@ import okhttp3.Response;
 
 
 public class ShoppingCartActivity extends AppCompatActivity implements View.OnClickListener
-        ,ShoppingCartAdapter.CheckInterface, ShoppingCartAdapter.ModifyCountInterface {
+        ,ShoppingCartAdapter.CheckInterface, ModifyCountInterface {
 
     public final static String TAG = "ShoppingCartActivity";
 
@@ -150,10 +151,12 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
                                             shoppingCartList.addAll(list);
                                             shoppingCartAdapter.setShoppingCartBeanList(shoppingCartList);
                                         }else{
+                                            pgDialog.dismiss();//隐藏进度栏
                                             Log.i(TAG,"购物车详情：后台传来数据为空"+basePojo.getMsg());
                                             ToastUtils.Toast(ShoppingCartActivity.this,basePojo.getMsg(),0);
                                         }
                                     }else{
+                                        pgDialog.dismiss();//隐藏进度栏
                                         Log.i(TAG,"购物车详情：后台传来失败了"+basePojo.getMsg());
                                         ToastUtils.Toast(ShoppingCartActivity.this,basePojo.getMsg(),0);
                                     }
@@ -222,6 +225,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
                 productIds += group.getId()+";";
                 productBuyCounts +=group.getProductCount()+";";
             }
+        }
+        if(productIds.equals("")){
+            ToastUtils.Toast(ShoppingCartActivity.this,"您还没有选择任何商品",0);
+            return;
+
         }
         Log.i(TAG,"购物车传递的数据"+productIds+"|"+productBuyCounts);
         Intent buyIntent = new Intent(this,ConfirmOrderActivity.class);

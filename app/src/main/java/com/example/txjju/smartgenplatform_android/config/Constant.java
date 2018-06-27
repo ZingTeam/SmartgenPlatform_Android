@@ -34,12 +34,16 @@ public class Constant {
     public static final String PRODUCT_GETORDERDETAILS = BASE_URL + "/PurchaseAction_getPurchase";
     /**取消订单详情接口**/
     public static final String PRODUCT_CANCELORDER = BASE_URL + "/PurchaseAction_cancel";
+    /**修改订单状态接口**/
+    public static final String PRODUCT_UPDATEORDERSTATE = BASE_URL + "/PurchaseAction_updatePayInformation";
     /**购买产品添加到购物车接口**/
     public static final String PRODUCT_CREATESHOPPINGCART = BASE_URL + "/ShoppingcartAction_addShoppingcart";
     /**获取购物车列表接口**/
     public static final String PRODUCT_GETCARTLIST = BASE_URL + "/ShoppingcartAction_getShoppingcart";
     /**删除购物车部分列表接口**/
     public static final String PRODUCT_DETELECART = BASE_URL + "/ShoppingcartAction_deleteShoppingcart";
+    /**修改用户信息接口**/
+    public static final String USER_UPDATE = BASE_URL + "/UserAction_updateUser";
     /**订单生成接口**/
    // public static final String PRODUCT_BENDICREATORDER = BASE_URL + "/PurchaseAction_purchse";
 }

@@ -20,8 +20,9 @@ import android.widget.Toast;
 
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.activity.ProductDetailsActivity;
-import com.example.txjju.smartgenplatform_android.adapter.HomeProductAdapter;
 import com.example.txjju.smartgenplatform_android.adapter.MineCollectProductAdapter;
+import com.example.txjju.smartgenplatform_android.adapter.MineCollectProductAdapter.ModifyCountInterface;
+import com.example.txjju.smartgenplatform_android.adapter.ShoppingCartAdapter;
 import com.example.txjju.smartgenplatform_android.config.Constant;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
 import com.example.txjju.smartgenplatform_android.pojo.Product;
@@ -204,6 +205,14 @@ public class CollectProductFragment extends Fragment {
 //            rvProduct.setAdapter(speedHourAdapter);
 //        }
         productAdapter = new MineCollectProductAdapter(getActivity(), productList);
+        productAdapter.setModifyCountInterface(new MineCollectProductAdapter.ModifyCountInterface(){
+
+            @Override
+            public void childDelete(int position) {
+                productList.remove(position);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
         rvProduct.setAdapter(productAdapter);
         //监听产品项目item
         productAdapter.setOnItemClickListener(new MineCollectProductAdapter.OnItemClickListener() {
@@ -260,4 +269,5 @@ public class CollectProductFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
 }

@@ -65,7 +65,7 @@ public class OrderDetailWaitActivity extends AppCompatActivity implements View.O
     private User user;
     private int userId;//保存用户ID
     public int purchaseAddressId;//保存收货地址ID
-    private String orderId;//保存d订单ID
+    private String orderId;//保存订单ID
     public String productId;//保存产品ID
     private String [] productIds = new String[100];//在购物车里限制产品在100份以内
     private int productIdCount;
@@ -110,9 +110,9 @@ public class OrderDetailWaitActivity extends AppCompatActivity implements View.O
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         ToastUtils.Toast(OrderDetailWaitActivity.this,"支付成功",0);
-                        Toast.makeText(OrderDetailWaitActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                         OrderDetailWaitActivity.this.finish();
                         //发送修改支付状态
+                        updateOrderState();
                         Intent intent = new Intent(OrderDetailWaitActivity.this,PaySuccessActivity.class);//跳转到订单成功页面
                         intent.putExtra("userName",userName);
                         intent.putExtra("userPhone",userPhone);
@@ -141,6 +141,60 @@ public class OrderDetailWaitActivity extends AppCompatActivity implements View.O
             }
         };
     };
+    private void updateOrderState() {
+        // 加载项目列表数据//向后台发送请求，验证用户信息
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        //拼接参数
+        formBody.add("purchasePatternOfPayment","支付宝");//获取购买的产品的用户ID信息
+        formBody.add("id",orderId);//获取购买的产品的收货地址信息
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(Constant.PRODUCT_UPDATEORDERSTATE)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("OrderDetailWaitActivity","完成订单：获取数据失败了");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"完成订单：查到了?");
+                Log.i(TAG,"response.code()=="+response.code());
+                if(response.isSuccessful()){//回调的方法执行在子线程
+                    Log.i(TAG,"完成订单：获取数据成功了");
+                    Log.i(TAG,"response.code()=="+response.code());
+                    //如果这里打印了response.body().string()，则下面赋值结果：result=null，
+                    // 因为response.body().string()只能使用一次
+                    // Log.i(TAG,"response.body().string()=="+response.body().string());
+                    orderResult = response.body().string();
+                    Log.i(TAG,"完成订单：结果："+orderResult);
+                    homeHandler.post(new Runnable() {
+                        @Override
+                        public void run() {//调回到主线程
+                            // 解析Json字符串
+                            Log.i(TAG,"完成订单：测试");
+                            BasePojo<Product> basePojo = null;
+                            try {
+                                //解析数据
+                                basePojo = JsonUtil.getBaseFromJson(
+                                        OrderDetailWaitActivity.this, orderResult, new TypeToken<BasePojo<Product>>(){}.getType());
+                                if(basePojo != null){
+                                    if(basePojo.getSuccess() ){   // 信息获取成功,有数据
+                                        //ToastUtils.Toast(OrderDetailWaitActivity.this,basePojo.getMsg(),0);
+                                    }else{
+                                        ToastUtils.Toast(OrderDetailWaitActivity.this,basePojo.getMsg(),0);
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

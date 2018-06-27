@@ -150,17 +150,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
             case 0://选择首页
                 Log.d(TAG,"选择首页");
             //bottomNavigationBar.selectTab(2);
+                EventBus.getDefault().post(new MessageEvent(tags[0]));  // 通知Fragment刷新
                 showFragment(0);
                 clickAgain(0);
                 break;
             case 1://选择创意市场
                 Log.d(TAG,"选择创意市场");
                 showFragment(1);
+                EventBus.getDefault().post(new MessageEvent(tags[1]));  // 通知Fragment刷新
                 clickAgain(1);
                 break;
             case 2://选择众智商城
                 Log.d(TAG,"选择众智商城");
                 showFragment(2);
+                EventBus.getDefault().post(new MessageEvent(tags[2]));  // 通知Fragment刷新
                 clickAgain(2);
                 break;
             case 3://选择个人中心
@@ -173,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                     showWarningDialog();
                 }
                 showFragment(3);
+                EventBus.getDefault().post(new MessageEvent(tags[3]));  // 通知Fragment刷新
                 clickAgain(3);
                 break;
         }

@@ -1,5 +1,6 @@
 package com.example.txjju.smartgenplatform_android.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,12 +8,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,10 +29,12 @@ import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.config.Constant;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
+import com.example.txjju.smartgenplatform_android.pojo.Product;
 import com.example.txjju.smartgenplatform_android.pojo.User;
 import com.example.txjju.smartgenplatform_android.util.ImageUtil;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
 import com.example.txjju.smartgenplatform_android.util.SPUtil;
+import com.example.txjju.smartgenplatform_android.util.ToastUtils;
 import com.example.txjju.smartgenplatform_android.util.VerifyPermission;
 import com.example.txjju.smartgenplatform_android.view.CircleImageView;
 import com.google.gson.Gson;
@@ -53,8 +58,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.Header;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class AboutMeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -77,6 +90,15 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
     private User user;
     private String key; // 存储图片上传到七牛的key
 
+    private static final String TAG = "AboutMeActivity";
+
+    private int userId;//保存用户ID
+
+    private String result;//装后台返回的数据的变量
+    // 返回主线程更新数据
+    private static Handler homeHandler = new Handler();
+    private static Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +119,10 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getSpData() {
         user = SPUtil.getUser(this);
+        if(user == null){
+            return;
+        }
+        userId = user.getId();
         tvUserName.setText(user.getUserName());
         tvUserPassword.setText(user.getUserPassword());
         tvUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -122,7 +148,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
 //        }
 //        Glide.with(this).load(url).placeholder(R.mipmap.account)
 //                .into(imgUserHeadPortrait);
-        Glide.with(this).load(user.getUserHeadPortrait()).placeholder(R.mipmap.account)
+        Glide.with(this).load(user.getUserHeadPortrait()).placeholder(R.mipmap.qx)
                .into(imgUserHeadPortrait);
     }
 
@@ -145,6 +171,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
         rlUserName.setOnClickListener(this);
         rlUserPassword.setOnClickListener(this);
         rlUserSex.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
         VerifyPermission.verifyStoragePermission(this);  // 申请读写SD卡权限（读取和存入图片）
     }
 
@@ -159,17 +186,17 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.rl_name:
                 //getNameDialogBox();
-                showEnterDialog("请输入用户名",tvUserName);
+                showUserNameDialog("请输入用户名",tvUserName);
                 break;
             case R.id.rl_password:
                // getPasswordDialogBox();
-                showEnterDialog("请输入密码",tvUserPassword);
+                showuserPasswordDialog("请输入密码",tvUserPassword);
                 break;
             case R.id.rl_sex:
                 getSexDialogBox();
                 break;
             case R.id.btn_aboutMe_save:
-                uploadData();   // 发送用户信息到后台更新
+                uploadUserInfo();   // 发送用户信息到后台更新
                 break;
         }
     }
@@ -230,36 +257,131 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void uploadUserInfo() {
-        RequestParams params = new RequestParams();
-        params.put("paras", new Gson().toJson(user));
-        params.put("key", key);     // 传给后台用于删除七牛原头像
-        new AsyncHttpClient().post(Constant.BASE_URL, params, new AsyncHttpResponseHandler() {
+        //params.put("key", key);     // 传给后台用于删除七牛原头像
+        //向后台发送请求,修改用户信息
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        formBody.add("id",Integer.toString(userId));
+        formBody.add("userName",(String)tvUserName.getText());
+        formBody.add("userPhone",(String)tvUserPhone.getText());
+        formBody.add("userPassword",(String)tvUserPassword.getText());
+        if(tvUserSex.getText()!="暂无"){
+            if(tvUserSex.getText() == "男"){
+                formBody.add("userSex",Integer.toString(1));
+            }
+            if(tvUserSex.getText() == "女"){
+                formBody.add("userSex",Integer.toString(0));
+            }
+        }
+        formBody.add("userHeadPortrait","http://p0vpex4u9.bkt.clouddn.com/head.jpg");
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(Constant.USER_UPDATE)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String json = new String(responseBody);
-                try {
-                    BasePojo<User> basePojo = JsonUtil.getBaseFromJson(AboutMeActivity.this, json, new TypeToken<BasePojo<User>>(){}.getType());
-                    if(basePojo != null){
-                        if(basePojo.getSuccess()){
-                            // 个人信息修改成功后将最新数据更新到SP中
-                            List<User> list = basePojo.getDatas();
-                            SPUtil.saveUser(AboutMeActivity.this,
-                                    true, list.get(0));
-                            setResult(RESULT_PERSON);   // 跳转回“我的”页面
-                            AboutMeActivity.this.finish();
-                        }else{
-                            return;
+            public void onFailure(Call call, IOException e) {
+                Log.d("AboutMeActivity","修改用户信息：获取数据失败了");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"修改用户信息：查到了?");
+                if(response.isSuccessful()){//回调的方法执行在子线程
+                    Log.i(TAG,"修改用户信息：获取数据成功了");
+                    Log.i(TAG,"response.code()=="+response.code());
+                    //如果这里打印了response.body().string()，则下面赋值结果：result=null，
+                    // 因为response.body().string()只能使用一次
+                    // Log.i(TAG,"response.body().string()=="+response.body().string());
+                    result = response.body().string();
+                    Log.i(TAG,"修改用户信息：结果："+result);
+                    homeHandler.post(new Runnable() {
+                        @Override
+                        public void run() {//调回到主线程
+                            // 解析Json字符串
+                            Log.i(TAG,"修改用户信息：测试");
+                            BasePojo<Product> basePojo = null;
+                            try {
+                                //解析数据
+                                basePojo = JsonUtil.getBaseFromJson(
+                                        AboutMeActivity.this, result, new TypeToken<BasePojo<Product>>(){}.getType());
+                                if(basePojo != null){
+                                    if(basePojo.getSuccess()){   // 信息获取成功,有数据
+                                        AboutMeActivity.this.finish();
+                                        refleshUser();
+                                       // Log.i(TAG,"修改用户信息：结果"+list.toString());
+                                    }else{
+                                        ToastUtils.Toast(AboutMeActivity.this,basePojo.getMsg(),0);
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    });
                 }
             }
+        });
+    }
 
+    private void refleshUser() {
+        //向后台发送请求，验证用户信息
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        formBody.add("userPhone",(String) tvUserPhone.getText());//传递键值对参数
+        formBody.add("userPassword",(String) tvUserPassword.getText());//传递键值对参数
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(Constant.USER_LOGIN)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+            public void onFailure(Call call, IOException e) {
+                Log.d("AboutMeActivity","获取数据失败了");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"查到了?");
+                if(response.isSuccessful()){//回调的方法执行在子线程
+                    Log.i(TAG,"获取数据成功了");
+                    Log.i(TAG,"response.code()=="+response.code());
+                    //如果这里打印了response.body().string()，则下面赋值结果：result=null，
+                    // 因为response.body().string()只能使用一次
+                    // Log.i(TAG,"response.body().string()=="+response.body().string());
+                    result = response.body().string();
+                    Log.i(TAG,"结果："+result);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {//调回到主线程
+                            // 解析Json字符串
+                            Log.i(TAG,"测试");
+                            BasePojo<User> basePojo = null;
+                            try {
+                                //解析数据
+                                basePojo = JsonUtil.getBaseFromJson(
+                                        AboutMeActivity.this, result, new TypeToken<BasePojo<User>>(){}.getType());
+                                if(basePojo != null){
+                                    if(basePojo.getSuccess()){   // 登录成功
+                                        User user = basePojo.getDatas().get(0);  // 获取后台返回的用户信息
+                                        Log.i(TAG,"结果"+user.toString());
+                                        SPUtil.clearUser(AboutMeActivity.this);
+                                        SPUtil.saveUser(AboutMeActivity.this, true, user);//将用户信息保存到SharedPreferences
+                                        ToastUtils.Toast(AboutMeActivity.this,"修改成功",0);
+                                        //根据请求来源不同，跳转到不同页面
+                                        Intent  judgeRuester = getIntent();
+                                        //跳转到主页
+                                        Intent intent = new Intent(AboutMeActivity.this,MainActivity.class);
+                                        startActivity(intent);//不带参数的跳转
+                                        AboutMeActivity.this.finish();
+                                    }else{
+                                        ToastUtils.Toast(AboutMeActivity.this,basePojo.getMsg(),0);
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -429,7 +551,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
     /**编辑个人信息**/
-    private void showEnterDialog(String hint, final TextView tv) {
+    private void showuserPasswordDialog(String hint, final TextView tv) {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View nameView = layoutInflater.inflate(R.layout.name_dialog, null);
 
@@ -452,6 +574,10 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
                             Toast.makeText(AboutMeActivity.this,
                                     "输入信息不能为空！", Toast.LENGTH_SHORT).show();
                         } else {
+                            if(!isPwd(input)){
+                                Toast.makeText(AboutMeActivity.this, "密码不合法，请重新输入", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             tvUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                             tv.setText(input);
                             switch (tv.getId()){
@@ -468,6 +594,62 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
                 })
                 .setNegativeButton("取消", null)
                 .show();
+    }
+    /**编辑个人信息**/
+    private void showUserNameDialog(String hint, final TextView tv) {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View nameView = layoutInflater.inflate(R.layout.name_dialog, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // 使用setView()方法将布局显示到dialog
+        alertDialogBuilder.setView(nameView);
+
+        final EditText userInput =  nameView.findViewById(R.id.name_edit);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setIcon(R.mipmap.gb)//设置标题的图片
+                .setTitle(hint)//设置对话框的标题
+                .setView(nameView)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String input = userInput.getText().toString();
+                        if (input.equals("")) {
+                            Toast.makeText(AboutMeActivity.this,
+                                    "输入信息不能为空！", Toast.LENGTH_SHORT).show();
+                        } else {
+                            if(input.length() > 20 || input.length() < 6){
+                                Toast.makeText(AboutMeActivity.this, "用户名长度要求在6-20个字符以内", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            tvUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            tv.setText(input);
+                            switch (tv.getId()){
+                                case R.id.tv_aboutMe_userName :
+                                    user.setUserName(input);
+                                    break;
+                                case R.id.tv_aboutMe_userPassword :
+                                    tvUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                                    user.setUserPassword(input);
+                                    break;
+                            }
+                        }
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    /**
+     * 判断密码的合法性：密码由6-21字母和数字组成，且不能是纯数字或纯英文
+     * @param inputText
+     * @return
+     */
+    public static boolean isPwd(String inputText) {
+        Pattern p = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$");
+        Matcher m = p.matcher(inputText);
+        return m.matches();
     }
 }
 

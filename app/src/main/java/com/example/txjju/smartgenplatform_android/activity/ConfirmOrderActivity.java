@@ -84,7 +84,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     private String condition = "";//拼接条件
 
 
-    private String addressResult,productResult;//装后台返回的数据的变量
+    private String addressResult,productResult,orderResult;//装后台返回的数据的变量
     // 返回主线程更新数据
     private static Handler homeHandler = new Handler();
 
@@ -118,9 +118,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         ToastUtils.Toast(ConfirmOrderActivity.this,"支付成功",0);
-                        Toast.makeText(ConfirmOrderActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                         ConfirmOrderActivity.this.finish();
                         //发送修改支付状态
+                        updateOrderState();
                         Intent intent = new Intent(ConfirmOrderActivity.this,PaySuccessActivity.class);//跳转到订单成功页面
                         intent.putExtra("userName",userName);
                         intent.putExtra("userPhone",userPhone);
@@ -157,6 +157,61 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             }
         };
     };
+
+    private void updateOrderState() {
+        // 加载项目列表数据//向后台发送请求，验证用户信息
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        //拼接参数
+        formBody.add("purchasePatternOfPayment","支付宝");//获取购买的产品的用户ID信息
+        formBody.add("id",Integer.toString(orderId));//获取购买的产品的收货地址信息
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(Constant.PRODUCT_UPDATEORDERSTATE)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("ConfirmOrderActivity","完成订单：获取数据失败了");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"完成订单：查到了?");
+                Log.i(TAG,"response.code()=="+response.code());
+                if(response.isSuccessful()){//回调的方法执行在子线程
+                    Log.i(TAG,"完成订单：获取数据成功了");
+                    Log.i(TAG,"response.code()=="+response.code());
+                    //如果这里打印了response.body().string()，则下面赋值结果：result=null，
+                    // 因为response.body().string()只能使用一次
+                    // Log.i(TAG,"response.body().string()=="+response.body().string());
+                    orderResult = response.body().string();
+                    Log.i(TAG,"完成订单：结果："+orderResult);
+                    homeHandler.post(new Runnable() {
+                        @Override
+                        public void run() {//调回到主线程
+                            // 解析Json字符串
+                            Log.i(TAG,"完成订单：测试");
+                            BasePojo<Product> basePojo = null;
+                            try {
+                                //解析数据
+                                basePojo = JsonUtil.getBaseFromJson(
+                                        ConfirmOrderActivity.this, orderResult, new TypeToken<BasePojo<Product>>(){}.getType());
+                                if(basePojo != null){
+                                    if(basePojo.getSuccess() ){   // 信息获取成功,有数据
+                                       // ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
+                                    }else{
+                                        ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,6 +307,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                                         productList.addAll(list);
                                         confirmOrderProductAdapter.notifyDataSetChanged(); // 通知适配器更新列表
                                     }else{
+                                        pgDialog.dismiss();
                                         ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
@@ -272,7 +328,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         // 加载项目列表数据//向后台发送请求，验证用户信息
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add("queryParam.condition=user.id=",Integer.toString(userId));//获取用户收货详细信息
+        Log.i(TAG,"提交订单用户ID"+userId);
+        formBody.add("queryParam.condition","user.id="+Integer.toString(userId));//获取用户收货详细信息
         Request request = new Request.Builder()//创建Request 对象。
                 .url(Constant.PRODUCT_PURCHASEADDRESS)
                 .post(formBody.build())//传递请求体
@@ -316,6 +373,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                                         purchaseAddressId = list.get(0).getId();//记录收货地址Id
                                         pgDialog.dismiss();
                                     }else{
+                                        pgDialog.dismiss();
                                         ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
                                     }
                                 }

@@ -200,7 +200,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog alert = new AlertDialog.Builder(context).create();
-                alert.setTitle("操作提示");
+                alert.setTitle("提示");
                 alert.setMessage("您确定要将这些商品从购物车中移除吗？");
                 alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
                         new DialogInterface.OnClickListener() {
@@ -213,7 +213,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
+                                modifyCountInterface.childDelete(position);//删除 从item中移除
                                 deleteCart(shoppingCartBean.getId());
                             }
                         });
