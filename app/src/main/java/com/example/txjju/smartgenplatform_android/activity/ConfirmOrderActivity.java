@@ -34,6 +34,7 @@ import com.example.txjju.smartgenplatform_android.pojo.Product;
 import com.example.txjju.smartgenplatform_android.pojo.Purchase;
 import com.example.txjju.smartgenplatform_android.pojo.Purchaseaddress;
 import com.example.txjju.smartgenplatform_android.pojo.Purchaseitem;
+import com.example.txjju.smartgenplatform_android.pojo.Shoppingcart;
 import com.example.txjju.smartgenplatform_android.pojo.User;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
 import com.example.txjju.smartgenplatform_android.util.SPUtil;
@@ -79,6 +80,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     private int productIdCount;
     private String productBuyCount;//保存用户购买产品数量
     private String [] productBuyCounts = new String[100];//在购物车里限制产品在100份以内
+    private String shoppingCartId;
+    private String [] shoppingCartIds = new String[100];//在购物车里限制产品在100份以内
     private String userName,userPhone,userAddress;//保存用户数据
     private double actuallyPrice = 0.0;
     private String condition = "";//拼接条件
@@ -102,6 +105,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     private static final int SDK_PAY_FLAG = 1;
 
     private static final int SDK_CHECK_FLAG = 2;
+
+    private String result;//装后台返回的数据的变量
+    // 返回主线程更新数据
+    private static Handler handler = new Handler();
 
 
     private Handler mHandler = new Handler() {
@@ -230,6 +237,14 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         for(int i = 0;i < productIdCount;i++){
             productBuyCounts[i] = productBuyCount.split(";")[i];
             Log.i(TAG,"产品跳转传过来的数据，产品数量:"+productBuyCounts[i]);
+        }
+        shoppingCartId = intent.getStringExtra("shoppingCartIds");
+        for(int i = 0;i < productIdCount;i++){
+            Log.i(TAG,"有没有购物车"+shoppingCartId);
+            if(shoppingCartId !=null){
+                shoppingCartIds[i] = shoppingCartId.split(";")[i];
+                Log.i(TAG,"产品跳转传过来的数据，购物车产品数量:"+shoppingCartIds[i]);
+            }
         }
         //获取用户信息
         user = SPUtil.getUser(ConfirmOrderActivity.this);
@@ -509,8 +524,70 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                                         getOrderId();
                                         List<Product> list  = basePojo.getDatas();  // 获取后台返回的创意项目信息
                                         ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
-
+                                        if(shoppingCartId !=null){
+                                            deleteCartProduct();//订单生成，删除购物车
+                                        }
                                     }else{
+                                        ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void deleteCartProduct() {
+        Log.i(TAG,"要删除的数据长度"+productIdCount);
+        for(int i = 0;i<productIdCount;i++){
+            Log.i(TAG,"要删除的数据"+shoppingCartIds[i]);
+            deleteCart(shoppingCartIds[i]);
+        }
+    }
+
+    private void deleteCart(String shoppingCartId) {
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        formBody.add("id",shoppingCartId);
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(Constant.PRODUCT_DETELECART)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("ShoppingCartActivity","删除购物车详情：获取数据失败了");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"删除购物车详情：查到了?");
+                if(response.isSuccessful()){//回调的方法执行在子线程
+                    Log.i(TAG,"删除购物车详情：获取数据成功了");
+                    Log.i(TAG,"response.code()=="+response.code());
+                    //如果这里打印了response.body().string()，则下面赋值结果：result=null，
+                    // 因为response.body().string()只能使用一次
+                    // Log.i(TAG,"response.body().string()=="+response.body().string());
+                    result = response.body().string();
+                    Log.i(TAG,"删除购物车详情：结果："+result);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {//调回到主线程
+                            // 解析Json字符串
+                            Log.i(TAG,"删除购物车详情：测试");
+                            BasePojo<Shoppingcart> basePojo = null;
+                            try {
+                                //解析数据
+                                basePojo = JsonUtil.getBaseFromJson(
+                                        ConfirmOrderActivity.this, result, new TypeToken<BasePojo<Shoppingcart>>(){}.getType());
+                                if(basePojo != null){
+                                    if(basePojo.getSuccess()){
+                                        Log.i(TAG,"删除购物车成功");
+                                    }else{
+                                        Log.i(TAG,"删除购物车详情：后台传来失败了"+basePojo.getMsg());
                                         ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
                                     }
                                 }

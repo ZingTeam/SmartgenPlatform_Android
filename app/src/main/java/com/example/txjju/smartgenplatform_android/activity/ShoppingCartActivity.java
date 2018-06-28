@@ -61,7 +61,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     private User user;
     private int userId;//保存用户ID
     public String productId;//保存产品ID
-    private String productIds = "",productBuyCounts = "";
+    private String productIds = "",productBuyCounts = "",shoppingCartId = "";
 
     private String result;//装后台返回的数据的变量
     // 返回主线程更新数据
@@ -221,8 +221,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     private void settlement() {
         for (Shoppingcart group : shoppingCartList) {
             if (group.isChoosed()){//选中
-                deleteCart(group.getProductId());
-                productIds += group.getId()+";";
+                shoppingCartId += group.getId()+";";
+                //deleteCart(group.getId());
+                productIds += group.getProductId()+";";
                 productBuyCounts +=group.getProductCount()+";";
             }
         }
@@ -235,6 +236,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
         Intent buyIntent = new Intent(this,ConfirmOrderActivity.class);
         buyIntent.putExtra("productId",productIds);
         buyIntent.putExtra("productBuyCount",productBuyCounts);
+        buyIntent.putExtra("shoppingCartIds",shoppingCartId);
         startActivity(buyIntent);
         ShoppingCartActivity.this.finish();
     }
