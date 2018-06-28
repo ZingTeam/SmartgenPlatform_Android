@@ -16,7 +16,12 @@ import android.widget.Toast;
 
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.config.Constant;
+import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
+import com.example.txjju.smartgenplatform_android.pojo.User;
+import com.example.txjju.smartgenplatform_android.util.JsonUtil;
+import com.example.txjju.smartgenplatform_android.util.SPUtil;
 import com.example.txjju.smartgenplatform_android.util.ToastUtils;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -34,8 +39,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private TextView tvGoLogin;//登录入口
     private Button btnRegister;//注册按钮
     private String userName,phone,pwd;
+
+    private String result;//装后台返回的数据的变量
     // 返回主线程更新数据
     private static Handler handler = new Handler();
+
     private String TAG = "RegisterActivity";
 
     @Override
@@ -143,16 +151,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if(response.isSuccessful()){//回调的方法执行在子线程
                         Log.i(TAG,"获取数据成功了");
                         Log.i(TAG,"response.code()=="+response.code());
-                        Log.i(TAG,"response.body().string()=="+response.body().string());
+                        //Log.i(TAG,"response.body().string()=="+response.body().string());
+                        result = response.body().string();
+                        Log.i(TAG,"结果："+result);
                         handler.post(new Runnable() {
                             @Override
                             public void run() {//调回到主线程
-                                ToastUtils.Toast(RegisterActivity.this,"注册成功",0);
-                                //跳转到登录页面
-                                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                                intent.putExtra("requestActivity","register");
-                                startActivity(intent);//带参数的跳转
-                                RegisterActivity.this.finish();
+                                Log.i(TAG,"测试");
+                                BasePojo<User> basePojo = null;
+                                try {
+                                    //解析数据
+                                    basePojo = JsonUtil.getBaseFromJson(
+                                            RegisterActivity.this, result, new TypeToken<BasePojo<User>>(){}.getType());
+                                    if(basePojo != null){
+                                        if(basePojo.getSuccess()){   // 登录成功
+                                            ToastUtils.Toast(RegisterActivity.this,"注册成功",0);
+                                            //跳转到登录页面
+                                            Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                                            intent.putExtra("requestActivity","register");
+                                            startActivity(intent);//带参数的跳转
+                                            RegisterActivity.this.finish();
+                                        }else{
+                                            ToastUtils.Toast(RegisterActivity.this,basePojo.getMsg(),0);
+                                        }
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
                     }
