@@ -119,8 +119,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         //判断用户输入信息的合法性
         if(userName != null && !userName.equals("") && pwd != null && !pwd.equals("") && phone!= null && !phone.equals("")){
-            if(userName.length() > 20 || userName.length() < 6){
-                Toast.makeText(this, "用户名长度要求在6-20个字符以内", Toast.LENGTH_SHORT).show();
+            if(userName.length() > 20 || userName.length() < 1){
+                Toast.makeText(this, "用户名长度要求在1-20个字符以内", Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!isPhone(phone)){

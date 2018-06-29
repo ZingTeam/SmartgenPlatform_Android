@@ -44,6 +44,8 @@ public class Constant {
     public static final String PRODUCT_DETELECART = BASE_URL + "/ShoppingcartAction_deleteShoppingcart";
     /**修改用户信息接口**/
     public static final String USER_UPDATE = BASE_URL + "/UserAction_updateUser";
+    /**保存收货地址信息接口**/
+    public static final String USER_PURCHASEADDRESS = BASE_URL + "/PurchaseaddressAction_save";
     /**订单生成接口**/
    // public static final String PRODUCT_BENDICREATORDER = BASE_URL + "/PurchaseAction_purchse";
 }

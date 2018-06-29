@@ -450,7 +450,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 this.finish();
                 break;
             case R.id.iv_confirmOrder_edit:
-                Intent addressIntent = new Intent(this,LoginActivity.class);//跳转到地址编辑器
+                Intent addressIntent = new Intent(this,UpdateAdressActivity.class);//跳转到地址编辑器
                 startActivityForResult(addressIntent,1);//这里要回调，在回调中更新收货地址，且要更新收货地址ID
 
                 break;

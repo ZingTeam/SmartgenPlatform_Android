@@ -31,6 +31,7 @@ import com.example.txjju.smartgenplatform_android.fragment.ProductFragment;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
 import com.example.txjju.smartgenplatform_android.pojo.Creativeproject;
 import com.example.txjju.smartgenplatform_android.pojo.Product;
+import com.example.txjju.smartgenplatform_android.pojo.Purchaseaddress;
 import com.example.txjju.smartgenplatform_android.pojo.User;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
 import com.example.txjju.smartgenplatform_android.util.SPUtil;
@@ -59,8 +60,8 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
     private LinearLayout llProductAddCart,llProductCollect,llProductPay,llProductcomment;
     private ProductDetailPagerAdapter productPagerAdapter = null;
     private MorePopupWindow popupWindow = null;
-    private Dialog warningDialog,purchaseDialog,shoppingCartDialog;
-    private Button btnCancel,btnSure,purchaseBtnSure,shoppingCartBtnSure;
+    private Dialog warningDialog,purchaseDialog,shoppingCartDialog,addressDialog;
+    private Button btnCancel,btnSure,purchaseBtnSure,shoppingCartBtnSure,addressBtnCancel,addressBtnSure;
     private TextView tvProductPrice,tvProductCount,tvProductBuyCount,tvShoppingCartProductPrice,tvShoppingCartProductCount,tvShoppingCartProductBuyCount;
 
     private List<Fragment> mFragments;
@@ -70,9 +71,11 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
     private int userId;//保存用户ID
     public String productId;//保存产品ID
 
-    private String result;//装后台返回的数据的变量
+    private String addressResult,result;//装后台返回的数据的变量
     // 返回主线程更新数据
     private static Handler handler = new Handler();
+    // 返回主线程更新数据
+    private static Handler homeHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -315,7 +318,8 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                     return;
                 }
                 //弹框选择商品属性
-                showPurchaseDialog();
+                initAddress();//获取用户收货地址信息
+                //showPurchaseDialog();
                 break;
 
             //警告弹话框的操作
@@ -388,8 +392,86 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                 cartSubtract = cartSubtract-1;
                 tvShoppingCartProductBuyCount.setText(cartSubtract+"");
                 break;
+            case R.id.address_dialog_btn_cancel://取消按钮
+                addressDialog.dismiss();
+                break;
+            case R.id.address_dialog_btn_sure://确定按钮
+                Log.i(TAG,"确定按钮");
+                Intent addressIntent = new Intent(this,UpdateAdressActivity.class);
+                startActivity(addressIntent);
+                addressDialog.dismiss();
+                break;
         }
 
+    }
+    private void initAddress() {
+        // 加载项目列表数据//向后台发送请求，验证用户信息
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        Log.i(TAG,"提交订单用户ID"+userId);
+        formBody.add("queryParam.condition","user.id="+Integer.toString(userId));//获取用户收货详细信息
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(Constant.PRODUCT_PURCHASEADDRESS)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("ProductDetailsActivity","确认订单：获取数据失败了");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"确认订单：查到了?");
+                if(response.isSuccessful()){//回调的方法执行在子线程
+                    Log.i(TAG,"确认订单：获取数据成功了");
+                    Log.i(TAG,"response.code()=="+response.code());
+                    //如果这里打印了response.body().string()，则下面赋值结果：result=null，
+                    // 因为response.body().string()只能使用一次
+                    // Log.i(TAG,"response.body().string()=="+response.body().string());
+                    addressResult = response.body().string();
+                    Log.i(TAG,"确认订单：结果："+addressResult);
+                    homeHandler.post(new Runnable() {
+                        @Override
+                        public void run() {//调回到主线程
+                            // 解析Json字符串
+                            Log.i(TAG,"确认订单：测试");
+                            BasePojo<Purchaseaddress> basePojo = null;
+                            try {
+                                //解析数据
+                                basePojo = JsonUtil.getBaseFromJson(
+                                        ProductDetailsActivity.this, addressResult, new TypeToken<BasePojo<Purchaseaddress>>(){}.getType());
+                                if(basePojo != null){
+                                    if(basePojo.getSuccess() && basePojo.getTotal() > 0){   // 信息获取成功,有数据
+                                        List<Purchaseaddress> list  = basePojo.getDatas();
+                                        Log.i(TAG,"确认订单：结果"+list.toString());
+                                        showPurchaseDialog();
+                                    }else{
+                                        showAdressDialog();
+                                        //ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void showAdressDialog() {
+        addressDialog = new Dialog(ProductDetailsActivity.this, R.style.NormalDialogStyle);
+        View view = View.inflate(ProductDetailsActivity.this, R.layout.address_dialog, null);
+        addressBtnCancel = view.findViewById(R.id.address_dialog_btn_cancel);
+        addressBtnSure = view.findViewById(R.id.address_dialog_btn_sure);
+
+        addressDialog.setContentView(view);
+        addressDialog.setCanceledOnTouchOutside(false);
+
+        addressBtnCancel.setOnClickListener(this);
+        addressBtnSure.setOnClickListener(this);
+        addressDialog.show();
     }
 
     private void addShoppingCart() {

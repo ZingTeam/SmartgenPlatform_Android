@@ -110,6 +110,7 @@ public class MineCollectProductAdapter extends RecyclerView.Adapter<MineCollectP
         mOnItemClickListener = onItemClickListener;
     }
 
+
     /**
      * 配置行布局中控件的数据
      * @param holder
