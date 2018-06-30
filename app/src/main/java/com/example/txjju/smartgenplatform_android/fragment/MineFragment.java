@@ -18,17 +18,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.txjju.smartgenplatform_android.R;
 import com.example.txjju.smartgenplatform_android.activity.AboutMeActivity;
+import com.example.txjju.smartgenplatform_android.activity.CollectProductActivity;
+import com.example.txjju.smartgenplatform_android.activity.CollectProjectActivity;
 import com.example.txjju.smartgenplatform_android.activity.MainActivity;
 import com.example.txjju.smartgenplatform_android.activity.OrderActivity;
 import com.example.txjju.smartgenplatform_android.activity.ProductDetailsActivity;
+import com.example.txjju.smartgenplatform_android.activity.PublicActivity;
 import com.example.txjju.smartgenplatform_android.activity.SettingActivity;
 import com.example.txjju.smartgenplatform_android.activity.ShoppingCartActivity;
 import com.example.txjju.smartgenplatform_android.activity.SystemMessagesActivity;
+import com.example.txjju.smartgenplatform_android.activity.UpdateAdressActivity;
 import com.example.txjju.smartgenplatform_android.pojo.User;
 import com.example.txjju.smartgenplatform_android.util.MessageEvent;
 import com.example.txjju.smartgenplatform_android.util.SPUtil;
@@ -46,6 +51,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView tvName,tvAttention,tvFans,tvOneMsg,tvCollectProject,tvCollectProduct,tvEdit,tvCollectProductLine,tvCollectProjectLine;
     private ImageView ivImgUser,ivSet,ivNews;
+    private RelativeLayout rlOrder,rlpublic,rlCart,rlAddress,rlHistory,rlCollectProduct,rlCollectProject;
     private RadioButton rbOrder,rbPublic,rbCart,rbHistory;
     private RecyclerView rvCreativeProject;
     private Dialog dialog;
@@ -68,7 +74,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         user = SPUtil.getUser(getActivity());
         //获取新建视图View中布局文件的控件
         initViews(view);
-        initFragment();
         if(user == null){
             return view;
         }
@@ -85,41 +90,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tvFans.setText("85");
     }
 
-    private void initFragment() {
-        fgList = new ArrayList<>();
-        fgList.add(new CollectProductFragment());
-        fgList.add(new CollectCreProjectFragment());
-        fm = getChildFragmentManager();
-        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction(); // 实例化Fragment事物管理器
-        for (int i = 0; i < fgList.size(); i++) {     // 将两个Fragment装在容器中，交给ft管理
-            ft.add(R.id.fl_container, fgList.get(i), tags[i]);
-        }
-        ft.commit();    // 提交保存
-        showFragment(0);    // 默认显示首页Fragment
-    }
-
-    private void showFragment(int i) {
-        hideFragments();    // 先隐藏所有Fragment
-        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-        ft.show(fgList.get(i));     // 显示Fragment
-        ft.commit();
-    }
-
-    private void hideFragments() {
-        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-        for (Fragment fg : fgList) {
-            ft.hide(fg);        // 隐藏所有Fragment
-        }
-        ft.commit();
-    }
-
-    private void clickAgain(int i) {
-        if(currPosition == i){      // 当前显示为某页面，并再次点击了此页面的导航按钮
-            EventBus.getDefault().post(new MessageEvent(tags[i]));  // 通知Fragment刷新
-        }
-        currPosition = i;
-    }
-
     private void initViews(View view) {
         tvName = view.findViewById(R.id.tv_mine_name);
         tvAttention = view.findViewById(R.id.tv_attention_mine);
@@ -129,24 +99,25 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         ivSet = view.findViewById(R.id.iv_mine_set);//获取“设置”控件
         ivNews = view.findViewById(R.id.iv_mine_news);//获取“消息”控件
         tvEdit = view.findViewById(R.id.tv_mine_edit);//获取“编辑”控件
-        tvCollectProduct = view.findViewById(R.id.tv_mine_collect_product);//获取“收藏的商品”控件
-        tvCollectProject = view.findViewById(R.id.tv_mine_collect_project);//获取“收藏的项目”控件
-        tvCollectProductLine = view.findViewById(R.id.tv_collect_product_line_mine);//获取“收藏的商品下划线”控件
-        tvCollectProjectLine = view.findViewById(R.id.tv_collect_project_line_mine);//获取“发布的项目下划线”控件
-        rbOrder=view.findViewById(R.id.rb_mine_myOrder);//获取“我的订单”控件
-        rbPublic=view.findViewById(R.id.rb_mine_myPublic);//获取“我的发布”控件
-        rbCart=view.findViewById(R.id.rb_mine_shoppingCart);//获取“购物车”控件
-        rbHistory=view.findViewById(R.id.rb_mine_history);//获取“浏览历史”控件
+        rlOrder=view.findViewById(R.id.rl_order);//获取“我的订单”控件
+        rlpublic=view.findViewById(R.id.rl_public);//获取“我的发布”控件
+        rlCart=view.findViewById(R.id.rl_cart);//获取“我的购物车”控件
+        rlAddress=view.findViewById(R.id.rl_address);//获取“我的收货地址”控件
+        rlHistory=view.findViewById(R.id.rl_history);//获取“我的历史记录”控件
+        rlCollectProduct=view.findViewById(R.id.rl_collect_product);//获取“我的产品收藏”控件
+        rlCollectProject=view.findViewById(R.id.rl_collect_project);//获取“我的项目收藏”控件
+
         ivImgUser.setOnClickListener(this);//控件的监听事件
         tvEdit.setOnClickListener(this);
         ivSet.setOnClickListener(this);
         ivNews.setOnClickListener(this);
-        tvCollectProduct.setOnClickListener(this);
-        tvCollectProject.setOnClickListener(this);
-        rbOrder.setOnClickListener(this);
-        rbPublic.setOnClickListener(this);
-        rbCart.setOnClickListener(this);
-        rbHistory.setOnClickListener(this);
+        rlOrder.setOnClickListener(this);
+        rlpublic.setOnClickListener(this);
+        rlCart.setOnClickListener(this);
+        rlAddress.setOnClickListener(this);
+        rlHistory.setOnClickListener(this);
+        rlCollectProduct.setOnClickListener(this);
+        rlCollectProject.setOnClickListener(this);
     }
 
 
@@ -160,7 +131,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 //AboutMeActivity.class为想要跳转的Activity
                 intent.setClass(getActivity(), AboutMeActivity.class);
                 startActivity(intent);
-
                 break;
             case R.id.iv_mine_news:
                 Intent intent1 = new Intent();
@@ -174,37 +144,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 intent2.setClass(getActivity(), SettingActivity.class);
                 startActivity(intent2);
                 break;
-            case R.id.rb_mine_myOrder:
-              Intent intent3 =new Intent(getActivity(),OrderActivity.class);
+            case R.id.rl_order://选择我的订单
+                Intent intent3 =new Intent(getActivity(),OrderActivity.class);
                 startActivity(intent3);
                 break;
-            case R.id.rb_mine_myPublic:
-//                Intent intent4 =new Intent(getActivity(),OrderActivity.class);
-//                startActivity(intent4);
+            case R.id.rl_public://选择我的发布
+                Intent intent4 =new Intent(getActivity(),PublicActivity.class);
+                startActivity(intent4);
                 break;
-            case R.id.rb_mine_shoppingCart:
+            case R.id.rl_cart://选择我的购物车
                 Intent intent5 =new Intent(getActivity(),ShoppingCartActivity.class);
                 startActivity(intent5);
                 break;
-            case R.id.rb_mine_history:
+            case R.id.rl_address://选择我的收货地址
+                Intent intent6 =new Intent(getActivity(),UpdateAdressActivity.class);
+                startActivity(intent6);
+                break;
+            case R.id.rl_history://选择历史记录
 //                Intent intent6 =new Intent(getActivity(),OrderActivity.class);
 //                startActivity(intent6);
                 break;
-            case R.id.tv_mine_collect_product:  // 选择“收藏的商品”
-                tvCollectProduct.setEnabled(false);
-                tvCollectProject.setEnabled(true);
-                tvCollectProductLine.setBackgroundColor(Color.parseColor("#3197ff"));
-                tvCollectProjectLine.setBackgroundColor(Color.parseColor("#bfbfbf"));
-                showFragment(0);
-                clickAgain(0);
+            case R.id.rl_collect_product:  // 选择“收藏的商品”
+                Intent intent8 =new Intent(getActivity(),CollectProductActivity.class);
+                startActivity(intent8);
                 break;
-            case R.id.tv_mine_collect_project:// 选择“收藏的项目”
-                tvCollectProject.setEnabled(false);
-                tvCollectProduct.setEnabled(true);
-                tvCollectProjectLine.setBackgroundColor(Color.parseColor("#3197ff"));
-                tvCollectProductLine.setBackgroundColor(Color.parseColor("#bfbfbf"));
-                showFragment(1);
-                clickAgain(1);
+            case R.id.rl_collect_project:// 选择“收藏的项目”
+                Intent intent9 =new Intent(getActivity(),CollectProjectActivity.class);
+                startActivity(intent9);
+               // tvCollectProductLine.setBackgroundColor(Color.parseColor("#bfbfbf"));
                 break;
         }
     }

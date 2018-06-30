@@ -74,7 +74,11 @@
         <activity android:name=".activity.OrderDetailReceivingActivity" />
         <activity android:name=".activity.OrderDetailCommentActivity" />
         <activity android:name=".activity.UpdateAdressActivity" />
-        <activity android:name=".activity.AddAddressActivity"></activity>
+        <activity android:name=".activity.AddAddressActivity" />
+        <activity android:name=".activity.EditAddressActivity" />
+        <activity android:name=".activity.PublicActivity" />
+        <activity android:name=".activity.CollectProductActivity" />
+        <activity android:name=".activity.CollectProjectActivity"></activity>
     </application>
 
 </manifest>

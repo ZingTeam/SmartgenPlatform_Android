@@ -25,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:text="个人资料"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
@@ -75,7 +75,7 @@
         android:background="@color/bgLightGray"/>
 
     <RelativeLayout
-        android:id="@+id/rl_name"
+        android:id="@+id/rl_order"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#ffffff"
@@ -88,7 +88,7 @@
             android:gravity="center_vertical"
             android:text="用户名"
             android:textSize="16sp"
-            android:id="@+id/tv_add_address_phone" />
+            android:id="@+id/tv_edit_address_phone" />
 
         <TextView
             android:id="@+id/tv_aboutMe_userName"

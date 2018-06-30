@@ -23,6 +23,11 @@
     <color name="orange2">#224b8f</color>
     <color name="orange">#6a6da9</color>
 
+    <color name="home">#d2d6ec</color>
+    <color name="market">#518466</color>
+    <color name="store">#486b89</color>
+    <color name="mine">#e0f1f4</color>
+
 
 <!--外援-->
     <color name="c1">#f1f1f1</color>

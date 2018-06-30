@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -48,7 +50,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
 
     public final static String TAG = "ShoppingCartActivity";
 
-    public TextView tv_title, tv_settlement, tv_show_price;
+    public TextView tv_title, tv_settlement, tv_show_price,tvShoppingCartEdit;
     private TextView tv_all_check;
     private CheckBox ck_all;
     private ListView list_shopping_cart;
@@ -61,7 +63,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
     private Dialog addressDialog;
-    private Button addressBtnCancel,addressBtnSure;
+    private Button addressBtnCancel,addressBtnSure,btnAddAddress;
+    private LinearLayout llNull;
+    private RelativeLayout rlBottom;
 
     private User user;
     private int userId;//保存用户ID
@@ -108,6 +112,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
         shoppingCartAdapter.setCheckInterface(this);
         shoppingCartAdapter.setModifyCountInterface(this);
         list_shopping_cart.setAdapter(shoppingCartAdapter);
+        rlBottom = findViewById(R.id.rl_bottom);
+        tvShoppingCartEdit = findViewById(R.id.tv_shoppingCart_edit);
+        llNull = findViewById(R.id.ll_null);
+        btnAddAddress = findViewById(R.id.btn_collect_product_go_home);
+        btnAddAddress.setOnClickListener(this);
     }
 
     protected void initData() {
@@ -155,12 +164,18 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
                                             //处理所获得数据
                                             shoppingCartList.clear();
                                             pgDialog.dismiss();//隐藏进度栏
+                                            llNull.setVisibility(View.GONE);
+                                            rlBottom.setVisibility(View.VISIBLE);
+                                            tvShoppingCartEdit.setVisibility(View.VISIBLE);
                                             shoppingCartList.addAll(list);
                                             shoppingCartAdapter.setShoppingCartBeanList(shoppingCartList);
                                         }else{
                                             pgDialog.dismiss();//隐藏进度栏
+                                            llNull.setVisibility(View.VISIBLE);
+                                            rlBottom.setVisibility(View.GONE);
+                                            tvShoppingCartEdit.setVisibility(View.GONE);
                                             Log.i(TAG,"购物车详情：后台传来数据为空"+basePojo.getMsg());
-                                            ToastUtils.Toast(ShoppingCartActivity.this,basePojo.getMsg(),0);
+                                            //ToastUtils.Toast(ShoppingCartActivity.this,basePojo.getMsg(),0);
                                         }
                                     }else{
                                         pgDialog.dismiss();//隐藏进度栏
@@ -189,6 +204,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_collect_product_go_home:
+                this.finish();
+                Intent intent = new Intent(ShoppingCartActivity.this,MainActivity.class);
+                startActivity(intent);
+                break;
             case R.id.iv_shoppingCart_back:
                 this.finish();
                 break;
@@ -315,7 +335,6 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
         if(productIds.equals("")){
             ToastUtils.Toast(ShoppingCartActivity.this,"您还没有选择任何商品",0);
             return;
-
         }
         Log.i(TAG,"购物车传递的数据"+productIds+"|"+productBuyCounts);
         Intent buyIntent = new Intent(this,ConfirmOrderActivity.class);

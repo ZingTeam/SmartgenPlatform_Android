@@ -13,7 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +61,8 @@ public class UpdateAdressActivity extends AppCompatActivity implements View.OnCl
     public String productId;//保存产品ID
     private MaterialRefreshLayout refreshLayout;    // 下拉刷新控件
     private MyRefreshLayout myRefreshLayout;
+    private LinearLayout llNull;
+    private Button btnAddAddress;
 
     private String addressResult;//装后台返回的数据的变量
     // 返回主线程更新数据
@@ -77,6 +81,7 @@ public class UpdateAdressActivity extends AppCompatActivity implements View.OnCl
         init();
         initRefreshLayout();//设置刷新
         initRecyclerView();//初始化RecyclerView
+        loadData();
     }
 
     private void initRefreshLayout() {
@@ -126,8 +131,8 @@ public class UpdateAdressActivity extends AppCompatActivity implements View.OnCl
         mineUpdateAddressAdapter.setModifyCountInterface(new MineUpdateAddressAdapter.ModifyCountInterface() {
             @Override
             public void updateAddress(int position) {//修改地址的跳转
-                Intent intent = new Intent(UpdateAdressActivity.this, LoginActivity.class);
-                intent.putExtra("purchaseAddressId",addressList.get(position).getId());
+                Intent intent = new Intent(UpdateAdressActivity.this, EditAddressActivity.class);
+                intent.putExtra("purchaseAddressId",Integer.toString(addressList.get(position).getId()));
                 startActivityForResult(intent,REQUEST_ADDRESSLIST);
             }
         });
@@ -137,11 +142,11 @@ public class UpdateAdressActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onItemClick(View view, int position) {
                 Log.i(TAG,"地址跳转");
-                int productId = addressList.get(position).getId();
+                int addressId = addressList.get(position).getId();
                 Log.i(TAG,"项目id"+productId);
-                Intent intent = new Intent(UpdateAdressActivity.this, ProductDetailsActivity.class);//跳转到产品详情
-                intent.putExtra("productId",Integer.toString(productId));
-                startActivity(intent);
+                Intent intent = new Intent(UpdateAdressActivity.this, ConfirmOrderActivity.class);//跳转到产品详情
+                intent.putExtra("addressId",Integer.toString(addressId));
+                setResult(0,intent);
                 UpdateAdressActivity.this.finish();
             }
         });
@@ -209,12 +214,16 @@ public class UpdateAdressActivity extends AppCompatActivity implements View.OnCl
                                         List<Purchaseaddress> list  = basePojo.getDatas();
                                         Log.i(TAG,"地址列表：结果"+list.toString());
                                         pgDialog.dismiss();
+                                        llNull.setVisibility(View.GONE);
                                         addressList.clear();
                                         addressList.addAll(list);
                                         mineUpdateAddressAdapter.notifyDataSetChanged(); // 通知适配器更新列表
                                         refreshLayout.finishRefresh();  //停止刷新
                                     }else{
                                         pgDialog.dismiss();
+                                        addressList.clear();
+                                        mineUpdateAddressAdapter.notifyDataSetChanged(); // 通知适配器更新列表
+                                        llNull.setVisibility(View.VISIBLE);
                                         refreshLayout.finishRefresh();  //停止刷新
                                         //ToastUtils.Toast(UpdateAdressActivity.this,basePojo.getMsg(),0);
                                     }
@@ -254,6 +263,9 @@ public class UpdateAdressActivity extends AppCompatActivity implements View.OnCl
         tvUpdateAddressAdd = findViewById(R.id.tv_update_address_add);
         rvaddress = findViewById(R.id.rc_address_update_address);
         refreshLayout = (MaterialRefreshLayout)findViewById(R.id.refresh_update_address);
+        llNull = findViewById(R.id.ll_null);
+        btnAddAddress = findViewById(R.id.btn_add_address);
+        btnAddAddress.setOnClickListener(this);
         ivUpdateAddressBack.setOnClickListener(this);
         tvUpdateAddressAdd.setOnClickListener(this);
     }
@@ -264,6 +276,7 @@ public class UpdateAdressActivity extends AppCompatActivity implements View.OnCl
             case R.id.iv_update_address_back:
                 UpdateAdressActivity.this.finish();
                 break;
+            case R.id.btn_add_address:
             case R.id.tv_update_address_add:
                 Intent intent = new Intent(UpdateAdressActivity.this,AddAddressActivity.class);
                 startActivityForResult(intent,REQUEST_ADDRESSLIST);

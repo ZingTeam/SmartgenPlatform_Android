@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bgLightGray"
+    android:background="@color/white"
     tools:context="com.example.txjju.smartgenplatform_android.activity.ShoppingCartActivity">
 
 
@@ -54,6 +54,38 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@color/bgLightGray"/>
+    <LinearLayout
+        android:id="@+id/ll_null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="80dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/gwc"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-70dp"
+            android:layout_gravity="center_horizontal"
+            android:text="您还没有收藏呢!"/>
+        <Button
+            android:id="@+id/btn_collect_product_go_home"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_presell"
+            android:text="去逛逛"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+    </LinearLayout>
     <ListView
         android:id="@+id/list_shopping_cart"
         android:layout_width="match_parent"

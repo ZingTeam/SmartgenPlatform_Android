@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 .setGravity(Gravity.RIGHT|Gravity.TOP) //位置，默认右上角
                 .setHideOnSelect(true); //true：当选中状态时消失，非选中状态显示,moren false
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.wxbhome, "首页").setActiveColorResource(R.color.grey))
-                .addItem(new BottomNavigationItem(R.mipmap.wxb, "创意市场").setActiveColorResource(R.color.teal))
-                .addItem(new BottomNavigationItem(R.mipmap.go, "众智商城").setActiveColorResource(R.color.blue))
+                .addItem(new BottomNavigationItem(R.mipmap.wxb, "创意市场").setActiveColorResource(R.color.market))
+                .addItem(new BottomNavigationItem(R.mipmap.go, "众智商城").setActiveColorResource(R.color.store))
                 .addItem(new BottomNavigationItem(R.mipmap.account, "个人中心").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
                 .setFirstSelectedPosition(0)
                 .initialise();

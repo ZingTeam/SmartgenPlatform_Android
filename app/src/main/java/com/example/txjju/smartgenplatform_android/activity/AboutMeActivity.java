@@ -1,6 +1,5 @@
 package com.example.txjju.smartgenplatform_android.activity;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,37 +30,22 @@ import com.example.txjju.smartgenplatform_android.config.Constant;
 import com.example.txjju.smartgenplatform_android.pojo.BasePojo;
 import com.example.txjju.smartgenplatform_android.pojo.Product;
 import com.example.txjju.smartgenplatform_android.pojo.User;
-import com.example.txjju.smartgenplatform_android.util.ImageUtil;
 import com.example.txjju.smartgenplatform_android.util.JsonUtil;
 import com.example.txjju.smartgenplatform_android.util.SPUtil;
 import com.example.txjju.smartgenplatform_android.util.ToastUtils;
 import com.example.txjju.smartgenplatform_android.util.VerifyPermission;
 import com.example.txjju.smartgenplatform_android.view.CircleImageView;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cz.msebera.android.httpclient.Header;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -161,7 +145,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
         tvUserPhone=findViewById(R.id.tv_aboutMe_userPhone);
         tvUserSex=findViewById(R.id.tv_aboutMe_userSex);
         rlUserHeadPortrait=findViewById(R.id.rl_headPortrait);
-        rlUserName=findViewById(R.id.rl_name);
+        rlUserName=findViewById(R.id.rl_order);
         rlUserPassword=findViewById(R.id.rl_password);
         rlUserSex=findViewById(R.id.rl_sex);
         btnSave=findViewById(R.id.btn_aboutMe_save);//保存
@@ -184,7 +168,7 @@ public class AboutMeActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.rl_headPortrait:
                 getPictureDialogBox();
                 break;
-            case R.id.rl_name:
+            case R.id.rl_order:
                 //getNameDialogBox();
                 showUserNameDialog("请输入用户名",tvUserName);
                 break;

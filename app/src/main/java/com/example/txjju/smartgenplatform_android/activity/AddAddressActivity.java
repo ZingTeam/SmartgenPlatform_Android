@@ -1,6 +1,5 @@
 package com.example.txjju.smartgenplatform_android.activity;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import com.example.txjju.smartgenplatform_android.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,7 +60,7 @@ public class AddAddressActivity extends AppCompatActivity implements View.OnClic
 
     private void init() {
         tvName = findViewById(R.id.tv_add_address_name);
-        tvPhone = findViewById(R.id.tv_add_address_phone);
+        tvPhone = findViewById(R.id.tv_edit_address_phone);
         tvAddress = findViewById(R.id.tv_add_address_address);
         btnSave = findViewById(R.id.btn_add_address_save);
         btnSave.setOnClickListener(this);

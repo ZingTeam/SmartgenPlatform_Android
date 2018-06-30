@@ -173,7 +173,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                                         }
                                     }else{
                                         Log.i(TAG,"产品详情：后台传来失败了"+basePojo.getMsg());
-                                        ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
+                                      //  ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
                             } catch (IOException e) {
@@ -517,7 +517,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                                         ToastUtils.Toast(ProductDetailsActivity.this,"成功加入购物车",0);
                                     }else{
                                         Log.i(TAG,"产品详情：后台传来失败了"+basePojo.getMsg());
-                                        ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
+                                       // ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
                             } catch (IOException e) {
@@ -607,7 +607,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                                         }
                                     }else{
                                         Log.i(TAG,"产品详情：后台传来失败了"+basePojo.getMsg());
-                                        ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
+                                      //  ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
                             } catch (IOException e) {
@@ -697,7 +697,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                                         }
                                     }else{
                                         Log.i(TAG,"产品详情：后台传来失败了"+basePojo.getMsg());
-                                        ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
+                                        //ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
                             } catch (IOException e) {
@@ -774,11 +774,11 @@ public class ProductDetailsActivity extends BaseActivity implements ProductFragm
                                             ToastUtils.Toast(ProductDetailsActivity.this,"取消收藏",0);
                                             Glide.with(ProductDetailsActivity.this).load(R.mipmap.ic_collect_normal).placeholder(R.mipmap.ic_collect_normal).into(ivProductCollect);
                                             Log.i(TAG,"产品详情：后台传来数据为空"+basePojo.getMsg());
-                                            ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
+                                            //ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
                                         }
                                     }else{
                                         Log.i(TAG,"产品详情：后台传来失败了"+basePojo.getMsg());
-                                        ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
+                                       // ToastUtils.Toast(ProductDetailsActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
                             } catch (IOException e) {

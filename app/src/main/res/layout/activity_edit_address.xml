@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="添加收货地址"
+            android:text="修改收货地址"
             android:textSize="18sp" />
 
     </RelativeLayout>
@@ -42,13 +42,14 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/tv_add_address_name"
+            android:id="@+id/tv_edit_address_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="收货人"
+            android:textColor="@color/c7"
             android:textSize="14sp" />
 
         <ImageView
@@ -80,6 +81,7 @@
             android:gravity="center_vertical"
             android:hint=" 手机号码"
             android:background="@null"
+            android:textColor="@color/c7"
             android:textSize="14sp"
             android:id="@+id/tv_edit_address_phone" />
 
@@ -104,11 +106,12 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/tv_add_address_address"
+            android:id="@+id/tv_edit_address_address"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:background="@null"
+            android:textColor="@color/c7"
             android:gravity="center_vertical"
             android:hint="详细地址：如道路、门牌号、小区、楼栋号、单元室等"
             android:textSize="14sp" />
@@ -126,13 +129,25 @@
         android:layout_height="2dp"
         android:background="@color/bgLightGray"/>
 
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="删除收货地址"
+        android:textColor="@color/c8"
+        android:textSize="14sp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/bgLightGray"/>
 
     <Button
-        android:id="@+id/btn_add_address_save"
+        android:id="@+id/btn_edit_address_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"

@@ -2,8 +2,11 @@ package com.example.txjju.smartgenplatform_android.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -74,7 +77,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     private User user;
     private int userId;//保存用户ID
     public int purchaseAddressId;//保存收货地址ID
-    private int orderId;//保存d订单ID
+    private int orderId;//保存订单ID
+    public String addressId;//保存地址ID
     public String productId;//保存产品ID
     private String [] productIds = new String[100];//在购物车里限制产品在100份以内
     private int productIdCount;
@@ -170,8 +174,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
         //拼接参数
-        formBody.add("purchasePatternOfPayment","支付宝");//获取购买的产品的用户ID信息
-        formBody.add("id",Integer.toString(orderId));//获取购买的产品的收货地址信息
+        formBody.add("purchasePatternOfPayment","支付宝");
+        formBody.add("id",Integer.toString(orderId));
         Request request = new Request.Builder()//创建Request 对象。
                 .url(Constant.PRODUCT_UPDATEORDERSTATE)
                 .post(formBody.build())//传递请求体
@@ -452,7 +456,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             case R.id.iv_confirmOrder_edit:
                 Intent addressIntent = new Intent(this,UpdateAdressActivity.class);//跳转到地址编辑器
                 startActivityForResult(addressIntent,1);//这里要回调，在回调中更新收货地址，且要更新收货地址ID
-
                 break;
             case R.id.rb_confirmOrder_zfb:
                 break;
@@ -465,6 +468,110 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
+    // 用户跳转到项目详情或产品详情后执行回调,进行刷新
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(TAG,"回调没");
+        addressId = data.getStringExtra("addressId");
+        Log.i(TAG,"回调的数据"+requestCode+"|"+resultCode+"|"+addressId);
+        if(requestCode == 1 && resultCode == 0){
+            // 检测网络
+            if (!checkNetwork(ConfirmOrderActivity.this)) {
+                Toast toast = Toast.makeText(ConfirmOrderActivity.this,"网络未连接", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                return;
+            }
+            Log.i(TAG,"回调函数");
+            if(addressId == null){
+                initAddress();
+            }else{
+                refreshAddress();//初始化用户地址信息
+            }
+        }
+    }
+
+    private void refreshAddress() {
+        // 加载项目列表数据//向后台发送请求，验证用户信息
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        Log.i(TAG,"提交订单用户ID"+userId);
+        formBody.add("queryParam.condition","id="+addressId);//获取用户收货详细信息
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(Constant.PRODUCT_PURCHASEADDRESS)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("ConfirmOrderActivity","确认订单：获取数据失败了");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"确认订单：查到了?");
+                if(response.isSuccessful()){//回调的方法执行在子线程
+                    Log.i(TAG,"确认订单：获取数据成功了");
+                    Log.i(TAG,"response.code()=="+response.code());
+                    //如果这里打印了response.body().string()，则下面赋值结果：result=null，
+                    // 因为response.body().string()只能使用一次
+                    // Log.i(TAG,"response.body().string()=="+response.body().string());
+                    addressResult = response.body().string();
+                    Log.i(TAG,"确认订单：结果："+addressResult);
+                    homeHandler.post(new Runnable() {
+                        @Override
+                        public void run() {//调回到主线程
+                            // 解析Json字符串
+                            Log.i(TAG,"确认订单：测试");
+                            BasePojo<Purchaseaddress> basePojo = null;
+                            try {
+                                //解析数据
+                                basePojo = JsonUtil.getBaseFromJson(
+                                        ConfirmOrderActivity.this, addressResult, new TypeToken<BasePojo<Purchaseaddress>>(){}.getType());
+                                if(basePojo != null){
+                                    if(basePojo.getSuccess() && basePojo.getTotal() > 0){   // 信息获取成功,有数据
+                                        List<Purchaseaddress> list  = basePojo.getDatas();
+                                        Log.i(TAG,"确认订单：结果"+list.toString());
+                                        tvConfirmOrderUserName.setText(list.get(0).getPuraddressUserName());
+                                        tvConfirmOrderUserPhone.setText(list.get(0).getPuraddressUserPhone());
+                                        tvConfirmOrderUserAddress.setText(list.get(0).getPuraddressAddress());
+                                        userName = list.get(0).getPuraddressUserName();
+                                        userPhone = list.get(0).getPuraddressUserPhone();
+                                        userAddress = list.get(0).getPuraddressAddress();
+                                        purchaseAddressId = list.get(0).getId();//记录收货地址Id
+                                    }else{
+                                        ToastUtils.Toast(ConfirmOrderActivity.this,basePojo.getMsg(),0);
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+     * 检测网络
+     * @return 返回网络检测结果
+     */
+    private boolean checkNetwork(Context context) {
+        //得到网络连接信息
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //判断网络是否连接
+        if (manager.getActiveNetworkInfo()!=null){
+            boolean flag=manager.getActiveNetworkInfo().isAvailable();
+            if (flag){
+                NetworkInfo.State state = manager.getActiveNetworkInfo().getState();
+                if (state==NetworkInfo.State.CONNECTED){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     private void createOrder() {
         // 加载项目列表数据//向后台发送请求，验证用户信息

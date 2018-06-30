@@ -46,6 +46,10 @@ public class Constant {
     public static final String USER_UPDATE = BASE_URL + "/UserAction_updateUser";
     /**保存收货地址信息接口**/
     public static final String USER_PURCHASEADDRESS = BASE_URL + "/PurchaseaddressAction_save";
+    /**修改收货地址信息接口**/
+    public static final String USER_UPDATEADDRESS = BASE_URL + "/PurchaseaddressAction_update";
+    /**删除收货地址信息接口**/
+    public static final String USER_DELETEADDRESS = BASE_URL + "/PurchaseaddressAction_delete";
     /**订单生成接口**/
    // public static final String PRODUCT_BENDICREATORDER = BASE_URL + "/PurchaseAction_purchse";
 }

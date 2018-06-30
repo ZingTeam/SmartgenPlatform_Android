@@ -46,6 +46,31 @@
             android:textSize="14sp" />
 
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:text="您还没有收货地址呢!"/>
+        <Button
+            android:id="@+id/btn_add_address"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_presell"
+            android:text="去添加"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+    </LinearLayout>
     <com.cjj.MaterialRefreshLayout
         android:id="@+id/refresh_update_address"
         android:layout_width="match_parent"

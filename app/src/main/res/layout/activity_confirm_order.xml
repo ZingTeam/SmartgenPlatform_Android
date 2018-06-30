@@ -37,7 +37,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="确认订单"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </RelativeLayout>
     </LinearLayout>

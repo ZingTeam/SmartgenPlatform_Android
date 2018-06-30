@@ -30,7 +30,7 @@ import java.util.List;
 public class OrderActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView ivBack;
-    private String[] titles = new String[]{"全部", "待付款", "待发货", "待收货", "待评价"};
+    private String[] titles = new String[]{ "待付款", "待发货", "待收货", "待评价"};
     private TabLayout tabLayout;
     private ViewPager vp;
     private List<Fragment> fragments;
@@ -45,7 +45,6 @@ public class OrderActivity extends BaseActivity implements View.OnClickListener 
 
     private void initData() {
         fragments = new ArrayList<>();
-        fragments.add(new AllFragment());
         fragments.add(new WaitFragment());
         fragments.add(new SippingFragment());
         fragments.add(new ReceivingFragment());

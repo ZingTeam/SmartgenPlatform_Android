@@ -223,6 +223,7 @@ public class OrderDetailWaitActivity extends AppCompatActivity implements View.O
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
         //拼接参数
+        Log.i(TAG,"订单ID"+orderId);
         formBody.add("queryParam.condition","id="+orderId);//获取订单详细信息
         Log.i(TAG,"发请求"+orderId);
         Request request = new Request.Builder()//创建Request 对象。
@@ -343,7 +344,7 @@ public class OrderDetailWaitActivity extends AppCompatActivity implements View.O
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
         //拼接参数
-        formBody.add("id","2");//取消订单详细信息
+        formBody.add("id",orderId);//取消订单详细信息
         Log.i(TAG,"发请求"+orderId);
         Request request = new Request.Builder()//创建Request 对象。
                 .url(Constant.PRODUCT_CANCELORDER)

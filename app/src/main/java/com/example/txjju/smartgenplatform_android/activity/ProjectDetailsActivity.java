@@ -130,8 +130,8 @@ public class ProjectDetailsActivity extends AppCompatActivity implements View.On
                                         }else{
                                             tvProjectState.setText("孵化中");
                                         }
-                                        Glide.with(ProjectDetailsActivity.this).load(list.get(0).getCreprojectPicture()).into(ivProjectPicture);
-                                        Glide.with(ProjectDetailsActivity.this).load(list.get(0).getCreprojectPicture()).into(ivProjectUserHeadPortrait);
+                                        Glide.with(ProjectDetailsActivity.this).load(list.get(0).getCreprojectPicture()).placeholder(R.mipmap.base).into(ivProjectPicture);
+                                        Glide.with(ProjectDetailsActivity.this).load(list.get(0).getCreprojectPicture()).placeholder(R.mipmap.base).into(ivProjectUserHeadPortrait);
                                         tvProjectTitle.setText(list.get(0).getCreprojectTitle());
                                         //0为生活手工 1为家具家居 2为科技数码 3为艺术娱乐 4为医疗健康 5为户外运动 6为其他
                                         switch(list.get(0).getCreprojectClassify()){
@@ -178,7 +178,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements View.On
                                         }
                                     }else{
                                         Log.i(TAG,"市场：后台传来失败了"+basePojo.getMsg());
-                                        ToastUtils.Toast(ProjectDetailsActivity.this,basePojo.getMsg(),0);
+                                       // ToastUtils.Toast(ProjectDetailsActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
                             } catch (IOException e) {
@@ -453,7 +453,7 @@ public class ProjectDetailsActivity extends AppCompatActivity implements View.On
                                         }*/
                                     }else{
                                         Log.i(TAG,"项目详情：后台传来失败了"+basePojo.getMsg());
-                                        ToastUtils.Toast(ProjectDetailsActivity.this,basePojo.getMsg(),0);
+                                        //ToastUtils.Toast(ProjectDetailsActivity.this,basePojo.getMsg(),0);
                                     }
                                 }
                             } catch (IOException e) {
